@@ -1,0 +1,554 @@
+[
+    {
+        "Item":1.0,
+        "Base":"SERVIÇOS INICIAIS",
+        "Código ":null,
+        "Descrição":null,
+        
+        "Unidade":null,
+        "Qtd.":null,
+        "VU - Material":null,
+        "VU - M.O":null,
+        "Total":null
+    },
+    {
+        "Item":1.1,
+        "Base":"Sinap",
+        "Código ":90778,
+        "Descrição":"ENGENHEIRO CIVIL DE OBRA PLENO COM ENCARGOS COMPLEMENTARES",
+        
+        "Unidade":"Q",
+        "Qtd.":2.0,
+        "VU - Material":1.439,
+        "VU - M.O":84.68,
+        "Total":172.238
+    },
+    {
+        "Item":1.2,
+        "Base":"Sinap",
+        "Código ":90780,
+        "Descrição":"MESTRE DE OBRAS COM ENCARGOS COMPLEMENTARES",
+        
+        "Unidade":"H",
+        "Qtd.":2.0,
+        "VU - Material":1.169,
+        "VU - M.O":43.26,
+        "Total":88.858
+    },
+    {
+        "Item":1.3,
+        "Base":"Sinap",
+        "Código ":"74209\/1",
+        "Descrição":"PLACA DE OBRA EM CHAPA DE ACO GALVANIZADO",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":259.7121,
+        "VU - M.O":55.6,
+        "Total":630.6242
+    },
+    {
+        "Item":1.4,
+        "Base":"Sinap",
+        "Código ":93207,
+        "Descrição":"EXECUÇÃO DE ESCRITÓRIO EM CANTEIRO DE OBRA EM CHAPA DE MADEIRA COMPENSADA, NÃO INCLUSO MOBILIÁRIO E EQUIPAMENTOS",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":734.59905,
+        "VU - M.O":0.0,
+        "Total":1469.1981
+    },
+    {
+        "Item":1.5,
+        "Base":"Sinap",
+        "Código ":85423,
+        "Descrição":"ISOLAMENTO DE OBRA COM TELA PLASTICA COM MALHA DE 5MM",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":2.8596,
+        "VU - M.O":4.404,
+        "Total":14.5272
+    },
+    {
+        "Item":2.0,
+        "Base":"MOVIMENTAÇÃO DE TERRA",
+        "Código ":null,
+        "Descrição":null,
+        
+        "Unidade":null,
+        "Qtd.":null,
+        "VU - Material":null,
+        "VU - M.O":null,
+        "Total":null
+    },
+    {
+        "Item":2.1,
+        "Base":"Sinap",
+        "Código ":90100,
+        "Descrição":"ESCAVAÇÃO MECANIZADA DE VALA COM PROF. LARG. DE 0,8 M A 1,5 M, EM SOLO DE 1A CATEGORIA",
+        
+        "Unidade":"M3",
+        "Qtd.":2.0,
+        "VU - Material":8.1162,
+        "VU - M.O":1.958,
+        "Total":20.1484
+    },
+    {
+        "Item":2.2,
+        "Base":"Sinap",
+        "Código ":72900,
+        "Descrição":"TRANSPORTE DE ENTULHO COM CAMINHAO BASCULANTE 6 M3, RODOVIA PAVIMENTADA, DMT 0,5 A 1,0 KM",
+        
+        "Unidade":"M3",
+        "Qtd.":2.0,
+        "VU - Material":6.02784,
+        "VU - M.O":0.0,
+        "Total":12.05568
+    },
+    {
+        "Item":3.0,
+        "Base":"FUNDAÇÃO",
+        "Código ":null,
+        "Descrição":null,
+        
+        "Unidade":null,
+        "Qtd.":null,
+        "VU - Material":null,
+        "VU - M.O":null,
+        "Total":null
+    },
+    {
+        "Item":3.1,
+        "Base":"Sinap",
+        "Código ":89203,
+        "Descrição":"ESTACA PRÉ-MOLDADA, SEÇÃO CIRCULAR, CAPACIDADE DE 100 T, COMPRIMENTO TOTAL DE 5M ATÉ 12M, BATE-ESTACAS POR GRAVIDADE",
+        
+        "Unidade":"M",
+        "Qtd.":2.0,
+        "VU - Material":153.56085,
+        "VU - M.O":8.96181,
+        "Total":325.04532
+    },
+    {
+        "Item":4.0,
+        "Base":"ESTRUTURA EM CONCRETO ARMADO",
+        "Código ":null,
+        "Descrição":null,
+        
+        "Unidade":null,
+        "Qtd.":null,
+        "VU - Material":null,
+        "VU - M.O":null,
+        "Total":null
+    },
+    {
+        "Item":4.1,
+        "Base":"Sinap",
+        "Código ":96619,
+        "Descrição":"LASTRO DE CONCRETO MAGRO, APLICADO EM BLOCOS DE COROAMENTO OU SAPATAS, ESPESSURA DE 5 CM",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":12.864485,
+        "VU - M.O":8.213514,
+        "Total":42.155998
+    },
+    {
+        "Item":4.2,
+        "Base":"Sinap",
+        "Código ":92267,
+        "Descrição":"FABRICAÇÃO DE FÔRMA PARA LAJES, EM CHAPA DE MADEIRA COMPENSADA RESINADA, E = 17 MM",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":22.94663,
+        "VU - M.O":0.66092,
+        "Total":47.2151
+    },
+    {
+        "Item":4.3,
+        "Base":"Sinap",
+        "Código ":"74141\/2",
+        "Descrição":"LAJE PRE-MOLD BETA 12 P\/3,5KN\/M2 VAO 4,1M INCL VIGOTAS TIJOLOS ARMADU-RA NEGATIVA CAPEAMENTO 3CM CONCRETO 15MPA ESCORAMENTO MATERIAIS E MAO DE OBRA.",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":54.20705,
+        "VU - M.O":26.4865,
+        "Total":161.3871
+    },
+    {
+        "Item":4.4,
+        "Base":"Sinap",
+        "Código ":92768,
+        "Descrição":"ARMAÇÃO DE LAJE DE UMA ESTRUTURA CONVENCIONAL DE CONCRETO ARMADO EM UM EDIFÍCIO DE MÚLTIPLOS PAVIMENTOS UTILIZANDO AÇO CA-60 DE 5,0 MM - MONTAGEM",
+        
+        "Unidade":"KG",
+        "Qtd.":2.0,
+        "VU - Material":6.70902,
+        "VU - M.O":2.066405,
+        "Total":17.55085
+    },
+    {
+        "Item":4.5,
+        "Base":"Sinap",
+        "Código ":92769,
+        "Descrição":"ARMAÇÃO DE LAJE DE UMA ESTRUTURA CONVENCIONAL DE CONCRETO ARMADO EM UM EDIFÍCIO DE MÚLTIPLOS PAVIMENTOS UTILIZANDO AÇO CA-50 DE 6,3 MM - MONTAGEM",
+        
+        "Unidade":"KG",
+        "Qtd.":2.0,
+        "VU - Material":6.21912,
+        "VU - M.O":1.560002,
+        "Total":15.558244
+    },
+    {
+        "Item":4.6,
+        "Base":"Sinap",
+        "Código ":92770,
+        "Descrição":"ARMAÇÃO DE LAJE DE UMA ESTRUTURA CONVENCIONAL DE CONCRETO ARMADO EM UM EDIFÍCIO DE MÚLTIPLOS PAVIMENTOS UTILIZANDO AÇO CA-50 DE 8,0 MM - MONTAGEM",
+        
+        "Unidade":"KG",
+        "Qtd.":2.0,
+        "VU - Material":6.61442,
+        "VU - M.O":1.148369,
+        "Total":15.525578
+    },
+    {
+        "Item":4.7,
+        "Base":"Sinap",
+        "Código ":92771,
+        "Descrição":"ARMAÇÃO DE LAJE DE UMA ESTRUTURA CONVENCIONAL DE CONCRETO ARMADO EM UM EDIFÍCIO DE MÚLTIPLOS PAVIMENTOS UTILIZANDO AÇO CA-50 DE 10,0 MM - MONTAGEM",
+        
+        "Unidade":"KG",
+        "Qtd.":2.0,
+        "VU - Material":5.50248,
+        "VU - M.O":0.841092,
+        "Total":12.687144
+    },
+    {
+        "Item":4.8,
+        "Base":"Sinap",
+        "Código ":92772,
+        "Descrição":"ARMAÇÃO DE LAJE DE UMA ESTRUTURA CONVENCIONAL DE CONCRETO ARMADO EM UM EDIFÍCIO DE MÚLTIPLOS PAVIMENTOS UTILIZANDO AÇO CA-50 DE 12,5 MM - MONTAGEM",
+        
+        "Unidade":"KG",
+        "Qtd.":2.0,
+        "VU - Material":5.15308,
+        "VU - M.O":0.596229,
+        "Total":11.498618
+    },
+    {
+        "Item":4.9,
+        "Base":"Sinap",
+        "Código ":92773,
+        "Descrição":"ARMAÇÃO DE LAJE DE UMA ESTRUTURA CONVENCIONAL DE CONCRETO ARMADO EM UM EDIFÍCIO DE MÚLTIPLOS PAVIMENTOS UTILIZANDO AÇO CA-50 DE 16,0 MM - MONTAGEM",
+        
+        "Unidade":"KG",
+        "Qtd.":2.0,
+        "VU - Material":5.0725,
+        "VU - M.O":0.382074,
+        "Total":10.909148
+    },
+    {
+        "Item":4.1,
+        "Base":"Sinap",
+        "Código ":89469,
+        "Descrição":"ALVENARIA DE BLOCOS DE CONCRETO ESTRUTURAL 14X19X29 CM, (ESPESSURA 14 CM) FBK = 14,0 MPA, UTILIZANDO PALHETA",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":55.156078,
+        "VU - M.O":25.9446,
+        "Total":162.201356
+    },
+    {
+        "Item":4.11,
+        "Base":"Sinap",
+        "Código ":90861,
+        "Descrição":"CONCRETAGEM (PAREDES E LAJES) COM SISTEMA DE FÔRMAS MANUSEÁVEIS, CONCRETO USINADO BOMBEÁVEL FCK 20 MPA - LANÇAMENTO, ADENSAMENTO E ACABAMENTO",
+        
+        "Unidade":"M3",
+        "Qtd.":2.0,
+        "VU - Material":301.44207,
+        "VU - M.O":30.42347,
+        "Total":663.73108
+    },
+    {
+        "Item":5.0,
+        "Base":"PAREDE",
+        "Código ":null,
+        "Descrição":null,
+        
+        "Unidade":null,
+        "Qtd.":null,
+        "VU - Material":null,
+        "VU - M.O":null,
+        "Total":null
+    },
+    {
+        "Item":5.1,
+        "Base":"Sinap",
+        "Código ":89043,
+        "Descrição":"SERVIÇO DE ALVENARIA DE VEDAÇÃO DE BLOCOS VAZADOS DE CERÂMICA DE 9X19X19CM (ESPESSURA 9CM), PARA EDIFICAÇÃO HABITACIONAL MULTIFAMILIAR (PRÉDIO)",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":64.220602,
+        "VU - M.O":0.0,
+        "Total":128.441204
+    },
+    {
+        "Item":5.2,
+        "Base":"Sinap",
+        "Código ":91815,
+        "Descrição":"ALVENARIA DE BLOCOS DE CONCRETO ESTRUTURAL 14X19X39 CM, (ESPESSURA 14 CM), FBK = 4,5 MPA, UTILIZANDO PALHETA, PARA EDIFICAÇÃO HABITACIONAL",
+        
+        "Unidade":"M2",
+        "Qtd.":4.0,
+        "VU - Material":53.266655,
+        "VU - M.O":0.0,
+        "Total":213.06662
+    },
+    {
+        "Item":5.3,
+        "Base":"Sinap",
+        "Código ":93186,
+        "Descrição":"VERGA MOLDADA IN LOCO EM CONCRETO PARA JANELAS COM ATÉ 1,5 M DE VÃO",
+        
+        "Unidade":"M",
+        "Qtd.":5.0,
+        "VU - Material":32.19066,
+        "VU - M.O":11.46424,
+        "Total":218.2745
+    },
+    {
+        "Item":6.0,
+        "Base":"ESQUADRIAS",
+        "Código ":null,
+        "Descrição":null,
+        
+        "Unidade":null,
+        "Qtd.":null,
+        "VU - Material":null,
+        "VU - M.O":null,
+        "Total":null
+    },
+    {
+        "Item":6.1,
+        "Base":"Sinap",
+        "Código ":91341,
+        "Descrição":"PORTA EM ALUMÍNIO DE ABRIR TIPO VENEZIANA COM GUARNIÇÃO, FIXAÇÃO COM PARAFUSOS - FORNECIMENTO E INSTALAÇÃO",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":420.852742,
+        "VU - M.O":11.660134,
+        "Total":865.025752
+    },
+    {
+        "Item":6.2,
+        "Base":"Sinap",
+        "Código ":94582,
+        "Descrição":"JANELA DE ALUMÍNIO DE CORRER, 2 FOLHAS, FIXAÇÃO COM ARGAMASSA, COM VIDROS, PADRONIZADA",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":255.55367,
+        "VU - M.O":33.05116,
+        "Total":577.20966
+    },
+    {
+        "Item":6.3,
+        "Base":"Sinap",
+        "Código ":94584,
+        "Descrição":"JANELA DE ALUMÍNIO DE CORRER, 3 FOLHAS, FIXAÇÃO COM ARGAMASSA, COM VIDROS, PADRONIZADA",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":389.28747,
+        "VU - M.O":45.46949,
+        "Total":869.51392
+    },
+    {
+        "Item":6.4,
+        "Base":"Sinap",
+        "Código ":94586,
+        "Descrição":"JANELA DE ALUMÍNIO 6 FOLHAS, FIXAÇÃO COM ARGAMASSA, COM VIDROS, PADRONIZADA",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":432.70581,
+        "VU - M.O":59.79979,
+        "Total":985.0112
+    },
+    {
+        "Item":6.5,
+        "Base":"Sinap",
+        "Código ":91298,
+        "Descrição":"PORTA DE MADEIRA TIPO VENEZIANA, 80X210CM, ESPESSURA DE 3CM, INCLUSO DOBRADIÇAS - FORNECIMENTO E INSTALAÇÃO",
+        
+        "Unidade":"UN",
+        "Qtd.":2.0,
+        "VU - Material":571.6596,
+        "VU - M.O":44.74124,
+        "Total":1232.80168
+    },
+    {
+        "Item":6.6,
+        "Base":"Sinap",
+        "Código ":99857,
+        "Descrição":"CORRIMÃO SIMPLES, DIÂMETRO EXTERNO = 1 1\/2\", EM ALUMÍNIO",
+        
+        "Unidade":"M",
+        "Qtd.":2.0,
+        "VU - Material":15.49616,
+        "VU - M.O":47.47493,
+        "Total":125.94218
+    },
+    {
+        "Item":6.7,
+        "Base":"Sinap",
+        "Código ":72117,
+        "Descrição":"VIDRO LISO COMUM TRANSPARENTE, ESPESSURA 4MM",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":135.777,
+        "VU - M.O":8.01,
+        "Total":287.574
+    },
+    {
+        "Item":6.8,
+        "Base":"Sinap",
+        "Código ":"73838\/1",
+        "Descrição":"PORTA DE VIDRO TEMPERADO, 0,9X2,10M, ESPESSURA 10MM, INCLUSIVE ACESSORIOS",
+        
+        "Unidade":"UN",
+        "Qtd.":2.0,
+        "VU - Material":2647.3981,
+        "VU - M.O":0.0,
+        "Total":5294.7962
+    },
+    {
+        "Item":6.9,
+        "Base":"Sinap",
+        "Código ":94560,
+        "Descrição":"JANELA DE AÇO DE CORRER, 2 FOLHAS, FIXAÇÃO COM ARGAMASSA, COM VIDROS, PADRONIZADA",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":473.624053,
+        "VU - M.O":51.73263,
+        "Total":1050.713366
+    },
+    {
+        "Item":6.1,
+        "Base":"Sinap",
+        "Código ":94562,
+        "Descrição":"JANELA DE AÇO DE CORRER, 4 FOLHAS, FIXAÇÃO COM ARGAMASSA, SEM VIDROS, PADRONIZADA",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":488.981468,
+        "VU - M.O":63.98961,
+        "Total":1105.942156
+    },
+    {
+        "Item":6.11,
+        "Base":"Sinap",
+        "Código ":94563,
+        "Descrição":"JANELA DE AÇO DE CORRER, 6 FOLHAS, FIXAÇÃO COM ARGAMASSA, COM VIDROS, PADRONIZADA",
+        
+        "Unidade":"M2",
+        "Qtd.":2.0,
+        "VU - Material":621.126635,
+        "VU - M.O":73.13661,
+        "Total":1388.52649
+    },
+    {
+        "Item":6.12,
+        "Base":"Sinap",
+        "Código ":83624,
+        "Descrição":"GRELHA DE FERRO FUNDIDO PARA CANALETA LARG = 20CM, FORNECIMENTO E ASSENTAMENTO",
+        
+        "Unidade":"M",
+        "Qtd.":2.0,
+        "VU - Material":137.13,
+        "VU - M.O":2.848,
+        "Total":279.956
+    },
+    {
+        "Item":6.13,
+        "Base":"Sinap",
+        "Código ":99839,
+        "Descrição":"GUARDA-CORPO DE AÇO GALVANIZADO DE 1,10M DE ALTURA, ESPAÇADOS DE 1,20M, FIXADO COM CHUMBADOR MECÂNICO",
+        
+        "Unidade":"M",
+        "Qtd.":2.0,
+        "VU - Material":130.46521,
+        "VU - M.O":206.28448,
+        "Total":673.49938
+    },
+    {
+        "Item":6.14,
+        "Base":"Sinap",
+        "Código ":"74194\/1",
+        "Descrição":"ESCADA TIPO MARINHEIRO EM TUBO ACO GALVANIZADO 1 1\/2\" 5 DEGRAUS",
+        
+        "Unidade":"M",
+        "Qtd.":2.0,
+        "VU - Material":126.0782,
+        "VU - M.O":128.178,
+        "Total":508.5124
+    },
+    {
+        "Item":6.15,
+        "Base":"Sinap",
+        "Código ":84088,
+        "Descrição":"PEITORIL EM MARMORE BRANCO, LARGURA DE 15CM, ASSENTADO COM ARGAMASSA TRACO 1:4 (CIMENTO E AREIA MEDIA), PREPARO MANUAL DA ARGAMASSA",
+        
+        "Unidade":"M",
+        "Qtd.":2.0,
+        "VU - Material":70.89773,
+        "VU - M.O":15.724,
+        "Total":173.24346
+    },
+    {
+        "Item":7.0,
+        "Base":"COBERTURA",
+        "Código ":null,
+        "Descrição":null,
+        
+        "Unidade":null,
+        "Qtd.":null,
+        "VU - Material":null,
+        "VU - M.O":null,
+        "Total":null
+    },
+    {
+        "Item":7.1,
+        "Base":"Sinap",
+        "Código ":94204,
+        "Descrição":"TELHAMENTO COM TELHA CERÂMICA CAPA-CANAL, TIPO COLONIAL, COM MAIS DE 2 ÁGUAS, INCLUSO TRANSPORTE VERTICAL",
+        
+        "Unidade":"M2",
+        "Qtd.":3.0,
+        "VU - Material":34.113936,
+        "VU - M.O":14.3538,
+        "Total":145.403208
+    },
+    {
+        "Item":7.2,
+        "Base":"Sinap",
+        "Código ":94219,
+        "Descrição":"CUMEEIRA E ESPIGÃO PARA TELHA CERÂMICA EMBOÇADA COM ARGAMASSA TRAÇO 1:2:9, TELHADOS COM MAIS DE 2 ÁGUAS",
+        
+        "Unidade":"M",
+        "Qtd.":4.0,
+        "VU - Material":13.269291,
+        "VU - M.O":12.33,
+        "Total":102.397164
+    }
+]
