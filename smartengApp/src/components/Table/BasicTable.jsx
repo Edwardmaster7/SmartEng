@@ -39,7 +39,7 @@ export function BasicTable() {
       },
       {
         header: "VU - M.O",
-        accessorKey: "VU-M.O",
+        accessorKey: "VU-MO",
       },
       {
         header: "Total",
@@ -73,7 +73,7 @@ export function BasicTable() {
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className="">
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id} className="border border-slate-300">
                 {row.getVisibleCells().map((cell) => (

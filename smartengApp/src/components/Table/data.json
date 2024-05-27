@@ -8,7 +8,7 @@
         "Unidade":null,
         "Qtd":null,
         "VU-Material":null,
-        "VU-M.O":null,
+        "VU-MO":null,
         "Total":null
     },
     {
@@ -20,7 +20,7 @@
         "Unidade":"Q",
         "Qtd":2.0,
         "VU-Material":1.439,
-        "VU-M.O":84.68,
+        "VU-MO":84.68,
         "Total":172.238
     },
     {
@@ -32,7 +32,7 @@
         "Unidade":"H",
         "Qtd":2.0,
         "VU-Material":1.169,
-        "VU-M.O":43.26,
+        "VU-MO":43.26,
         "Total":88.858
     },
     {
@@ -44,7 +44,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":259.7121,
-        "VU-M.O":55.6,
+        "VU-MO":55.6,
         "Total":630.6242
     },
     {
@@ -56,7 +56,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":734.59905,
-        "VU-M.O":0.0,
+        "VU-MO":0.0,
         "Total":1469.1981
     },
     {
@@ -68,7 +68,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":2.8596,
-        "VU-M.O":4.404,
+        "VU-MO":4.404,
         "Total":14.5272
     },
     {
@@ -80,7 +80,7 @@
         "Unidade":null,
         "Qtd":null,
         "VU-Material":null,
-        "VU-M.O":null,
+        "VU-MO":null,
         "Total":null
     },
     {
@@ -92,7 +92,7 @@
         "Unidade":"M3",
         "Qtd":2.0,
         "VU-Material":8.1162,
-        "VU-M.O":1.958,
+        "VU-MO":1.958,
         "Total":20.1484
     },
     {
@@ -104,7 +104,7 @@
         "Unidade":"M3",
         "Qtd":2.0,
         "VU-Material":6.02784,
-        "VU-M.O":0.0,
+        "VU-MO":0.0,
         "Total":12.05568
     },
     {
@@ -116,7 +116,7 @@
         "Unidade":null,
         "Qtd":null,
         "VU-Material":null,
-        "VU-M.O":null,
+        "VU-MO":null,
         "Total":null
     },
     {
@@ -128,7 +128,7 @@
         "Unidade":"M",
         "Qtd":2.0,
         "VU-Material":153.56085,
-        "VU-M.O":8.96181,
+        "VU-MO":8.96181,
         "Total":325.04532
     },
     {
@@ -140,7 +140,7 @@
         "Unidade":null,
         "Qtd":null,
         "VU-Material":null,
-        "VU-M.O":null,
+        "VU-MO":null,
         "Total":null
     },
     {
@@ -152,7 +152,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":12.864485,
-        "VU-M.O":8.213514,
+        "VU-MO":8.213514,
         "Total":42.155998
     },
     {
@@ -164,7 +164,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":22.94663,
-        "VU-M.O":0.66092,
+        "VU-MO":0.66092,
         "Total":47.2151
     },
     {
@@ -176,7 +176,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":54.20705,
-        "VU-M.O":26.4865,
+        "VU-MO":26.4865,
         "Total":161.3871
     },
     {
@@ -188,7 +188,7 @@
         "Unidade":"KG",
         "Qtd":2.0,
         "VU-Material":6.70902,
-        "VU-M.O":2.066405,
+        "VU-MO":2.066405,
         "Total":17.55085
     },
     {
@@ -200,7 +200,7 @@
         "Unidade":"KG",
         "Qtd":2.0,
         "VU-Material":6.21912,
-        "VU-M.O":1.560002,
+        "VU-MO":1.560002,
         "Total":15.558244
     },
     {
@@ -212,7 +212,7 @@
         "Unidade":"KG",
         "Qtd":2.0,
         "VU-Material":6.61442,
-        "VU-M.O":1.148369,
+        "VU-MO":1.148369,
         "Total":15.525578
     },
     {
@@ -224,7 +224,7 @@
         "Unidade":"KG",
         "Qtd":2.0,
         "VU-Material":5.50248,
-        "VU-M.O":0.841092,
+        "VU-MO":0.841092,
         "Total":12.687144
     },
     {
@@ -236,7 +236,7 @@
         "Unidade":"KG",
         "Qtd":2.0,
         "VU-Material":5.15308,
-        "VU-M.O":0.596229,
+        "VU-MO":0.596229,
         "Total":11.498618
     },
     {
@@ -248,7 +248,7 @@
         "Unidade":"KG",
         "Qtd":2.0,
         "VU-Material":5.0725,
-        "VU-M.O":0.382074,
+        "VU-MO":0.382074,
         "Total":10.909148
     },
     {
@@ -260,7 +260,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":55.156078,
-        "VU-M.O":25.9446,
+        "VU-MO":25.9446,
         "Total":162.201356
     },
     {
@@ -272,7 +272,7 @@
         "Unidade":"M3",
         "Qtd":2.0,
         "VU-Material":301.44207,
-        "VU-M.O":30.42347,
+        "VU-MO":30.42347,
         "Total":663.73108
     },
     {
@@ -284,7 +284,7 @@
         "Unidade":null,
         "Qtd":null,
         "VU-Material":null,
-        "VU-M.O":null,
+        "VU-MO":null,
         "Total":null
     },
     {
@@ -296,7 +296,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":64.220602,
-        "VU-M.O":0.0,
+        "VU-MO":0.0,
         "Total":128.441204
     },
     {
@@ -308,7 +308,7 @@
         "Unidade":"M2",
         "Qtd":4.0,
         "VU-Material":53.266655,
-        "VU-M.O":0.0,
+        "VU-MO":0.0,
         "Total":213.06662
     },
     {
@@ -320,7 +320,7 @@
         "Unidade":"M",
         "Qtd":5.0,
         "VU-Material":32.19066,
-        "VU-M.O":11.46424,
+        "VU-MO":11.46424,
         "Total":218.2745
     },
     {
@@ -332,7 +332,7 @@
         "Unidade":null,
         "Qtd":null,
         "VU-Material":null,
-        "VU-M.O":null,
+        "VU-MO":null,
         "Total":null
     },
     {
@@ -344,7 +344,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":420.852742,
-        "VU-M.O":11.660134,
+        "VU-MO":11.660134,
         "Total":865.025752
     },
     {
@@ -356,7 +356,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":255.55367,
-        "VU-M.O":33.05116,
+        "VU-MO":33.05116,
         "Total":577.20966
     },
     {
@@ -368,7 +368,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":389.28747,
-        "VU-M.O":45.46949,
+        "VU-MO":45.46949,
         "Total":869.51392
     },
     {
@@ -380,7 +380,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":432.70581,
-        "VU-M.O":59.79979,
+        "VU-MO":59.79979,
         "Total":985.0112
     },
     {
@@ -392,7 +392,7 @@
         "Unidade":"UN",
         "Qtd":2.0,
         "VU-Material":571.6596,
-        "VU-M.O":44.74124,
+        "VU-MO":44.74124,
         "Total":1232.80168
     },
     {
@@ -404,7 +404,7 @@
         "Unidade":"M",
         "Qtd":2.0,
         "VU-Material":15.49616,
-        "VU-M.O":47.47493,
+        "VU-MO":47.47493,
         "Total":125.94218
     },
     {
@@ -416,7 +416,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":135.777,
-        "VU-M.O":8.01,
+        "VU-MO":8.01,
         "Total":287.574
     },
     {
@@ -428,7 +428,7 @@
         "Unidade":"UN",
         "Qtd":2.0,
         "VU-Material":2647.3981,
-        "VU-M.O":0.0,
+        "VU-MO":0.0,
         "Total":5294.7962
     },
     {
@@ -440,7 +440,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":473.624053,
-        "VU-M.O":51.73263,
+        "VU-MO":51.73263,
         "Total":1050.713366
     },
     {
@@ -452,7 +452,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":488.981468,
-        "VU-M.O":63.98961,
+        "VU-MO":63.98961,
         "Total":1105.942156
     },
     {
@@ -464,7 +464,7 @@
         "Unidade":"M2",
         "Qtd":2.0,
         "VU-Material":621.126635,
-        "VU-M.O":73.13661,
+        "VU-MO":73.13661,
         "Total":1388.52649
     },
     {
@@ -476,7 +476,7 @@
         "Unidade":"M",
         "Qtd":2.0,
         "VU-Material":137.13,
-        "VU-M.O":2.848,
+        "VU-MO":2.848,
         "Total":279.956
     },
     {
@@ -488,7 +488,7 @@
         "Unidade":"M",
         "Qtd":2.0,
         "VU-Material":130.46521,
-        "VU-M.O":206.28448,
+        "VU-MO":206.28448,
         "Total":673.49938
     },
     {
@@ -500,7 +500,7 @@
         "Unidade":"M",
         "Qtd":2.0,
         "VU-Material":126.0782,
-        "VU-M.O":128.178,
+        "VU-MO":128.178,
         "Total":508.5124
     },
     {
@@ -512,7 +512,7 @@
         "Unidade":"M",
         "Qtd":2.0,
         "VU-Material":70.89773,
-        "VU-M.O":15.724,
+        "VU-MO":15.724,
         "Total":173.24346
     },
     {
@@ -524,7 +524,7 @@
         "Unidade":null,
         "Qtd":null,
         "VU-Material":null,
-        "VU-M.O":null,
+        "VU-MO":null,
         "Total":null
     },
     {
@@ -536,7 +536,7 @@
         "Unidade":"M2",
         "Qtd":3.0,
         "VU-Material":34.113936,
-        "VU-M.O":14.3538,
+        "VU-MO":14.3538,
         "Total":145.403208
     },
     {
@@ -548,7 +548,7 @@
         "Unidade":"M",
         "Qtd":4.0,
         "VU-Material":13.269291,
-        "VU-M.O":12.33,
+        "VU-MO":12.33,
         "Total":102.397164
     }
 ]
