@@ -1,7 +1,17 @@
-export function Container({children, className}) {
-    return (
-        <div className={`bg-indigo-100 container rounded-lg shadow-xl ${className}`}>
-            {children}
-        </div>
-    )
-}
+import React, { forwardRef } from 'react';
+
+// Assuming Container is a functional component
+const Container = forwardRef(({ className, style, children, disabled }, ref) => {
+  return (
+    <div
+      ref={ref}
+      disabled={disabled}
+      className={`container rounded-lg bg-indigo-100 shadow-xl ${className}`}
+      style={style}
+    >
+      {children}
+    </div>
+  );
+});
+
+export default Container;

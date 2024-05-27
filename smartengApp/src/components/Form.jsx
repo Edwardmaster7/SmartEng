@@ -1,5 +1,5 @@
 import { InputField } from "./InputField.jsx"
-import { Button } from "./ButtonComponent.jsx";
+import { ButtonComponent } from "./ButtonComponent.jsx";
 
 export function Form({className}) {
 
@@ -67,7 +67,7 @@ export function Form({className}) {
             <InputField label="Área do terreno (m²)" id="area-terreno" type="number" placeholder="2000" required/>
     
             <div className="flex items-center justify-between pt-2">
-                <Button content="Enviar"/>
+                <ButtonComponent content="Enviar"/>
             </div>
         </form>
     )
