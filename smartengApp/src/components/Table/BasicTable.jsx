@@ -16,6 +16,11 @@ import { DateTime } from "luxon"; // Import Luxon
 export function BasicTable() {
   const data = useMemo(() => mdata, []);
 
+  // Utility function to format float numbers
+  const formatFloat = (value) => {
+    return parseFloat(value).toFixed(2) || undefined;
+  };
+
   /**@type {import("@tanstack/react-table").ColumnDef<any>} */
   const columns = [
     {
@@ -45,14 +50,17 @@ export function BasicTable() {
     {
       header: "VU - Material",
       accessorKey: "VU-Material",
+      cell: ({ getValue }) => formatFloat(getValue()), // Apply custom cell renderer
     },
     {
       header: "VU - M.O",
       accessorKey: "VU-MO",
+      cell: ({ getValue }) => formatFloat(getValue()), // Apply custom cell renderer
     },
     {
       header: "Total",
       accessorKey: "Total",
+      cell: ({ getValue }) => formatFloat(getValue()), // Apply custom cell renderer
     },
   ];
 
@@ -87,8 +95,7 @@ export function BasicTable() {
         style={{ height: containerHeight }}
       >
         <table className="">
-          <thead className="mx-auto justify-center rounded-t-lg bg-indigo-600 p-2 text-white text-sm"
-          >
+          <thead className="mx-auto justify-center rounded-t-lg bg-indigo-600 p-2 text-white text-sm">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -108,7 +115,9 @@ export function BasicTable() {
           </thead>
           <tbody className="">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border border-slate-300">
+              <tr key={row.id} className={`border ${
+                  row.index % 2 === 0 ? "bg-indigo-100" : "bg-indigo-200"
+                }`}>
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

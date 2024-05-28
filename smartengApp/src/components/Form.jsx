@@ -36,7 +36,7 @@ export function Form({className}) {
     const doctType = [ { value: "CPF", label: "CPF" }, { value: "CNPJ", label: "CNPJ" } ]
 
     return (
-        <form className={`bg-indigo-50 shadow-md rounded px-4 sm:px-8 pt-8 pb-8 mb-4 min-w-96 ${className}`}>
+        <form className={`bg-indigo-50 shadow-md rounded px-4 md:px-8 pt-8 pb-8 mb-4 min-w-96 ${className}`}>
 
             <InputField label="Obra" id="obra" type="text" placeholder="Nome da obra" required/>
             
@@ -67,7 +67,7 @@ export function Form({className}) {
             <InputField label="Área do terreno (m²)" id="area-terreno" type="number" placeholder="2000" required/>
     
             <div className="flex items-center justify-between pt-2">
-                <ButtonComponent content="Enviar"/>
+                <ButtonComponent className="bg-indigo-500" content="Enviar"/>
             </div>
         </form>
     )
