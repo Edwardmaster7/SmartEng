@@ -82,7 +82,6 @@ export function TableComponent({ data, columns }) {
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting: sorting,
-      // columnFilters: columnFilters,
       globalFilter: globalFilter,
     },
     onGlobalFilterChange: setGlobalFilter,
