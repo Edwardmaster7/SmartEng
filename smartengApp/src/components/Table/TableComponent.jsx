@@ -36,9 +36,7 @@ export function TableComponent({ data, columns }) {
   // State to manage the table data
   const [tableData, setTableData] = useState(data);
   const [sorting, setSorting] = useState([]);
-  const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(""); // State for the global search box
-  const [filterColumn, setFilterColumn] = useState(columns[0].id); // Default to filtering the first column
 
   /**
    * Handles the deletion of a row from the table.
@@ -84,28 +82,13 @@ export function TableComponent({ data, columns }) {
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting: sorting,
-      columnFilters: columnFilters,
+      // columnFilters: columnFilters,
       globalFilter: globalFilter,
     },
     onGlobalFilterChange: setGlobalFilter,
-    onFilterChange: setColumnFilters,
     onSortingChange: setSorting,
   });
   
-  // Update columnFilters state when the global search box changes
-  useEffect(() => {
-    if (globalFilter) {
-      setColumnFilters([
-        {
-          id: filterColumn,
-          value: globalFilter,
-        },
-      ]);
-    } else {
-      setColumnFilters([]);
-    }
-  }, [globalFilter, filterColumn]);
-
   // State to manage the container height
   const [containerHeight, setContainerHeight] = useState("auto");
   const containerRef = useRef(null); // Ref to access the container DOM element
@@ -134,18 +117,7 @@ export function TableComponent({ data, columns }) {
             value={globalFilter} // Valor da caixa de pesquisa
             onChange={(e) => setGlobalFilter(e.target.value)} // Lidar com a alteração do valor da caixa de pesquisa
           />
-          <InputField
-            id="column-filter"
-            type="select"
-            value={filterColumn}
-            onChange={(e) => setFilterColumn(e.target.value)}
-            className="my-0 mt-0 rounded-lg shadow-md shadow-indigo-700 text-indigo-950 focus:outline-indigo-300"
-            placeholder="Select a column"
-            options={columns.map((column) => ({
-              value: column.id,
-              label: column.header,
-            }))}
-          />
+
           <div className="flex">
             <ButtonComponent
               id="add-button"

@@ -1,5 +1,5 @@
 export function InputField({ className, label, id, type, placeholder, options, rows, maxLength, required, nolabel, value, onChange}) {
-    const classNameI =`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:outline-2 focus:outline-offset-1 ${className}`
+    const classNameI =`flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:outline-2 focus:outline-offset-1 ${className}`
     return (
       <div>
         <label
