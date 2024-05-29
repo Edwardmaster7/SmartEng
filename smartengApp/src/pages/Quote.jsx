@@ -41,7 +41,7 @@ function Quote() {
       accessorKey: "Unit",
     },
     {
-      header: "Categoria",
+      header: "Etapa",
       accessorKey: "Category",
     },
     {
@@ -65,12 +65,24 @@ function Quote() {
     },
   ];
 
+  const handleAddRow = () => {
+    if (inputValue) {
+      const newRow = {
+        id: data.length + 1,
+        code: inputValue,
+      };
+      setData([...data, newRow]);
+      setInputValue(""); // Clear the input
+    }
+  };
+
+
   return (
     <div className="h-screen">
       <Header />
       <Main className="align-center flex flex-col gap-3 p-4 pb-16">
         <Container className="mx-auto contain-content">
-          <div className="flex justify-center rounded-t-lg bg-indigo-600 p-2">
+          <div className="flex justify-center bg-indigo-600 p-2">
             <span className="font-medium text-indigo-50">
               Orçamento da Obra - Analítico
             </span>
@@ -137,7 +149,7 @@ function Quote() {
           </Container>
         </Container>
 
-        <TableComponent data={mdata} columns={columns}></TableComponent>
+        <TableComponent data={mdata} columns={columns} handleRowFunction={handleAddRow}></TableComponent>
       </Main>
     </div>
   );

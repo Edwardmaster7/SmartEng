@@ -32,12 +32,14 @@ import React, { useMemo, useEffect, useRef, useState } from "react";
  * @param {Array} columns - The column definitions for the table.
  * @returns {JSX.Element} The rendered table component.
  */
-export function TableComponent({ data, columns }) {
+export function TableComponent({ data, columns, handleAddRowFunction }) {
   // State to manage the table data
   const [tableData, setTableData] = useState(data);
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(""); // State for the global search box
-
+  // State to manage the input value
+  const [inputValue, setInputValue] = useState("");
+  
   /**
    * Handles the deletion of a row from the table.
    *
@@ -52,6 +54,13 @@ export function TableComponent({ data, columns }) {
         prevData.filter((_, index) => index !== rowIndex),
       );
     }
+  };
+
+  // Handler to add a new row
+  const handleAddRow = handleAddRowFunction
+  // Method to fetch table data
+  const fetchTableData = () => {
+    return data;
   };
 
   // Memorized column definitions including the delete column
@@ -87,7 +96,7 @@ export function TableComponent({ data, columns }) {
     onGlobalFilterChange: setGlobalFilter,
     onSortingChange: setSorting,
   });
-  
+
   // State to manage the container height
   const [containerHeight, setContainerHeight] = useState("auto");
   const containerRef = useRef(null); // Ref to access the container DOM element
@@ -107,7 +116,7 @@ export function TableComponent({ data, columns }) {
         className="p-0 shadow-none overflow-auto"
         style={{ height: containerHeight }}
       >
-        <div className="top-0 z-10 p-2 flex align-middle gap-2 bg-indigo-700">
+        <div className="top-0 z-10 p-2 flex align-middle gap-2 bg-indigo-700 w-full">
           <InputField
             id="search-box"
             placeholder="Search or add a new row"
@@ -117,12 +126,20 @@ export function TableComponent({ data, columns }) {
             onChange={(e) => setGlobalFilter(e.target.value)} // Lidar com a alteração do valor da caixa de pesquisa
           />
 
-          <div className="flex">
+          <div className="flex gap-2">
             <ButtonComponent
               id="add-button"
-              className="bg-indigo-500 m-0 p-1 flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
+              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
+              onClick={handleAddRow}
             >
-              <HiPlusCircle className="text-3xl"></HiPlusCircle>
+              <HiPlusCircle className="text-3xl" />
+            </ButtonComponent>
+            <ButtonComponent
+              id="save-button"
+              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
+              onClick={handleAddRow}
+            >
+              <HiSave className="text-3xl" />
             </ButtonComponent>
           </div>
         </div>
@@ -214,3 +231,6 @@ export function TableComponent({ data, columns }) {
     </Container>
   );
 }
+
+// Export fetchTableData for external use
+export const fetchTableData = TableComponent.fetchTableData;
