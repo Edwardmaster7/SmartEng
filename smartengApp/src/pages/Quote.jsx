@@ -7,6 +7,7 @@ import { Field } from "../components/Field";
 import { TableComponent } from "../components/Table/TableComponent";
 import mdata from "../components/Table/updated_data.json";
 import { useMemo } from "react";
+import base from "../components/Table/sinapi_data.json"
 
 function Quote() {
   const data = useMemo(() => mdata, []);

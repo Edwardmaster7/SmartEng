@@ -69,10 +69,10 @@ export function TableComponent({ data, columns, handleAddRowFunction }) {
       ...columns,
       {
         id: "delete",
-        header: "Delete",
+        header: "",
         cell: ({ row }) => (
           <HiXCircle
-            className="text-red-500 cursor-pointer text-xl"
+            className="text-red-500 cursor-pointer text-xl mx-2"
             onClick={() => handleDeleteRow(row.index)}
           />
         ),
@@ -185,7 +185,7 @@ export function TableComponent({ data, columns, handleAddRowFunction }) {
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className={`text-indigo-950 font-sans text-center text-sm font-medium`}
+                    className={`text-indigo-950 font-sans text-center text-sm font-medium px-2`}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
