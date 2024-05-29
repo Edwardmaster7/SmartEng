@@ -1,7 +1,7 @@
 import pandas as pd
 
 def excel_to_json(excel_file_path, json_file_path, sheet_name=None):
-    """Converts an Excel file to JSON, handling UTF-8 characters.
+    """Converts an Excel file to JSON, handling UTF-8 characters and replacing spaces with underscores in column names.
 
     Args:
         excel_file_path: Path to the input Excel file.
@@ -17,6 +17,9 @@ def excel_to_json(excel_file_path, json_file_path, sheet_name=None):
         xls = pd.ExcelFile(excel_file_path)
         df = pd.concat([pd.read_excel(xls, sheet_name=name) for name in xls.sheet_names])
 
+    # Replace spaces with underscores in column names
+    df.columns = df.columns.str.replace(' ', '_')
+
     # Ensure proper encoding when writing JSON
     json_data = df.to_json(orient="records", indent=4, force_ascii=False)  
     
@@ -27,8 +30,8 @@ def excel_to_json(excel_file_path, json_file_path, sheet_name=None):
     print(f"Conversion successful! JSON file saved to: {json_file_path}")
 
 # Example usage:
-excel_file_path = "./Tabela_valores.xlsx"
-json_file_path = "./output_data.json"
+excel_file_path = "./Tabela_SINAPI.xlsx"
+json_file_path = "./sinapi_data.json"
 
 # To convert a specific sheet:
 # excel_to_json(excel_file_path, json_file_path, sheet_name="Sheet1") 
