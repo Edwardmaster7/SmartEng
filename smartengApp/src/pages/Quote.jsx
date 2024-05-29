@@ -5,7 +5,7 @@ import { ButtonComponent } from "../components/ButtonComponent";
 import Container from "../components/Container";
 import { Field } from "../components/Field";
 import { TableComponent } from "../components/Table/TableComponent";
-import mdata from "../components/Table/data.json";
+import mdata from "../components/Table/updated_data.json";
 import { useMemo } from "react";
 
 function Quote() {
@@ -13,7 +13,8 @@ function Quote() {
 
   // Utility function to format float numbers
   const formatFloat = (value) => {
-    return value === null ? null :  parseFloat(value).toFixed(2);
+    // Check if value is null or undefined, return null in that case
+    return value === null ? null : parseFloat(value).toFixed(2);
   };
 
   /**@type {import("@tanstack/react-table").ColumnDef<any>} */
@@ -28,16 +29,20 @@ function Quote() {
     },
     {
       header: "Código",
-      accessorKey: "Código",
+      accessorKey: "Code",
     },
     {
       header: "Descrição",
-      accessorKey: "Descrição",
+      accessorKey: "Description",
       size: 300,
     },
     {
       header: "Unidade",
-      accessorKey: "Unidade",
+      accessorKey: "Unit",
+    },
+    {
+      header: "Categoria",
+      accessorKey: "Category",
     },
     {
       header: "Qtd.",

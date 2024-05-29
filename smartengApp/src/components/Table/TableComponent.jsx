@@ -6,9 +6,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { useMemo } from "react";
-import Container from "../Container";
-import { ButtonComponent } from "../ButtonComponent";
+
 import {
   HiChevronLeft,
   HiChevronRight,
@@ -19,9 +17,12 @@ import {
   HiChevronDown,
   HiChevronUp,
 } from "react-icons/hi";
-import React, { useEffect, useRef, useState } from "react";
-import { DateTime } from "luxon"; // Import Luxon
+
+import Container from "../Container";
+import { ButtonComponent } from "../ButtonComponent";
 import { InputField } from "../InputField";
+
+import React, { useMemo, useEffect, useRef, useState } from "react";
 
 /**
  * TableComponent is a React component that renders a table with pagination,
@@ -35,7 +36,9 @@ export function TableComponent({ data, columns }) {
   // State to manage the table data
   const [tableData, setTableData] = useState(data);
   const [sorting, setSorting] = useState([]);
-  const [filtering, setFiltering] = useState(); // Estado para armazenar o valor da caixa de pesquisa
+  const [columnFilters, setColumnFilters] = useState([]);
+  const [globalFilter, setGlobalFilter] = useState(""); // State for the global search box
+  const [filterColumn, setFilterColumn] = useState(columns[0].id); // Default to filtering the first column
 
   /**
    * Handles the deletion of a row from the table.
@@ -53,7 +56,7 @@ export function TableComponent({ data, columns }) {
     }
   };
 
-  // Memoized column definitions including the delete column
+  // Memorized column definitions including the delete column
   const tableColumns = useMemo(
     () => [
       ...columns,
@@ -81,11 +84,27 @@ export function TableComponent({ data, columns }) {
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting: sorting,
-      globalFilter: filtering,
+      columnFilters: columnFilters,
+      globalFilter: globalFilter,
     },
+    onGlobalFilterChange: setGlobalFilter,
+    onFilterChange: setColumnFilters,
     onSortingChange: setSorting,
-    onGlobalFilterChange: setFiltering,
   });
+  
+  // Update columnFilters state when the global search box changes
+  useEffect(() => {
+    if (globalFilter) {
+      setColumnFilters([
+        {
+          id: filterColumn,
+          value: globalFilter,
+        },
+      ]);
+    } else {
+      setColumnFilters([]);
+    }
+  }, [globalFilter, filterColumn]);
 
   // State to manage the container height
   const [containerHeight, setContainerHeight] = useState("auto");
@@ -106,25 +125,37 @@ export function TableComponent({ data, columns }) {
         className="p-0 shadow-none overflow-auto"
         style={{ height: containerHeight }}
       >
-        <div className="top-0 z-10 p-2 flex gap-2 bg-indigo-700">
+        <div className="top-0 z-10 p-2 flex align-middle gap-2 bg-indigo-700">
           <InputField
             id="search-box"
             placeholder="Search or add a new row"
             nolabel={true}
             className="my-0 rounded-lg shadow-md shadow-indigo-700 text-indigo-950 focus:outline-indigo-300"
-            value={filtering} // Valor da caixa de pesquisa
-            onChange={(e) => setFiltering(e.target.value)} // Lidar com a alteração do valor da caixa de pesquisa
-          ></InputField>
+            value={globalFilter} // Valor da caixa de pesquisa
+            onChange={(e) => setGlobalFilter(e.target.value)} // Lidar com a alteração do valor da caixa de pesquisa
+          />
+          <InputField
+            id="column-filter"
+            type="select"
+            value={filterColumn}
+            onChange={(e) => setFilterColumn(e.target.value)}
+            className="my-0 mt-0 rounded-lg shadow-md shadow-indigo-700 text-indigo-950 focus:outline-indigo-300"
+            placeholder="Select a column"
+            options={columns.map((column) => ({
+              value: column.id,
+              label: column.header,
+            }))}
+          />
           <div className="flex">
             <ButtonComponent
-              id="save-button"
+              id="add-button"
               className="bg-indigo-500 m-0 p-1 flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
             >
               <HiPlusCircle className="text-3xl"></HiPlusCircle>
             </ButtonComponent>
           </div>
         </div>
-        <table className="w-full h-full min-h-48 md:min-h-56">
+        <table className="w-full min-h-48 md:min-h-56">
           <thead className="mx-auto justify-center rounded-t-lg text-white text-sm shadow-indigo-700">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr

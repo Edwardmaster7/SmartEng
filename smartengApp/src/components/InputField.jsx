@@ -1,5 +1,5 @@
 export function InputField({ className, label, id, type, placeholder, options, rows, maxLength, required, nolabel, value, onChange}) {
-    const classNameI =`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:outline-2 focus:outline-offset-1 focus:outline-indigo-600 ${className}`
+    const classNameI =`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:outline-2 focus:outline-offset-1 ${className}`
     return (
       <div>
         <label
@@ -22,6 +22,7 @@ export function InputField({ className, label, id, type, placeholder, options, r
             className={classNameI}
             id={id}
             required={required ? true : false}
+            onChange={onChange}
           >
             <option value="" className="text-gray-700">
               {placeholder}
