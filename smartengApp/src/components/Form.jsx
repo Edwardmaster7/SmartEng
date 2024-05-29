@@ -67,7 +67,7 @@ export function Form({className}) {
             <InputField label="Área do terreno (m²)" id="area-terreno" type="number" placeholder="2000" className="mb-4" required/>
     
             <div className="flex items-center justify-between pt-2">
-                <ButtonComponent className="bg-indigo-500" content="Enviar"/>
+                <ButtonComponent className="bg-indigo-500 px-4 py-2" content="Enviar"/>
             </div>
         </form>
     )

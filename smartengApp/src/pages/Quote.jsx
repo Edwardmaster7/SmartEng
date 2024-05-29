@@ -68,7 +68,7 @@ function Quote() {
   return (
     <div className="h-screen">
       <Header />
-      <Main className="align-center flex flex-col gap-3 p-4">
+      <Main className="align-center flex flex-col gap-3 p-4 pb-16">
         <Container className="mx-auto contain-content">
           <div className="flex justify-center rounded-t-lg bg-indigo-600 p-2">
             <span className="font-medium text-indigo-50">
