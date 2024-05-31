@@ -1,69 +1,20 @@
-import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-  getPaginationRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-} from "@tanstack/react-table";
-
-import {
-  HiChevronLeft,
-  HiChevronRight,
-  HiOutlineSearchCircle,
-  HiSave,
-  HiPlusCircle,
-  HiXCircle,
-  HiChevronDown,
-  HiChevronUp,
-} from "react-icons/hi";
-
+import { useState, useMemo, useEffect, useRef } from "react";
+import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, getFilteredRowModel, flexRender } from "@tanstack/react-table";
+import { HiXCircle, HiPlusCircle, HiSave, HiSearchCircle, HiChevronUp, HiChevronDown, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Container from "../Container";
-import { ButtonComponent } from "../ButtonComponent";
-import { InputField } from "../InputField";
+import InputField from "../InputField";
+import ButtonComponent from "../ButtonComponent";
 
-import React, { useMemo, useEffect, useRef, useState } from "react";
-
-/**
- * TableComponent is a React component that renders a table with pagination,
- * search, and delete row functionalities.
- *
- * @param {Array} data - The data to be displayed in the table.
- * @param {Array} columns - The column definitions for the table.
- * @returns {JSX.Element} The rendered table component.
- */
-export function TableComponent({ data, columns, handleAddRowFunction }) {
-  // State to manage the table data
-  const [tableData, setTableData] = useState(data);
-  const [sorting, setSorting] = useState([]);
-  const [globalFilter, setGlobalFilter] = useState(""); // State for the global search box
-  // State to manage the input value
-  const [inputValue, setInputValue] = useState("");
+const TableComponent = ({ data, columns, handleRowFunction, inputValue, setInputValue, setTableData, handleDeleteRow }) => {
   
-  /**
-   * Handles the deletion of a row from the table.
-   *
-   * @param {number} rowIndex - The index of the row to be deleted.
-   */
-  const handleDeleteRow = (rowIndex) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this row?",
-    );
-    if (confirmDelete) {
-      setTableData((prevData) =>
-        prevData.filter((_, index) => index !== rowIndex),
-      );
-    }
+  const [sorting, setSorting] = useState([]);
+  const [globalFilter, setGlobalFilter] = useState("");
+
+  const handleAddRow = () => {
+    console.log("Add row")
+    handleRowFunction();
   };
 
-  // Handler to add a new row
-  const handleAddRow = handleAddRowFunction
-  // Method to fetch table data
-  const fetchTableData = () => {
-    return data;
-  };
-
-  // Memorized column definitions including the delete column
   const tableColumns = useMemo(
     () => [
       ...columns,
@@ -78,12 +29,11 @@ export function TableComponent({ data, columns, handleAddRowFunction }) {
         ),
       },
     ],
-    [columns],
+    [columns, handleDeleteRow]
   );
 
-  // Initialize the table instance with data and column definitions
   const table = useReactTable({
-    data: tableData,
+    data: data,
     columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -97,17 +47,15 @@ export function TableComponent({ data, columns, handleAddRowFunction }) {
     onSortingChange: setSorting,
   });
 
-  // State to manage the container height
   const [containerHeight, setContainerHeight] = useState("auto");
-  const containerRef = useRef(null); // Ref to access the container DOM element
+  const containerRef = useRef(null);
 
-  // Effect to calculate and set the container height based on content
   useEffect(() => {
     if (containerRef.current) {
       const contentHeight = containerRef.current.scrollHeight;
       setContainerHeight(`${contentHeight}px`);
     }
-  }, [tableData]);
+  }, [data]);
 
   return (
     <Container className="mx-auto contain-content bg-indigo-700">
@@ -122,11 +70,27 @@ export function TableComponent({ data, columns, handleAddRowFunction }) {
             placeholder="Search or add a new row"
             nolabel={true}
             className="my-0 rounded-lg shadow-md shadow-indigo-700 text-indigo-950 focus:outline-indigo-300"
-            value={globalFilter} // Valor da caixa de pesquisa
-            onChange={(e) => setGlobalFilter(e.target.value)} // Lidar com a alteração do valor da caixa de pesquisa
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+            }}
+            onFocus={(e) => {
+              e.target.select();
+              setGlobalFilter();
+            }}
           />
 
           <div className="flex gap-2">
+            <ButtonComponent
+              id="search-button"
+              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
+              onClick={(e) => {
+                e.preventDefault();
+                setGlobalFilter(inputValue);
+              }}
+            >
+              <HiSearchCircle className="text-3xl" />
+            </ButtonComponent>
             <ButtonComponent
               id="add-button"
               className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
@@ -137,7 +101,6 @@ export function TableComponent({ data, columns, handleAddRowFunction }) {
             <ButtonComponent
               id="save-button"
               className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
-              onClick={handleAddRow}
             >
               <HiSave className="text-3xl" />
             </ButtonComponent>
@@ -232,5 +195,4 @@ export function TableComponent({ data, columns, handleAddRowFunction }) {
   );
 }
 
-// Export fetchTableData for external use
-export const fetchTableData = TableComponent.fetchTableData;
+export default TableComponent;

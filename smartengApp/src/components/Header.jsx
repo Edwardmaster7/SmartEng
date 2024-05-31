@@ -1,4 +1,4 @@
-import { ButtonComponent } from './ButtonComponent.jsx';
+import ButtonComponent from './ButtonComponent.jsx';
 import menuImage from '../assets/menu-dots-svgrepo-com.svg';
 import profileImageSrc from '../assets/perfil.jpeg'
 

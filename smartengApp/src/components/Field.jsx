@@ -1,4 +1,4 @@
-export function Field({ fieldName, children, className }) {
+const Field = ({ fieldName, children, className }) => {
     return (
         <div className={`flex flex-col flex-wrap contain-content${className}`}>
             <label className="font-medium text-inherit">{fieldName}</label>
@@ -6,3 +6,5 @@ export function Field({ fieldName, children, className }) {
         </div>
     )
 }
+
+export default Field;
