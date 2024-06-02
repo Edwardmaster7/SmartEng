@@ -80,43 +80,54 @@ function Quote() {
 
   const handleAddRow = () => {
     console.log(`Handling add ${searchTerm}`);
-    if (searchTerm) {
-      const existingRow = data.find((row) => row.Code === parseInt(searchTerm));
-      console.log(existingRow);
-      if (existingRow) {
-        alert("Já existe um ítem com este código na tabela.");
-        return;
-      }
 
-      const baseRow = base.find(
-        (row) => row.COMPOSITION_CODE === parseInt(searchTerm),
-      );
-      if (baseRow) {
-        const newRow = {
-          Item: data.length + 1,
-          Base: "Sinapi",
-          Code: baseRow.COMPOSITION_CODE,
-          Description: baseRow.COMPOSITION_DESCRIPTION,
-          Unit: baseRow.UNIT,
-          Stage: baseRow.ITEM_TYPE,
-          Qtd: baseRow.AMOUNT,
-          VU_Material: baseRow.MATERIAL_COST,
-          VU_MO: baseRow.LABOR_COST,
-          Total: baseRow["TOTAL_COST"],
-        };
-        setData([...data, newRow]);
-        localStorage.setItem(
-          "quote-table-data",
-          JSON.stringify([...data, newRow]),
+    const stages = localStorage.getItem("stages");
+    const parsedStages = JSON.parse(stages);
+
+    if (parsedStages.length > 0) {
+      if (searchTerm) {
+        const existingRow = data.find(
+          (row) => row.Code === parseInt(searchTerm),
         );
-        alert(`Code ${searchTerm} added successfully`);
-        setSearchTerm(""); // Clear the input
+        console.log(existingRow);
+        if (existingRow) {
+          alert("Já existe um ítem com este código na tabela.");
+          return;
+        }
+
+        const baseRow = base.find(
+          (row) => row.COMPOSITION_CODE === parseInt(searchTerm),
+        );
+        if (baseRow) {
+          const newRow = {
+            Item: data.length + 1,
+            Base: "Sinapi",
+            Code: baseRow.COMPOSITION_CODE,
+            Description: baseRow.COMPOSITION_DESCRIPTION,
+            Unit: baseRow.UNIT,
+            Stage: baseRow.ITEM_TYPE,
+            Qtd: baseRow.AMOUNT,
+            VU_Material: baseRow.MATERIAL_COST,
+            VU_MO: baseRow.LABOR_COST,
+            Total: baseRow["TOTAL_COST"],
+          };
+          setData([...data, newRow]);
+          localStorage.setItem(
+            "quote-table-data",
+            JSON.stringify([...data, newRow]),
+          );
+          alert(`Code ${searchTerm} added successfully`);
+          setSearchTerm(""); // Clear the input
+        } else {
+          alert("Este código não existe na base.");
+        }
       } else {
-        alert("Este código não existe na base.");
+        alert("Por favor, insira um código.");
       }
     } else {
-      alert("Por favor, insira um código.");
+      handleOpenModal()
     }
+    
   };
 
   useEffect(() => {
@@ -210,7 +221,7 @@ function Quote() {
   return (
     <div className="h-screen">
       <Header />
-      <Main className="align-center flex flex-col gap-3 p-4 pb-16">
+      <Main className={`align-center flex flex-col gap-3 p-4 pb-16 ${isModalOpen === true ? "blur-sm" : ""}`}>
         <Container className="mx-auto contain-content">
           <div className="flex justify-center bg-indigo-600 p-2">
             <span className="font-medium text-indigo-50">
@@ -287,59 +298,54 @@ function Quote() {
           inputValue={searchTerm}
           setInputValue={setSearchTerm}
         ></TableComponent>
-
-        <Modal
-          id="add-stage"
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-        >
-          <h1 className="text-2xl font-bold pt-3 mb-4 text-violet-50">
-            Para começar, adcione uma nova etapa...
-          </h1>
-          <div className="sticky flex-col gap-2">
-            <HiPlusCircle
-              id="add-stage-button"
-              className="text-2xl text-violet-900 hover:text-green-600 absolute top-2 right-2"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleAddStage();
-              }}
-            />
-            <InputField
-              id="add-stage-input"
-              className="rounded-lg focus:outline-indigo-200"
-              placeholder="Serviços iniciais"
-              type="text"
-              value={inputValue}
-              onChange={(e) => {
-                setInputValue(e.target.value);
-              }}
-            ></InputField>
-          </div>
-          <TableComponent
-            id="stages-list"
-            data={stage}
-            hasHeader={false}
-            hasUtilityBar={false}
-            hasPagination={false}
-            columns={stageColumns}
-            handleAddRow={handleAddStage}
-            handleDeleteRow={handleDeleteStage}
-          ></TableComponent>
-          <div className="flex">
-            <ButtonComponent
-              className={`mt-4 ml-auto px-4 py-2 bg-violet-900 rounded-lg text-white ${stage.length > 0 ? "" : "hidden"}`}
-              onClick={(e) => {
-                e.preventDefault()
-                handleSaveStages();
-                handleCloseModal();
-              }}
-            >
-              Salvar
-            </ButtonComponent>
-          </div>
-        </Modal>
       </Main>
+      <Modal id="add-stage" isOpen={isModalOpen} onClose={handleCloseModal}>
+        <h1 className="text-2xl font-bold pt-3 mb-4 text-violet-50">
+          Para começar, adcione uma nova etapa...
+        </h1>
+        <div className="sticky flex-col gap-2">
+          <HiPlusCircle
+            id="add-stage-button"
+            className="text-2xl text-violet-900 hover:text-green-600 absolute top-2 right-2"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddStage();
+            }}
+          />
+          <InputField
+            id="add-stage-input"
+            className="rounded-lg focus:outline-indigo-200"
+            placeholder="Serviços iniciais"
+            type="text"
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+            }}
+          ></InputField>
+        </div>
+        <TableComponent
+          id="stages-list"
+          data={stage}
+          hasHeader={false}
+          hasUtilityBar={false}
+          hasPagination={false}
+          columns={stageColumns}
+          handleAddRow={handleAddStage}
+          handleDeleteRow={handleDeleteStage}
+        ></TableComponent>
+        <div className="flex">
+          <ButtonComponent
+            className={`mt-4 ml-auto px-4 py-2 bg-violet-900 rounded-lg text-white ${stage.length > 0 ? "" : "hidden"}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleSaveStages();
+              handleCloseModal();
+            }}
+          >
+            Salvar
+          </ButtonComponent>
+        </div>
+      </Modal>
     </div>
   );
 }
