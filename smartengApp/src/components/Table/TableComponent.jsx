@@ -1,19 +1,40 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, getFilteredRowModel, flexRender } from "@tanstack/react-table";
-import { HiXCircle, HiPlusCircle, HiSave, HiSearchCircle, HiChevronUp, HiChevronDown, HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  flexRender,
+} from "@tanstack/react-table";
+import {
+  HiXCircle,
+  HiPlusCircle,
+  HiSave,
+  HiSearchCircle,
+  HiChevronUp,
+  HiChevronDown,
+  HiChevronLeft,
+  HiChevronRight,
+} from "react-icons/hi";
 import Container from "../Container";
 import InputField from "../InputField";
 import ButtonComponent from "../ButtonComponent";
 
-const TableComponent = ({ data, columns, handleRowFunction, inputValue, setInputValue, setTableData, handleDeleteRow }) => {
-  
+const TableComponent = ({
+  data,
+  columns,
+  hasHeader,
+  hasUtilityBar,
+  hasPagination,
+  handleAddRow,
+  inputValue,
+  setInputValue,
+  handleDeleteRow,
+  handleSaveTable,
+}) => {
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
-
-  const handleAddRow = () => {
-    console.log("Add row")
-    handleRowFunction();
-  };
 
   const tableColumns = useMemo(
     () => [
@@ -23,13 +44,13 @@ const TableComponent = ({ data, columns, handleRowFunction, inputValue, setInput
         header: "",
         cell: ({ row }) => (
           <HiXCircle
-            className="text-red-500 cursor-pointer text-xl mx-2"
+            className="text-red-500 cursor-pointer text-xl mx-2 hover:animate-pulse"
             onClick={() => handleDeleteRow(row.index)}
           />
         ),
       },
     ],
-    [columns, handleDeleteRow]
+    [columns, handleDeleteRow],
   );
 
   const table = useReactTable({
@@ -47,24 +68,26 @@ const TableComponent = ({ data, columns, handleRowFunction, inputValue, setInput
     onSortingChange: setSorting,
   });
 
-  const [containerHeight, setContainerHeight] = useState("auto");
-  const containerRef = useRef(null);
+  // const [containerHeight, setContainerHeight] = useState("auto");
+  // const containerRef = useRef(null);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      const contentHeight = containerRef.current.scrollHeight;
-      setContainerHeight(`${contentHeight}px`);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (containerRef.current) {
+  //     const contentHeight = containerRef.current.scrollHeight;
+  //     setContainerHeight(`${contentHeight}px`);
+  //   }
+  // }, [data]);
 
   return (
     <Container className="mx-auto contain-content bg-indigo-700">
       <Container
-        ref={containerRef}
-        className="p-0 shadow-none overflow-auto"
-        style={{ height: containerHeight }}
+        // ref={containerRef}
+        className="p-0 rounded-b-none shadow-none overflow-auto"
+        // style={{ height: containerHeight }}
       >
-        <div className="top-0 z-10 p-2 flex align-middle gap-2 bg-indigo-700 w-full">
+        <div
+          className={`top-0 z-10 p-2 flex align-middle gap-2 bg-indigo-700 w-full ${hasUtilityBar === false ? "hidden" : ""}`}
+        >
           <InputField
             id="search-box"
             placeholder="Search or add a new row"
@@ -101,13 +124,16 @@ const TableComponent = ({ data, columns, handleRowFunction, inputValue, setInput
             <ButtonComponent
               id="save-button"
               className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
+              onClick={handleSaveTable}
             >
               <HiSave className="text-3xl" />
             </ButtonComponent>
           </div>
         </div>
         <table className="w-full min-h-48 md:min-h-56">
-          <thead className="mx-auto justify-center rounded-t-lg text-white text-sm shadow-indigo-700">
+          <thead
+            className={`mx-auto justify-center rounded-t-lg text-white text-sm shadow-indigo-700 ${hasHeader === false ? "hidden" : ""}`}
+          >
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
                 key={headerGroup.id}
@@ -158,7 +184,9 @@ const TableComponent = ({ data, columns, handleRowFunction, inputValue, setInput
           </tbody>
         </table>
       </Container>
-      <div className="bottom-0 left-0 right-0 inline-flex w-full justify-between rounded-b bg-indigo-600">
+      <div
+        className={`bottom-0 left-0 right-0 inline-flex w-full justify-between rounded-b bg-indigo-600 ${hasPagination === false ? "hidden" : ""}`}
+      >
         <ButtonComponent
           disabled={!table.getCanPreviousPage()}
           className="text-sm bg-indigo-500 py-2 px-4 font-normal disabled:invisible"
@@ -193,6 +221,6 @@ const TableComponent = ({ data, columns, handleRowFunction, inputValue, setInput
       </div>
     </Container>
   );
-}
+};
 
 export default TableComponent;

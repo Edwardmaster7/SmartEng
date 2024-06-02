@@ -5,13 +5,26 @@ import ButtonComponent from "../components/ButtonComponent";
 import Container from "../components/Container";
 import Field from "../components/Field";
 import TableComponent from "../components/Table/TableComponent";
-import mdata from "../components/Table/updated_data.json";
-import { useMemo, useState } from "react";
+import BasicTable from "../components/Table/BasicTable";
+import Modal from "../components/Modal";
+import tableData from "../components/Table/table-data.json";
+import { useMemo, useState, useEffect } from "react";
 import base from "../components/Table/sinapi.json";
+import {
+  HiXCircle,
+  HiPlusCircle,
+  HiSave,
+  HiSearchCircle,
+  HiChevronUp,
+  HiChevronDown,
+  HiChevronLeft,
+  HiChevronRight,
+  HiCheckCircle,
+} from "react-icons/hi";
 
 function Quote() {
-  const [data, setData] = useState(mdata);
-  const [inputValue, setInputValue] = useState("");
+  const [data, setData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Utility function to format float numbers
   const formatFloat = (value) => {
@@ -43,7 +56,7 @@ function Quote() {
     },
     {
       header: "Etapa",
-      accessorKey: "Category",
+      accessorKey: "Stage",
     },
     {
       header: "Qtd.",
@@ -67,17 +80,17 @@ function Quote() {
   ];
 
   const handleAddRow = () => {
-    console.log(`Handling add ${inputValue}`);
-    if (inputValue) {
-      const existingRow = data.find((row) => row.Code === parseInt(inputValue));
+    console.log(`Handling add ${searchTerm}`);
+    if (searchTerm) {
+      const existingRow = data.find((row) => row.Code === parseInt(searchTerm));
       console.log(existingRow);
       if (existingRow) {
-        alert("This code already exists in the table.");
+        alert("Já existe um ítem com este código na tabela.");
         return;
       }
 
       const baseRow = base.find(
-        (row) => row.COMPOSITION_CODE === parseInt(inputValue),
+        (row) => row.COMPOSITION_CODE === parseInt(searchTerm),
       );
       if (baseRow) {
         const newRow = {
@@ -86,28 +99,113 @@ function Quote() {
           Code: baseRow.COMPOSITION_CODE,
           Description: baseRow.COMPOSITION_DESCRIPTION,
           Unit: baseRow.UNIT,
-          Category: baseRow.ITEM_TYPE,
+          Stage: baseRow.ITEM_TYPE,
           Qtd: baseRow.AMOUNT,
           VU_Material: baseRow.MATERIAL_COST,
           VU_MO: baseRow.LABOR_COST,
           Total: baseRow["TOTAL_COST"],
         };
         setData([...data, newRow]);
-        alert(`Code ${inputValue} added successfully`);
-        setInputValue(""); // Clear the input
+        localStorage.setItem(
+          "quote-table-data",
+          JSON.stringify([...data, newRow]),
+        );
+        alert(`Code ${searchTerm} added successfully`);
+        setSearchTerm(""); // Clear the input
       } else {
-        alert("This code does not exist in the base data.");
+        alert("Este código não existe na base.");
       }
     } else {
-      alert("Please enter a code.");
+      alert("Por favor, insira um código.");
     }
   };
 
-  const handleDeleteRow = (rowIndex) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this row?");
-    if (confirmDelete) {
-      setData((prevData) => prevData.filter((_, index) => index !== rowIndex));
+  useEffect(() => {
+    const dadosSalvos = localStorage.getItem("quote-table-data");
+    const stages = localStorage.getItem("stages");
+
+    if (!dadosSalvos) {
+      localStorage.setItem("quote-table-data", JSON.stringify([]));
+    } else {
+      setData(JSON.parse(dadosSalvos));
     }
+
+    if (!stages) {
+      localStorage.setItem("stages", JSON.stringify([]));
+      setIsModalOpen(true);
+    } else {
+      const parsedStages = JSON.parse(stages);
+      setStage(parsedStages);
+      if (parsedStages.length === 0) {
+        setIsModalOpen(true);
+      }
+    }
+  }, []);
+
+  const handleDeleteRow = (rowIndex) => {
+    const confirmDelete = window.confirm(
+      "Tem certeza que quer deletar essa linha?",
+    );
+    if (confirmDelete) {
+      const newData = data.filter((_, index) => index !== rowIndex);
+      setData(newData);
+      localStorage.setItem("quote-table-data", JSON.stringify(newData));
+    }
+  };
+
+  const saveTable = () => {
+    console.log("Saving table...");
+    console.log(data);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [stage, setStage] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  /**@type {import("@tanstack/react-table").ColumnDef<any>} */
+  const stageColumns = [
+    {
+      header: "",
+      accessorKey: "Stage",
+    },
+  ];
+
+  const handleAddStage = () => {
+    if (inputValue) {
+      const newStage = {
+        Stage: inputValue,
+      };
+      setStage([...stage, newStage]);
+      // localStorage.setItem("stages", JSON.stringify([...stage, newStage]));
+      setInputValue(""); // Clear the input
+    } else {
+      alert("Por favor, insira uma etapa.");
+    }
+  };
+
+  const handleDeleteStage = (rowIndex) => {
+    const confirmDelete = window.confirm(
+      "Tem certeza que quer deletar esta etapa?",
+    );
+    if (confirmDelete) {
+      const newStage = stage.filter((_, index) => index !== rowIndex);
+      setStage(newStage);
+      // localStorage.setItem("stages", JSON.stringify(newStage));
+    }
+  };
+
+  const handleSaveStages = () => {
+    console.log("Saving stages...");
+    localStorage.setItem("stages", JSON.stringify(stage));
+    console.log(stage);
   };
 
   return (
@@ -185,18 +283,63 @@ function Quote() {
         <TableComponent
           data={data}
           columns={columns}
-          setTableData={setData} // Pass the state updater function
-          handleRowFunction={handleAddRow}
-          handleDeleteRow={handleDeleteRow} // Pass the delete row function
-          inputValue={inputValue}
-          setInputValue={setInputValue}
+          handleAddRow={handleAddRow}
+          handleDeleteRow={handleDeleteRow}
+          inputValue={searchTerm}
+          setInputValue={setSearchTerm}
         ></TableComponent>
-        {/* <div class="fixed inset-0 flex items-center justify-center z-50">
-          <div class="absolute bg-violet-600 p-6 rounded-xl shadow-2xl">
-            <h1 class="text-2xl font-bold mb-4 text-violet-50">Para começar, adcione uma nova etapa</h1>
-            <InputField className="rounded-lg focus:outline-indigo-200" placeholder=""></InputField>
+
+        <Modal
+          id="add-stage"
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        >
+          <h1 className="text-2xl font-bold pt-3 mb-4 text-violet-50">
+            Para começar, adcione uma nova etapa...
+          </h1>
+          <div className="sticky flex-col gap-2">
+            <HiPlusCircle
+              id="add-stage-button"
+              className="text-2xl text-violet-900 hover:text-green-600 absolute top-2 right-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddStage();
+              }}
+            />
+            <InputField
+              id="add-stage-input"
+              className="rounded-lg focus:outline-indigo-200"
+              placeholder="Serviços iniciais"
+              type="text"
+              value={inputValue}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+              }}
+            ></InputField>
           </div>
-        </div> */}
+          <TableComponent
+            id="stages-list"
+            data={stage}
+            hasHeader={false}
+            hasUtilityBar={false}
+            hasPagination={false}
+            columns={stageColumns}
+            handleAddRow={handleAddStage}
+            handleDeleteRow={handleDeleteStage}
+          ></TableComponent>
+          <div className="flex">
+            <ButtonComponent
+              className={`mt-4 ml-auto px-4 py-2 bg-violet-900 rounded-lg text-white ${stage.length > 0 ? "" : "hidden"}`}
+              onClick={(e) => {
+                e.preventDefault()
+                handleSaveStages();
+                handleCloseModal();
+              }}
+            >
+              Salvar
+            </ButtonComponent>
+          </div>
+        </Modal>
       </Main>
     </div>
   );
