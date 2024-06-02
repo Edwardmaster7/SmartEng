@@ -5,7 +5,6 @@ import ButtonComponent from "../components/ButtonComponent";
 import Container from "../components/Container";
 import Field from "../components/Field";
 import TableComponent from "../components/Table/TableComponent";
-import BasicTable from "../components/Table/BasicTable";
 import Modal from "../components/Modal";
 import tableData from "../components/Table/table-data.json";
 import { useMemo, useState, useEffect } from "react";
