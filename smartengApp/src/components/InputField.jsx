@@ -23,6 +23,7 @@ const InputField = ({ className, label, id, type, placeholder, options, rows, ma
             id={id}
             required={required ? true : false}
             onChange={onChange}
+            value={value}
           >
             <option value="" className="text-gray-700">
               {placeholder}

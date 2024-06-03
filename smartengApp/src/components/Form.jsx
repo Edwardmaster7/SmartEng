@@ -1,7 +1,7 @@
-import { InputField } from "./InputField.jsx";
-import { ButtonComponent } from "./ButtonComponent.jsx";
+import InputField from "./InputField.jsx";
+import ButtonComponent from "./ButtonComponent.jsx";
 
-export function Form({ className }) {
+const Form = ({ className }) => {
   const brazilianStates = [
     { value: "AC", label: "Acre" },
     { value: "AL", label: "Alagoas" },
@@ -178,3 +178,5 @@ export function Form({ className }) {
     </form>
   );
 }
+
+export default Form;

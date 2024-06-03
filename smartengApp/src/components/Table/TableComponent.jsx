@@ -26,6 +26,7 @@ const TableComponent = ({
   columns,
   hasHeader,
   hasUtilityBar,
+  hasAddButton,
   hasPagination,
   handleAddRow,
   inputValue,
@@ -90,7 +91,7 @@ const TableComponent = ({
         >
           <InputField
             id="search-box"
-            placeholder="Search or add a new row"
+            placeholder={`${hasAddButton === false ? "Pesquise..." : "Pesquise ou adicione linhas"}`}
             nolabel={true}
             className="my-0 rounded-lg shadow-md shadow-indigo-700 text-indigo-950 focus:outline-indigo-300"
             value={inputValue}
@@ -116,7 +117,7 @@ const TableComponent = ({
             </ButtonComponent>
             <ButtonComponent
               id="add-button"
-              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
+              className={`bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700 ${hasAddButton === false ? "hidden" : ""}`}
               onClick={handleAddRow}
             >
               <HiPlusCircle className="text-3xl" />
