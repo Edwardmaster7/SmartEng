@@ -431,10 +431,10 @@ function Quote() {
         ></TableComponent>
 
         <div className="mx-auto sm:flex">
-          <div className="md:px-44 lg:px-52" />
+          <div className="md:px-44 lg:px-52 xl:px-96" />
           <div className="sm:px-6" />
 
-          <Container className="mx-auto flex contain-content md:w-10/12">
+          <Container className="flex contain-content md:w-10/12 xl:mr-4">
             <div className="flex-col bg-indigo-600 p-2">
               <span className="font-medium text-indigo-50">Total</span>
             </div>
