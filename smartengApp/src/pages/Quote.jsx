@@ -22,6 +22,11 @@ import {
   HiPencilAlt,
 } from "react-icons/hi";
 
+// Utility function to check if a value is numeric
+const isNumeric = (value) => {
+  return !isNaN(value - parseFloat(value));
+};
+
 function Quote() {
   const [data, setData] = useState([]);
   const [modalData, setModalData] = useState([]);
@@ -306,6 +311,41 @@ function Quote() {
     handleOpenModal();
   };
 
+  const calculateField = (field) => {
+    if (data.length === 0) return 0;
+
+    if (isNumeric(data[0][field])) {
+      // Sum numeric fields
+      return data.reduce((sum, row) => sum + parseFloat(row[field] || 0), 0);
+    } else {
+      // Count non-numeric fields
+      return data.length;
+    }
+  };
+
+
+  const client = "John Smith"
+  const phone = "13 99555-1234"
+  const email = "john@example.com"
+  const date = "2023-05-01"
+  const revisionDate = "2023-05-15"
+  const dueDate = "2024-05-10"
+  const address = "Av. Paulista, n.8543, Centro, São Paulo - SP"
+  const BDI = 37
+  const building = "Sobrado"
+  const socialCharges = 84
+  const totalMaterialCost = useMemo(
+    () => calculateField("VU_Material"),
+    [data],
+  );
+
+  const totalLaborCost = useMemo(() => calculateField("VU_MO"), [data]);
+  const totalItems = useMemo(() => calculateField("Item"), [data]);
+  const totalBuildingCost = useMemo(() => calculateField("Total"), [data]);
+  const socialLaws = totalLaborCost * (socialCharges / 100);
+  const calcBDI = (totalBuildingCost + socialLaws) * (BDI / 100);
+  const totalCost = totalBuildingCost + socialLaws + calcBDI;
+
   return (
     <div className="h-screen">
       <Header />
@@ -324,57 +364,57 @@ function Quote() {
                 fieldName="Cliente:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                John Doe
+                {client}
               </Field>
               <Field
                 fieldName="Telefone:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                19 996958543
+                {phone}
               </Field>
               <Field
                 fieldName="Email:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                email@exemplo.com
+                {email}
               </Field>
               <Field
                 fieldName="Data Revisão:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                22/05/2024
+                {date}
               </Field>
 
               <Field
                 fieldName="Obra:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                John Doe
+                {building}
               </Field>
               <Field
                 fieldName="Data de validade:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                John Doe
+                {dueDate}
               </Field>
               <Field
                 fieldName="BDI:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                37%
+                {`${BDI}%`}
               </Field>
 
               <Field
                 fieldName="Encargos Sociais:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                John Doe
+                {`${socialCharges}%`}
               </Field>
               <Field
                 fieldName="Endereço:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                Av. Paulista, n 8958 Estados unidios
+                {address}
               </Field>
             </div>
           </Container>
@@ -389,12 +429,72 @@ function Quote() {
           inputValue={searchTerm}
           setInputValue={setSearchTerm}
         ></TableComponent>
+
+        <div className="mx-auto sm:flex">
+          <div className="md:px-44 lg:px-52" />
+          <div className="sm:px-6" />
+
+          <Container className="mx-auto flex contain-content md:w-10/12">
+            <div className="flex-col bg-indigo-600 p-2">
+              <span className="font-medium text-indigo-50">Total</span>
+            </div>
+            <Container className="mx-auto sm:overflow-auto md:max-h-52 rounded-t-none pb-2 pt-2 max-h-dvh text-indigo-950">
+              <div className="max-auto grid grid-cols-3 place-content-evenly gap-1 px-2 sm:grid-cols-3 text-inherit">
+                <Field
+                  fieldName="Mão de Obra:"
+                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
+                >
+                  {`R$ ${formatFloat(totalLaborCost)}`}
+                </Field>
+                <Field
+                  fieldName="Material:"
+                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
+                >
+                  {`R$ ${formatFloat(totalMaterialCost)}`}
+                </Field>
+                <Field
+                  fieldName="Total (obra):"
+                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
+                >
+                  {`R$ ${formatFloat(totalBuildingCost)}`}
+                </Field>
+                <Field
+                  fieldName="Leis Sociais:"
+                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
+                >
+                  {`R$ ${formatFloat(socialLaws)}`}
+                </Field>
+                <Field
+                  fieldName="BDI:"
+                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
+                >
+                  {`R$ ${formatFloat(calcBDI)}`}
+                </Field>
+                <Field
+                  fieldName="Total:"
+                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
+                >
+                  {`R$ ${formatFloat(totalCost)}`}
+                </Field>
+              </div>
+            </Container>
+          </Container>
+        </div>
       </Main>
-      <Modal id="add-stage" className="min-w-96" isOpen={isModalOpen} onClose={handleCloseModal}>
-        <h1 className={`text-2xl font-bold pt-3 mb-4 text-violet-50 ${editingStage === true ? "hidden" : ""}`}>
+      <Modal
+        id="add-stage"
+        className="min-w-96"
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      >
+        <h1
+          className={`text-2xl font-bold pt-3 mb-4 text-violet-50 ${editingStage === true ? "hidden" : ""}`}
+        >
           Para começar, adicione uma nova etapa...
         </h1>
-        <h1 className={`text-2xl font-bold pt-3 mb-4 text-violet-50 ${editingStage === false ? "hidden" : ""}`}>
+        <h1
+          className={`text-2xl font-bold pt-3 mb-4 text-violet-50 ${editingStage === false ? "hidden" : ""}`}
+        >
           Editar etapas
         </h1>
         <div className="sticky flex-col gap-2">
