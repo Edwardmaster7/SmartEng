@@ -1,5 +1,4 @@
 import Main from "../components/Main";
-import { Header } from "../components/Header";
 import InputField from "../components/InputField";
 import ButtonComponent from "../components/ButtonComponent";
 import Container from "../components/Container";
@@ -348,7 +347,6 @@ function Quote() {
 
   return (
     <div className="h-screen">
-      <Header />
       <Main
         className={`align-center flex flex-col gap-3 p-4 pb-16 ${isModalOpen === true ? "blur-sm" : ""} ${isModal2Open === true ? "blur-sm" : ""}`}
       >
