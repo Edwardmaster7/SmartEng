@@ -349,9 +349,9 @@ function Quote() {
         setEmail(latestSubmission.email || "");
         setDueDate(latestSubmission.startForecast || "");
         // setDueDate(latestSubmission.dueDate || "");
-        setAddress(latestSubmission.address || "");
+        setAddress(latestSubmission.buildingAddress || "");
         // setBDI(latestSubmission.BDI || 0);
-        setBuilding(latestSubmission.building || "");
+        setBuilding(latestSubmission.buildingType || "");
         // setSocialCharges(latestSubmission.socialCharges || 0);
       }
     }
