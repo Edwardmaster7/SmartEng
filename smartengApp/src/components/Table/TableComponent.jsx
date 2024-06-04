@@ -131,7 +131,7 @@ const TableComponent = ({
             </ButtonComponent>
           </div>
         </div>
-        <table className="w-full min-h-48 md:min-h-56">
+        <table className={`w-full ${data.length > 0 ? "min-h-48 md:min-h-56" : ""}`}>
           <thead
             className={`mx-auto justify-center rounded-t-lg text-white text-sm shadow-indigo-700 ${hasHeader === false ? "hidden" : ""}`}
           >
