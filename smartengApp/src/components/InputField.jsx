@@ -6,14 +6,14 @@ const InputField = ({ className, label, id, type, placeholder, options, rows, ma
           className={`block text-indigo-950 text-sm font-bold mb-2 ${nolabel === true ? "sr-only" : ""}`}
           htmlFor={id}
         >
-          {label}
+          {label}<span className={`text-red-700 ${required===true ? "" : "hidden"}`}> *</span>
         </label>
         {type === "textarea" ? (
           <textarea
             className={classNameI}
             id={id}
             rows={rows}
-            maxLength="150"
+            maxLength={maxLength}
             placeholder={placeholder}
             required={required ? true : false}
           />
@@ -34,20 +34,6 @@ const InputField = ({ className, label, id, type, placeholder, options, rows, ma
               </option>
             ))}
           </select>
-        ) : type === "radio" ? (
-          options.map((option) => (
-            <div key={option.value}>
-              <input
-                className={classNameI}
-                id={id}
-                type="radio"
-                name={id}
-                value={option.value}
-                required={required ? true : false}
-              />
-              <label htmlFor={id}>{option.label}</label>
-            </div>
-          ))
         ) : (
           <input
             className={classNameI}

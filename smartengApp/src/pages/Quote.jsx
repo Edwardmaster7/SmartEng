@@ -38,6 +38,18 @@ function Quote() {
   const [itemQty, setItemQty] = useState("");
   const [editingStage, setEditingStage] = useState(false);
 
+  // Variables to store the retrieved data
+  const [client, setClient] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [date, setDate] = useState("");
+  // const [revisionDate, setRevisionDate] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [address, setAddress] = useState("");
+  // const [BDI, setBDI] = useState(0);
+  const [building, setBuilding] = useState("");
+  // const [socialCharges, setSocialCharges] = useState(0);
+
   // Utility function to format float numbers
   const formatFloat = (value) => {
     return value === null ? null : parseFloat(value).toFixed(2);
@@ -129,6 +141,8 @@ function Quote() {
       } else {
         alert("Por favor, insira um código.");
       }
+    } else {
+      handleOpenModal();
     }
   };
 
@@ -241,6 +255,7 @@ function Quote() {
         setIsModalOpen(true);
       }
     }
+    retrieveSubmissions();
   }, []);
 
   const handleOpenModal = () => {
@@ -249,11 +264,11 @@ function Quote() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    
-    if(editingStage) {
+
+    if (editingStage) {
       setEditingStage(false);
       console.log(editingStage);
-      handleOpenModal2(); 
+      handleOpenModal2();
     }
   };
 
@@ -304,7 +319,6 @@ function Quote() {
   };
 
   const handleEditStage = () => {
-
     setEditingStage(true);
     handleCloseModal2();
     handleOpenModal();
@@ -321,18 +335,38 @@ function Quote() {
       return data.length;
     }
   };
+ 
 
+  const retrieveSubmissions = () => {
+    const submissions = localStorage.getItem("submissions");
+    if (submissions) {
+      const parsedSubmissions = JSON.parse(submissions);
+      if (parsedSubmissions.length > 0) {
+        const latestSubmission =
+          parsedSubmissions[parsedSubmissions.length - 1];
+        setClient(latestSubmission.clientName || "");
+        setPhone(latestSubmission.phone || "");
+        setEmail(latestSubmission.email || "");
+        setDueDate(latestSubmission.startForecast || "");
+        // setDueDate(latestSubmission.dueDate || "");
+        setAddress(latestSubmission.address || "");
+        // setBDI(latestSubmission.BDI || 0);
+        setBuilding(latestSubmission.building || "");
+        // setSocialCharges(latestSubmission.socialCharges || 0);
+      }
+    }
+  };
 
-  const client = "John Smith"
-  const phone = "13 99555-1234"
-  const email = "john@example.com"
-  const date = "2023-05-01"
-  const revisionDate = "2023-05-15"
-  const dueDate = "2024-05-10"
-  const address = "Av. Paulista, n.8543, Centro, São Paulo - SP"
-  const BDI = 37
-  const building = "Sobrado"
-  const socialCharges = 84
+  // const client = "John Smith";
+  // const phone = "13 99555-1234";
+  // const email = "john@example.com";
+  // const date = "2023-05-01";
+  const revisionDate = "2023-05-15";
+  // const dueDate = "2024-05-10";
+  // const address = "Av. Paulista, n.8543, Centro, São Paulo - SP";
+  const BDI = 37;
+  // const building = "Sobrado";
+  const socialCharges = 84;
   const totalMaterialCost = useMemo(
     () => calculateField("VU_Material"),
     [data],
@@ -380,7 +414,7 @@ function Quote() {
                 fieldName="Data Revisão:"
                 className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
               >
-                {date}
+                {revisionDate}
               </Field>
 
               <Field
