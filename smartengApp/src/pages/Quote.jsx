@@ -191,7 +191,7 @@ function Quote() {
             Qtd: itemQty,
             VU_Material: baseRow.MATERIAL_COST,
             VU_MO: baseRow.LABOR_COST,
-            Total: baseRow["TOTAL_COST"],
+            Total: parseFloat(baseRow["TOTAL_COST"]) * itemQty,
           };
           setModalData((prevModalData) => {
             const updatedModalData = [...prevModalData, newRow];
@@ -329,13 +329,17 @@ function Quote() {
 
     if (isNumeric(data[0][field])) {
       // Sum numeric fields
+      if (field === "VU_Material" || field === "VU_MO") {
+        return data.reduce((sum, row) => sum + parseFloat(row[field]) * parseFloat(row["Qtd"]), 0);
+      }
+
       return data.reduce((sum, row) => sum + parseFloat(row[field] || 0), 0);
     } else {
       // Count non-numeric fields
       return data.length;
     }
   };
- 
+
 
   const retrieveSubmissions = () => {
     const submissions = localStorage.getItem("submissions");
