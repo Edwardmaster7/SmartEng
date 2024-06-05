@@ -1,5 +1,22 @@
 import pandas as pd
 
+def substituir_se_condicoes(valor, tipo):
+    if pd.isna(valor):  # Verifica se o valor é nulo (pd.NA)
+        return valor
+    elif "/" in str(valor) and str(valor) != "None":
+        if (tipo == "int"):
+            return int(str(valor).replace("/", ""))
+        elif (tipo == "float"):
+            return float(str(valor).replace("/", ""))
+        elif (tipo == "string" or tipo == "str"):
+            return str(valor).replace("/", "_")
+    else:
+        return valor
+
+def remover_barra_codigo(df, nome_coluna, tipo):
+    df[nome_coluna] = df[nome_coluna].apply(lambda x: substituir_se_condicoes(x, tipo))
+    return df
+
 def excel_to_json(excel_file_path, json_file_path, sheet_name=None):
     """Converts an Excel file to JSON, handling UTF-8 characters and replacing spaces with underscores in column names.
 
@@ -20,6 +37,17 @@ def excel_to_json(excel_file_path, json_file_path, sheet_name=None):
     # Replace spaces with underscores in column names
     df.columns = df.columns.str.replace(' ', '_')
 
+    # Apply the function to handle the "CÓDIGO_COMPOSIÇÃO" column
+    df = remover_barra_codigo(df, "CÓDIGO_COMPOSIÇÃO", tipo="int")
+
+    # Replace NaN with a placeholder and convert to integer
+    df["CÓDIGO_COMPOSIÇÃO"] = df["CÓDIGO_COMPOSIÇÃO"].fillna(-1).astype(int)
+
+    # Optionally, replace the placeholder back with None
+    df["CÓDIGO_COMPOSIÇÃO"] = df["CÓDIGO_COMPOSIÇÃO"].replace(-1, None)
+
+    print(df["CÓDIGO_COMPOSIÇÃO"])
+
     # Ensure proper encoding when writing JSON
     json_data = df.to_json(orient="records", indent=4, force_ascii=False)  
     
@@ -32,9 +60,5 @@ def excel_to_json(excel_file_path, json_file_path, sheet_name=None):
 # Example usage:
 excel_file_path = "./Tabela_SINAPI.xlsx"
 json_file_path = "./sinapi_data.json"
-
-# To convert a specific sheet:
-# excel_to_json(excel_file_path, json_file_path, sheet_name="Sheet1") 
-
-# To convert all sheets:
-excel_to_json(excel_file_path, json_file_path)
+sheet_name = None  # or specify the sheet name if needed
+excel_to_json(excel_file_path, json_file_path, sheet_name)

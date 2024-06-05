@@ -38,12 +38,17 @@ def translate_json(input_file, output_file_path, language=None):
 
     translated_data = traduzir_campos(data, target_language=language)
 
+    # Check and replace spaces with underscores in field names
+    for item in translated_data:
+        for key in list(item.keys()):
+            if ' ' in key:
+                new_key = key.replace(' ', '_')
+                item[new_key] = item.pop(key)
+
     json_data = json.dumps(translated_data, indent=4, ensure_ascii=False)
     
     with open(output_file_path, "w", encoding="utf-8") as json_file:
         json_file.write(json_data)
-    
-    print(f"\nJSON traduzido com sucesso! Salvo em: {output_file_path}")
 
 
 input_file = "./sinapi_data.json"

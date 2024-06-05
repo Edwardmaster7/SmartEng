@@ -344,7 +344,7 @@ function Quote() {
       if (parsedSubmissions.length > 0) {
         const latestSubmission =
           parsedSubmissions[parsedSubmissions.length - 1];
-        setClient(latestSubmission.clientName || "");
+        setClient(latestSubmission.name || "");
         setPhone(latestSubmission.phone || "");
         setEmail(latestSubmission.email || "");
         setDueDate(latestSubmission.startForecast || "");
@@ -554,7 +554,6 @@ function Quote() {
           data={stage}
           hasHeader={false}
           hasUtilityBar={false}
-          hasPagination={false}
           columns={stageColumns}
           handleAddRow={handleAddStage}
           handleDeleteRow={handleDeleteStage}

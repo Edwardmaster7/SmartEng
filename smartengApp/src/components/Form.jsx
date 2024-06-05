@@ -5,7 +5,7 @@ import ButtonComponent from "./ButtonComponent.jsx";
 const Form = ({ className }) => {
   const [formData, setFormData] = useState({
     buildingName: "",
-    clientName: "",
+    name: "",
     phone: "",
     clientAddress: "",
     buildingAddress: "",
@@ -71,7 +71,7 @@ const Form = ({ className }) => {
     // Optionally, you can reset the form after submission
     setFormData({
       buildingName: "",
-      clientName: "",
+      name: "",
       phone: "",
       clientAddress: "",
       buildingAddress: "",
@@ -119,7 +119,7 @@ const Form = ({ className }) => {
       <InputField
         label="Telefone"
         id="phone"
-        type="tel"
+        type="text"
         placeholder="(00) 00000-0000"
         className={classes}
         required
