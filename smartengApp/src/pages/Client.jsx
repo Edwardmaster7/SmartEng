@@ -1,6 +1,5 @@
 import "/src/index.css";
 import Main from "../components/Main";
-import Form from "../components/Form";
 import { useState } from "react";
 import Modal from "../components/Modal";
 import ButtonComponent from "../components/ButtonComponent";
