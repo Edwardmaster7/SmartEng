@@ -21,10 +21,6 @@ import {
   HiPencilAlt,
 } from "react-icons/hi";
 
-// Utility function to check if a value is numeric
-const isNumeric = (value) => {
-  return !isNaN(value - parseFloat(value));
-};
 
 function Quote() {
   const [data, setData] = useState([]);
@@ -180,9 +176,10 @@ function Quote() {
         const baseRow = base.find(
           (row) => row.COMPOSITION_CODE === parseInt(searchTerm),
         );
+
         if (baseRow) {
           const newRow = {
-            Item: data.length > 0 ? data.length + 1 : modalData.length + 1,
+            Item: data.length > 0 ? (modalData.length + data.length + 1) : modalData.length + 1,
             Base: "Sinapi",
             Code: baseRow.COMPOSITION_CODE,
             Description: baseRow.COMPOSITION_DESCRIPTION,
@@ -193,11 +190,14 @@ function Quote() {
             VU_MO: baseRow.LABOR_COST,
             Total: parseFloat(baseRow["TOTAL_COST"]) * itemQty,
           };
+          // console.log(modalData.length)
+          
           setModalData((prevModalData) => {
             const updatedModalData = [...prevModalData, newRow];
             console.log(`new modalData: ${updatedModalData}`);
             return updatedModalData;
           });
+
           console.log(`new modalData: ${modalData}`);
           // alert(`Code ${searchTerm} added successfully`);
           setSearchTerm(""); // Clear the input
@@ -324,13 +324,21 @@ function Quote() {
     handleOpenModal();
   };
 
+  // Utility function to check if a value is numeric
+  const isNumeric = (value) => {
+    return !isNaN(value - parseFloat(value));
+  };
+
   const calculateField = (field) => {
     if (data.length === 0) return 0;
 
     if (isNumeric(data[0][field])) {
       // Sum numeric fields
       if (field === "VU_Material" || field === "VU_MO") {
-        return data.reduce((sum, row) => sum + parseFloat(row[field]) * parseFloat(row["Qtd"]), 0);
+        return data.reduce(
+          (sum, row) => sum + parseFloat(row[field]) * parseFloat(row["Qtd"]),
+          0,
+        );
       }
 
       return data.reduce((sum, row) => sum + parseFloat(row[field] || 0), 0);
@@ -339,7 +347,6 @@ function Quote() {
       return data.length;
     }
   };
-
 
   const retrieveSubmissions = () => {
     const submissions = localStorage.getItem("submissions");
@@ -384,7 +391,7 @@ function Quote() {
   const totalCost = totalBuildingCost + socialLaws + calcBDI;
 
   return (
-    <div className="h-screen">
+    <div className="w-full">
       <Main
         className={`align-center flex flex-col gap-3 p-4 pb-16 ${isModalOpen === true ? "blur-sm" : ""} ${isModal2Open === true ? "blur-sm" : ""}`}
       >

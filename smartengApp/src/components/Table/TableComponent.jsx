@@ -21,18 +21,35 @@ import Container from "../Container";
 import InputField from "../InputField";
 import ButtonComponent from "../ButtonComponent";
 
+
+/**
+ * TableComponent component for displaying tables in the quote page.
+ * @param {Object} props - Component props.
+ * @param {string} props.id - Table ID.
+ * @param {Array} props.data - Table data.
+ * @param {Array} props.columns - Table columns.
+ * @param {boolean} props.hasHeader - Indicates whether the table has a header.
+ * @param {boolean} props.hasUtilityBar - Indicates whether the table has a utility bar.
+ * @param {function} props.handleAddRow - Event handler for adding rows to the table.
+ * @param {function} props.handleDeleteRow - Event handler for deleting rows from the table.
+ * @param {string} props.inputValue - Input value for filtering table rows.
+ * @param {function} props.setInputValue - Event handler for updating the input value.
+ * @returns {JSX.Element} - TableComponent component for displaying tables in the quote page.
+ */
 const TableComponent = ({
   data,
   columns,
   hasHeader,
   hasUtilityBar,
   hasAddButton,
+  hasRemoveRowButton,
   hasPagination,
   handleAddRow,
   inputValue,
   setInputValue,
   handleDeleteRow,
   handleSaveTable,
+  className,
 }) => {
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -45,7 +62,7 @@ const TableComponent = ({
         header: "",
         cell: ({ row }) => (
           <HiXCircle
-            className="text-red-500 cursor-pointer text-xl mx-2 hover:animate-pulse"
+            className={`text-red-500 cursor-pointer text-xl mx-2 hover:animate-pulse ${hasRemoveRowButton === false ? "hidden" : ""}`}
             onClick={() => handleDeleteRow(row.index)}
           />
         ),
@@ -80,7 +97,7 @@ const TableComponent = ({
   // }, [data]);
 
   return (
-    <Container className="mx-auto contain-content bg-indigo-700">
+    <Container className={`mx-auto contain-content bg-indigo-700 ${className}`}>
       <Container
         // ref={containerRef}
         className="p-0 rounded-b-none shadow-none overflow-auto"
@@ -131,7 +148,7 @@ const TableComponent = ({
             </ButtonComponent>
           </div>
         </div>
-        <table className={`w-full ${data.length > 0 ? "min-h-48 md:min-h-56" : ""}`}>
+        <table className={`w-full ${data.length > 0 ? "min-h-20 xl:min-h-56" : ""}`}>
           <thead
             className={`mx-auto justify-center rounded-t-lg text-white text-sm shadow-indigo-700 ${hasHeader === false ? "hidden" : ""}`}
           >
