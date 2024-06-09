@@ -21,7 +21,6 @@ import {
   HiPencilAlt,
 } from "react-icons/hi";
 
-
 function Quote() {
   const [data, setData] = useState([]);
   const [modalData, setModalData] = useState([]);
@@ -45,11 +44,6 @@ function Quote() {
   // const [BDI, setBDI] = useState(0);
   const [building, setBuilding] = useState("");
   // const [socialCharges, setSocialCharges] = useState(0);
-
-  // Utility function to format float numbers
-  const formatFloat = (value) => {
-    return value === null ? null : parseFloat(value).toFixed(2);
-  };
 
   /**@type {import("@tanstack/react-table").ColumnDef<any>} */
   const columns = [
@@ -191,7 +185,7 @@ function Quote() {
             Total: parseFloat(baseRow["TOTAL_COST"]) * itemQty,
           };
           // console.log(modalData.length)
-          
+
           setModalData((prevModalData) => {
             const updatedModalData = [...prevModalData, newRow];
             console.log(`new modalData: ${updatedModalData}`);
@@ -324,30 +318,6 @@ function Quote() {
     handleOpenModal();
   };
 
-  // Utility function to check if a value is numeric
-  const isNumeric = (value) => {
-    return !isNaN(value - parseFloat(value));
-  };
-
-  const calculateField = (field) => {
-    if (data.length === 0) return 0;
-
-    if (isNumeric(data[0][field])) {
-      // Sum numeric fields
-      if (field === "VU_Material" || field === "VU_MO") {
-        return data.reduce(
-          (sum, row) => sum + parseFloat(row[field]) * parseFloat(row["Qtd"]),
-          0,
-        );
-      }
-
-      return data.reduce((sum, row) => sum + parseFloat(row[field] || 0), 0);
-    } else {
-      // Count non-numeric fields
-      return data.length;
-    }
-  };
-
   const retrieveSubmissions = () => {
     const submissions = localStorage.getItem("submissions");
     if (submissions) {
@@ -379,16 +349,20 @@ function Quote() {
   // const building = "Sobrado";
   const socialCharges = 84;
   const totalMaterialCost = useMemo(
-    () => calculateField("VU_Material"),
+    () => calculateFieldSum("VU_Material", data),
     [data],
   );
 
-  const totalLaborCost = useMemo(() => calculateField("VU_MO"), [data]);
-  const totalItems = useMemo(() => calculateField("Item"), [data]);
-  const totalBuildingCost = useMemo(() => calculateField("Total"), [data]);
+  const totalLaborCost = useMemo(() => calculateFieldSum("VU_MO", data), [data]);
+  const totalItems = useMemo(() => calculateFieldSum("Item", data), [data]);
+  const totalBuildingCost = useMemo(() => calculateFieldSum("Total", data), [data]);
   const socialLaws = totalLaborCost * (socialCharges / 100);
   const calcBDI = (totalBuildingCost + socialLaws) * (BDI / 100);
   const totalCost = totalBuildingCost + socialLaws + calcBDI;
+
+
+  //styles
+  const fieldClassName = "sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white dark:bg-indigo-500 p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit";
 
   return (
     <div className="w-full">
@@ -396,67 +370,40 @@ function Quote() {
         className={`align-center flex flex-col gap-3 p-4 pb-16 ${isModalOpen === true ? "blur-sm" : ""} ${isModal2Open === true ? "blur-sm" : ""}`}
       >
         <Container className="mx-auto contain-content">
-          <div className="flex justify-center bg-indigo-600 p-2">
-            <span className="font-medium text-indigo-50">
+          <div className="flex justify-center bg-indigo-600 dark:bg-indigo-700 p-2">
+            <span className="font-medium text-indigo-50 dark:text-violet-50">
               Orçamento da Obra - Analítico
             </span>
           </div>
-          <Container className="mx-auto overflow-auto max-h-28 md:max-h-40 rounded-t-none pb-2 pt-2 contain-content text-indigo-950">
+          <Container className="mx-auto overflow-auto max-h-28 md:max-h-40 rounded-t-none pb-2 pt-2 contain-content text-indigo-950 dark:text-violet-50">
             <div className="max-auto grid grid-cols-2 place-content-evenly gap-1 px-2 sm:grid-cols-4 text-inherit">
-              <Field
-                fieldName="Cliente:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="Cliente:" className={fieldClassName}>
                 {client}
               </Field>
-              <Field
-                fieldName="Telefone:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="Telefone:" className={fieldClassName}>
                 {phone}
               </Field>
-              <Field
-                fieldName="Email:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="Email:" className={fieldClassName}>
                 {email}
               </Field>
-              <Field
-                fieldName="Data Revisão:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="Data Revisão:" className={fieldClassName}>
                 {revisionDate}
               </Field>
 
-              <Field
-                fieldName="Obra:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="Obra:" className={fieldClassName}>
                 {building}
               </Field>
-              <Field
-                fieldName="Data de validade:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="Data de validade:" className={fieldClassName}>
                 {dueDate}
               </Field>
-              <Field
-                fieldName="BDI:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="BDI:" className={fieldClassName}>
                 {`${BDI}%`}
               </Field>
 
-              <Field
-                fieldName="Encargos Sociais:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="Encargos Sociais:" className={fieldClassName}>
                 {`${socialCharges}%`}
               </Field>
-              <Field
-                fieldName="Endereço:"
-                className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-              >
+              <Field fieldName="Endereço:" className={fieldClassName}>
                 {address}
               </Field>
             </div>
@@ -478,45 +425,27 @@ function Quote() {
           <div className="sm:px-6" />
 
           <Container className="flex contain-content md:w-10/12 xl:mr-4">
-            <div className="flex-col bg-indigo-600 p-2">
+            <div className="flex-col bg-indigo-600 dark:bg-indigo-700 p-2">
               <span className="font-medium text-indigo-50">Total</span>
             </div>
-            <Container className="mx-auto sm:overflow-auto md:max-h-52 rounded-t-none pb-2 pt-2 max-h-dvh text-indigo-950">
+            <Container className="mx-auto sm:overflow-auto md:max-h-52 rounded-t-none pb-2 pt-2 max-h-dvh text-indigo-950 dark:text-violet-50">
               <div className="max-auto grid grid-cols-3 place-content-evenly gap-1 px-2 sm:grid-cols-3 text-inherit">
-                <Field
-                  fieldName="Mão de Obra:"
-                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-                >
+                <Field fieldName="Mão de Obra:" className={fieldClassName}>
                   {`R$ ${formatFloat(totalLaborCost)}`}
                 </Field>
-                <Field
-                  fieldName="Material:"
-                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-                >
+                <Field fieldName="Material:" className={fieldClassName}>
                   {`R$ ${formatFloat(totalMaterialCost)}`}
                 </Field>
-                <Field
-                  fieldName="Total (obra):"
-                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-                >
+                <Field fieldName="Total (obra):" className={fieldClassName}>
                   {`R$ ${formatFloat(totalBuildingCost)}`}
                 </Field>
-                <Field
-                  fieldName="Leis Sociais:"
-                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-                >
+                <Field fieldName="Leis Sociais:" className={fieldClassName}>
                   {`R$ ${formatFloat(socialLaws)}`}
                 </Field>
-                <Field
-                  fieldName="BDI:"
-                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-                >
+                <Field fieldName="BDI:" className={fieldClassName}>
                   {`R$ ${formatFloat(calcBDI)}`}
                 </Field>
-                <Field
-                  fieldName="Total:"
-                  className="sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
-                >
+                <Field fieldName="Total:" className={fieldClassName}>
                   {`R$ ${formatFloat(totalCost)}`}
                 </Field>
               </div>
@@ -587,6 +516,7 @@ function Quote() {
         id="select-stage-qty"
         isOpen={isModal2Open}
         onClose={handleCloseModal2}
+        className=""
       >
         <h1 className="text-2xl font-bold pt-3 mb-4 text-violet-50">
           Adcione novos itens e sua etapa
@@ -654,6 +584,7 @@ function Quote() {
           data={modalData}
           columns={columns}
           hasUtilityBar={false}
+          minRowsForPagination={3}
           handleAddRow={handleAddRow}
           handleDeleteRow={(rowIndex) => {
             const newModalData = modalData.filter(
@@ -663,6 +594,7 @@ function Quote() {
           }}
           inputValue={searchTerm}
           setInputValue={setSearchTerm}
+          className=""
         ></TableComponent>
         <div className="flex">
           <ButtonComponent
@@ -683,3 +615,33 @@ function Quote() {
 }
 
 export default Quote;
+
+// Utility function to format float numbers
+export const formatFloat = (value) => {
+  return value === null ? null : parseFloat(value).toFixed(2);
+};
+
+// Utility function to check if a value is numeric
+export const isNumeric = (value) => {
+  return !isNaN(value - parseFloat(value));
+};
+
+// Utility function to get sum of values of a field in a given data structure
+export const calculateFieldSum = (field, data) => {
+  if (data.length === 0) return 0;
+
+  if (isNumeric(data[0][field])) {
+    // Sum numeric fields
+    if (field === "VU_Material" || field === "VU_MO") {
+      return data.reduce(
+        (sum, row) => sum + parseFloat(row[field]) * parseFloat(row["Qtd"]),
+        0,
+      );
+    }
+
+    return data.reduce((sum, row) => sum + parseFloat(row[field] || 0), 0);
+  } else {
+    // Count non-numeric fields
+    return data.length;
+  }
+};

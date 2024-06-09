@@ -3,7 +3,7 @@ const InputField = ({ className, label, id, type, placeholder, options, rows, ma
     return (
       <div>
         <label
-          className={`block text-indigo-950 text-sm font-bold mb-2 ${nolabel === true ? "sr-only" : ""}`}
+          className={`block text-indigo-950 dark:text-indigo-50 text-sm font-bold mb-2 ${nolabel === true ? "sr-only" : ""}`}
           htmlFor={id}
         >
           {label}<span className={`text-red-700 ${required===true ? "" : "hidden"}`}> *</span>

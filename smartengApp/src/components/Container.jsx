@@ -6,7 +6,7 @@ const Container = forwardRef(({ className, style, children, disabled }, ref) => 
     <div
       ref={ref}
       disabled={disabled}
-      className={`container rounded-xl bg-indigo-100 shadow-xl ${className}`}
+      className={`container rounded-xl bg-indigo-100 dark:bg-indigo-900 shadow-xl ${className}`}
       style={style}
     >
       {children}

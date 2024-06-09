@@ -111,7 +111,7 @@ function Client() {
         <div></div>
 
         <form
-          className="bg-indigo-50 px-4 md:px-8 pt-8 pb-8 mb-4 min-w-96 col-span-1 sm:col-span-3 lg:col-span-2  xl:col-span-2 rounded-xl shadow-xl"
+          className="bg-indigo-100 dark:bg-indigo-900 px-4 md:px-8 pt-8 pb-8 mb-4 min-w-96 col-span-1 sm:col-span-3 lg:col-span-2  xl:col-span-2 rounded-xl shadow-xl"
           onSubmit={handleSubmit}
         >
           <InputField

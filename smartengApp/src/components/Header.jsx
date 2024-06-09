@@ -1,6 +1,7 @@
 import profileImageSrc from "../assets/perfil.jpeg";
 
 const Header = (handleRoute) => {
+  const aClassName = "cursor-pointer px-2 text-base text-indigo-50 hover:text-white";
 
   return (
     <header className="bg-indigo-800 sticky top-0 z-10 p-4 flex items-center justify-between h-16 shadow-md">
@@ -14,7 +15,7 @@ const Header = (handleRoute) => {
           id="home-tab"
           href="/"
           onClick={handleRoute}
-          className={`cursor-pointer px-2 text-base text-indigo-50 hover:text-white ${
+          className={`${aClassName}e ${
             location.pathname === "/" ? "font-bold" : "hover:font-medium"
           }`}
         >
@@ -24,7 +25,7 @@ const Header = (handleRoute) => {
           id="client-tab"
           href="/cliente"
           onClick={handleRoute}
-          className={`cursor-pointer px-2 text-base text-indigo-50 hover:text-white ${
+          className={`${aClassName} ${
             location.pathname === "/cliente" ? "font-bold" : "hover:font-medium"
           }`}
         >
@@ -34,7 +35,7 @@ const Header = (handleRoute) => {
           id="quote-tab"
           href="/orcamento"
           onClick={handleRoute}
-          className={`cursor-pointer px-2 text-base text-indigo-50 hover:text-white ${
+          className={`${aClassName} ${
             location.pathname === "/orcamento"
               ? "font-bold"
               : "hover:font-medium"
@@ -46,7 +47,7 @@ const Header = (handleRoute) => {
           id="stages-tab"
           href="/etapas"
           onClick={handleRoute}
-          className={`cursor-pointer px-2 text-base text-indigo-50 hover:text-white ${
+          className={`${aClassName} ${
             location.pathname === "/etapas" ? "font-bold" : "hover:font-medium"
           }`}
         >
@@ -56,7 +57,7 @@ const Header = (handleRoute) => {
           id="bdi-tab"
           href="/bdi"
           onClick={handleRoute}
-          className={`cursor-pointer px-2 text-base text-indigo-50 hover:text-white ${
+          className={`${aClassName} ${
             location.pathname === "/bdi" ? "font-bold" : "hover:font-medium"
           }`}
         >
@@ -66,7 +67,7 @@ const Header = (handleRoute) => {
           id="bases-tab"
           href="/bases"
           onClick={handleRoute}
-          className={`cursor-pointer px-2 text-base text-indigo-50 hover:text-white ${
+          className={`${aClassName} ${
             location.pathname === "/bases" ? "font-bold" : "hover:font-medium"
           }`}
         >

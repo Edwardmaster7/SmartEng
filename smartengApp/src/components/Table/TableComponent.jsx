@@ -49,6 +49,7 @@ const TableComponent = ({
   setInputValue,
   handleDeleteRow,
   handleSaveTable,
+  minRowsForPagination,
   className,
 }) => {
   const [sorting, setSorting] = useState([]);
@@ -62,7 +63,7 @@ const TableComponent = ({
         header: "",
         cell: ({ row }) => (
           <HiXCircle
-            className={`text-red-500 cursor-pointer text-xl mx-2 hover:animate-pulse ${hasRemoveRowButton === false ? "hidden" : ""}`}
+            className={`text-red-500 dark:text-red-700 rounded-full p-0 dark:bg-red-200 dark:hover:bg-red-400 cursor-pointer text-xl mx-2 hover:animate-pulse ${hasRemoveRowButton === false ? "hidden" : ""}`}
             onClick={() => handleDeleteRow(row.index)}
           />
         ),
@@ -78,6 +79,11 @@ const TableComponent = ({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: (minRowsForPagination ? minRowsForPagination : 10), //custom default page size
+      }
+    },
     state: {
       sorting: sorting,
       globalFilter: globalFilter,
@@ -86,25 +92,25 @@ const TableComponent = ({
     onSortingChange: setSorting,
   });
 
-  // const [containerHeight, setContainerHeight] = useState("auto");
-  // const containerRef = useRef(null);
+  const [containerHeight, setContainerHeight] = useState("auto");
+  const containerRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (containerRef.current) {
-  //     const contentHeight = containerRef.current.scrollHeight;
-  //     setContainerHeight(`${contentHeight}px`);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (containerRef.current) {
+      const contentHeight = containerRef.current.scrollHeight;
+      setContainerHeight(`${contentHeight}px`);
+    }
+  }, [data]);
 
   return (
     <Container className={`mx-auto contain-content bg-indigo-700 ${className}`}>
       <Container
-        // ref={containerRef}
+        ref={containerRef}
         className="p-0 rounded-b-none shadow-none overflow-auto"
-        // style={{ height: containerHeight }}
+        style={{ height: containerHeight }}
       >
         <div
-          className={`top-0 z-10 p-2 flex align-middle gap-2 bg-indigo-700 w-full ${hasUtilityBar === false ? "hidden" : ""}`}
+          className={`top-0 z-10 p-2 flex align-middle gap-2 bg-indigo-700 dark:bg-indigo-800 w-full ${hasUtilityBar === false ? "hidden" : ""}`}
         >
           <InputField
             id="search-box"
@@ -124,7 +130,7 @@ const TableComponent = ({
           <div className="flex gap-2">
             <ButtonComponent
               id="search-button"
-              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
+              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700 dark:shadow-none"
               onClick={(e) => {
                 e.preventDefault();
                 setGlobalFilter(inputValue);
@@ -134,28 +140,30 @@ const TableComponent = ({
             </ButtonComponent>
             <ButtonComponent
               id="add-button"
-              className={`bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700 ${hasAddButton === false ? "hidden" : ""}`}
+              className={`bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700 dark:shadow-none ${hasAddButton === false ? "hidden" : ""}`}
               onClick={handleAddRow}
             >
               <HiPlusCircle className="text-3xl" />
             </ButtonComponent>
             <ButtonComponent
               id="save-button"
-              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700"
+              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700 dark:shadow-none"
               onClick={handleSaveTable}
             >
               <HiSave className="text-3xl" />
             </ButtonComponent>
           </div>
         </div>
-        <table className={`w-full ${data.length > 0 ? "min-h-20 xl:min-h-56" : ""}`}>
+        <table
+          className={`w-full ${data.length > 0 ? "min-h-20 xl:min-h-56" : ""}`}
+        >
           <thead
-            className={`mx-auto justify-center rounded-t-lg text-white text-sm shadow-indigo-700 ${hasHeader === false ? "hidden" : ""}`}
+            className={`mx-auto justify-center rounded-t-lg text-white dark:text-violet-50 text-sm shadow-indigo-700 dark:shadow-none ${hasHeader === false ? "hidden" : ""}`}
           >
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
                 key={headerGroup.id}
-                className="sticky top-0 z-10 bg-indigo-600"
+                className="sticky top-0 z-10 bg-indigo-600 dark:bg-indigo-700"
               >
                 {headerGroup.headers.map((header) => (
                   <th
@@ -185,14 +193,14 @@ const TableComponent = ({
             {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className={`border ${
-                  row.index % 2 === 0 ? "bg-indigo-100" : "bg-indigo-200"
+                className={`border-none ${
+                  row.index % 2 === 0 ? "bg-indigo-100 dark:bg-indigo-400" : "bg-indigo-200 dark:bg-indigo-500"
                 }`}
               >
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className={`text-indigo-950 font-sans text-center text-sm font-medium px-2`}
+                    className={`text-indigo-950 dark:text-indigo-50 font-sans text-center text-sm font-medium px-2`}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
@@ -203,7 +211,7 @@ const TableComponent = ({
         </table>
       </Container>
       <div
-        className={`bottom-0 left-0 right-0 inline-flex w-full justify-between rounded-b bg-indigo-600 ${hasPagination === false ? "hidden" : ""}`}
+        className={`bottom-0 left-0 right-0 inline-flex w-full justify-between rounded-b bg-indigo-600 dark:bg-indigo-700 ${hasPagination === false ? "hidden" : ""}`}
       >
         <ButtonComponent
           disabled={!table.getCanPreviousPage()}
