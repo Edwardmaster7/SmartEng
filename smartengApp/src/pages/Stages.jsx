@@ -5,7 +5,6 @@ import Container from "../components/Container";
 import Field from "../components/Field";
 import { isNumeric, formatFloat, calculateFieldSum } from "./Quote";
 
-
 function Stages() {
   const [data, setData] = useState([]);
 
