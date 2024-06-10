@@ -11,7 +11,16 @@ const BDI = () => {
   const [data, setData] = useState([]);
   const [BDI, setBDI] = useState(0);
   const [profit, setProfit] = useState(10);
-  const [indirectExpenses, setIndirectExpenses] = useState([])
+  const [indirectExpenses, setIndirectExpenses] = useState({
+    centralAdmin: 0,
+    riskAndContigency: 0,
+    loan: 0,
+  });
+  const [indirectExpensesPerc, setIndirectExpensesPerc] = useState({
+    centralAdminPerc: 4,
+    riskAndContigencyPerc: 2,
+    loanPerc: 2,
+  });
   const [taxes, setTaxes] = useState([])
   const [totalIndirectExpenses, setTotalIndirectExpenses] = useState(0)
   const [totalTaxes, setTotalTaxes] = useState(0)
@@ -35,8 +44,6 @@ const BDI = () => {
   const IRPJ = 0.0120
   const ISS = 0.05
 
-  
-
   const socialCharges = 84;
   const totalMaterialCost = useMemo(
     () => calculateFieldSum("VU_Material", data),
@@ -56,7 +63,29 @@ const BDI = () => {
   const calcBDI = (totalBuildingCost + socialLaws) * (BDI / 100);
   const totalCost = totalBuildingCost + socialLaws + calcBDI;
 
-  const initialCost = totalBuildingCost + socialLaws
+  const initialCost = totalBuildingCost + socialLaws;
+  
+  const calculateIndirectExpenses = () => {
+    const { centralAdminPerc, riskAndContigencyPerc, loanPerc } = indirectExpensesPerc
+
+    // setIndirectExpenses({centralAdmin, riskAndContigency, loan})
+    console.log(
+      `central admin: ${centralAdminPerc}\nriskAndContigency: ${riskAndContigencyPerc} initial cost: ${initialCost}`,
+    );
+  }
+
+  const calculateTotalIndirectExpenses = () => {
+    calculateIndirectExpenses()
+    const { centralAdmin, riskAndContigency, loan } = indirectExpenses
+    const total = centralAdmin + riskAndContigency + loan
+    // setTotalIndirectExpenses(total)
+
+    return total
+  }
+
+
+  const calculateTaxes = (taxes) => {}
+
 
   return (
     <div className="w-full">
@@ -111,29 +140,29 @@ const BDI = () => {
                     <td className="border-t px-6 py-4">
                       Administração Central
                     </td>
-                    <td className="border-t px-6 py-4">100%</td>
-                    <td className="border-t px-6 py-4">R$ 13.301,71</td>
+                    <td className="border-t px-6 py-4">{indirectExpensesPerc.centralAdminPerc}%</td>
+                    <td className="border-t px-6 py-4">R$ {indirectExpenses.centralAdmin}</td>
                   </tr>
                   <tr>
                     <td className="border-t px-6 py-4">
                       Riscos e contigenciamento
                     </td>
-                    <td className="border-t px-6 py-4">100%</td>
-                    <td className="border-t px-6 py-4">R$ 6.650,85</td>
+                    <td className="border-t px-6 py-4">{indirectExpensesPerc.riskAndContigencyPerc}%</td>
+                    <td className="border-t px-6 py-4">R$ {indirectExpenses.riskAndContigency}</td>
                   </tr>
                   <tr>
                     <td className="border-t px-6 py-4">
                       Custo Financeiro (empréstimo)
                     </td>
-                    <td className="border-t px-6 py-4">100%</td>
-                    <td className="border-t px-6 py-4">R$ 6.650,85</td>
+                    <td className="border-t px-6 py-4">{indirectExpensesPerc.loanPerc}%</td>
+                    <td className="border-t px-6 py-4">R$ {indirectExpenses.loan}</td>
                   </tr>
                   <tr className="text-xs font-semibold text-indigo-950 uppercase bg-white dark:bg-violet-200">
                     <td className="border-t px-6 py-4">
                       Total de Despesas Indiretas
                     </td>
                     <td className="border-t px-6 py-4">8%</td>
-                    <td className="border-t px-6 py-4">R$ 26.603,41</td>
+                    <td className="border-t px-6 py-4">R$ {calculateTotalIndirectExpenses()}</td>
                   </tr>
                 </tbody>
               </table>

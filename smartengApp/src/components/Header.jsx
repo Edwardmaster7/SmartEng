@@ -1,6 +1,8 @@
-import profileImageSrc from "../assets/perfil.jpeg";
+import profileImageSrc from "../assets/perfil.jpeg";0
 
-const Header = (handleRoute) => {
+
+
+const Header = () => {
   const aClassName = "cursor-pointer px-2 text-base text-indigo-50 hover:text-white";
 
   return (
@@ -14,7 +16,6 @@ const Header = (handleRoute) => {
         <a
           id="home-tab"
           href="/"
-          onClick={handleRoute}
           className={`${aClassName}e ${
             location.pathname === "/" ? "font-bold" : "hover:font-medium"
           }`}
@@ -23,8 +24,7 @@ const Header = (handleRoute) => {
         </a>
         <a
           id="client-tab"
-          href="/cliente"
-          onClick={handleRoute}
+          href="/cliente"        
           className={`${aClassName} ${
             location.pathname === "/cliente" ? "font-bold" : "hover:font-medium"
           }`}
@@ -33,8 +33,7 @@ const Header = (handleRoute) => {
         </a>
         <a
           id="quote-tab"
-          href="/orcamento"
-          onClick={handleRoute}
+          href="/orcamento"    
           className={`${aClassName} ${
             location.pathname === "/orcamento"
               ? "font-bold"
@@ -46,7 +45,6 @@ const Header = (handleRoute) => {
         <a
           id="stages-tab"
           href="/etapas"
-          onClick={handleRoute}
           className={`${aClassName} ${
             location.pathname === "/etapas" ? "font-bold" : "hover:font-medium"
           }`}
@@ -56,7 +54,6 @@ const Header = (handleRoute) => {
         <a
           id="bdi-tab"
           href="/bdi"
-          onClick={handleRoute}
           className={`${aClassName} ${
             location.pathname === "/bdi" ? "font-bold" : "hover:font-medium"
           }`}
@@ -66,7 +63,6 @@ const Header = (handleRoute) => {
         <a
           id="bases-tab"
           href="/bases"
-          onClick={handleRoute}
           className={`${aClassName} ${
             location.pathname === "/bases" ? "font-bold" : "hover:font-medium"
           }`}

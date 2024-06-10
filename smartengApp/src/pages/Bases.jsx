@@ -1,8 +1,9 @@
+import Main from "../components/Main";
 
 const Bases = () => {
     return (
-        <div>
-            <h1>Bases</h1>
+        <div className="w-full">
+            <Main></Main>
         </div>
     )
 }
