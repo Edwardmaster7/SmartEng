@@ -44,6 +44,18 @@ function Quote() {
   // const [BDI, setBDI] = useState(0);
   const [building, setBuilding] = useState("");
   // const [socialCharges, setSocialCharges] = useState(0);
+  const [clientData, setClientData] = useState({
+    client: "",
+    phone: "",
+    email: "",
+    date: "",
+    revisionDate: "",
+    dueDate: "",
+    address: "",
+    BDI: 0,
+    building: "",
+    socialCharges: 0,
+  })
 
   /**@type {import("@tanstack/react-table").ColumnDef<any>} */
   const columns = [
@@ -323,17 +335,30 @@ function Quote() {
     if (submissions) {
       const parsedSubmissions = JSON.parse(submissions);
       if (parsedSubmissions.length > 0) {
-        const latestSubmission =
-          parsedSubmissions[parsedSubmissions.length - 1];
-        setClient(latestSubmission.name || "");
-        setPhone(latestSubmission.phone || "");
-        setEmail(latestSubmission.email || "");
-        setDueDate(latestSubmission.startForecast || "");
-        // setDueDate(latestSubmission.dueDate || "");
-        setAddress(latestSubmission.buildingAddress || "");
-        // setBDI(latestSubmission.BDI || 0);
-        setBuilding(latestSubmission.buildingType || "");
-        // setSocialCharges(latestSubmission.socialCharges || 0);
+        const latestSubmission = parsedSubmissions[parsedSubmissions.length - 1];
+        // setClient(latestSubmission.name || "");
+        // setPhone(latestSubmission.phone || "");
+        // setEmail(latestSubmission.email || "");
+        // setDueDate(latestSubmission.startForecast || "");
+        // // setDueDate(latestSubmission.dueDate || "");
+        // setAddress(latestSubmission.buildingAddress || "");
+        // // setBDI(latestSubmission.BDI || 0);
+        // setBuilding(latestSubmission.buildingType || "");
+        // // setSocialCharges(latestSubmission.socialCharges || 0);
+
+        const obj = {
+          client: latestSubmission.name || "",
+          phone: latestSubmission.phone || "",
+          email: latestSubmission.email || "",
+          date: latestSubmission.startForecast || "",
+          // revisionDate: latestSubmission.dueDate || "",
+          dueDate: latestSubmission.startForecast || "",
+          address: latestSubmission.buildingAddress || "",
+          BDI: latestSubmission.BDI || 0,
+          building: latestSubmission.buildingType || "",
+          // socialCharges: latestSubmission.socialCharges || 0,
+        }
+        setClientData(obj);
       }
     }
   };
@@ -378,23 +403,23 @@ function Quote() {
           <Container className="mx-auto overflow-auto max-h-28 md:max-h-40 rounded-t-none pb-2 pt-2 contain-content text-indigo-950 dark:text-violet-50">
             <div className="max-auto grid grid-cols-2 place-content-evenly gap-1 px-2 sm:grid-cols-4 text-inherit">
               <Field fieldName="Cliente:" className={fieldClassName}>
-                {client}
+                {clientData.client}
               </Field>
               <Field fieldName="Telefone:" className={fieldClassName}>
-                {phone}
+                {clientData.phone}
               </Field>
               <Field fieldName="Email:" className={fieldClassName}>
-                {email}
+                {clientData.email}
               </Field>
               <Field fieldName="Data Revisão:" className={fieldClassName}>
                 {revisionDate}
               </Field>
 
               <Field fieldName="Obra:" className={fieldClassName}>
-                {building}
+                {clientData.building}
               </Field>
               <Field fieldName="Data de validade:" className={fieldClassName}>
-                {dueDate}
+                {clientData.dueDate}
               </Field>
               <Field fieldName="BDI:" className={fieldClassName}>
                 {`${BDI}%`}
@@ -404,7 +429,7 @@ function Quote() {
                 {`${socialCharges}%`}
               </Field>
               <Field fieldName="Endereço:" className={fieldClassName}>
-                {address}
+                {clientData.address}
               </Field>
             </div>
           </Container>
