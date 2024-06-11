@@ -643,8 +643,17 @@ export default Quote;
 
 // Utility function to format float numbers
 export const formatFloat = (value) => {
-  return value === null ? null : parseFloat(value).toFixed(2);
+  if (value === null) return null;
+
+  const floatValue = parseFloat(value);
+  const formattedValue = floatValue.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  return formattedValue;
 };
+
 
 // Utility function to check if a value is numeric
 export const isNumeric = (value) => {

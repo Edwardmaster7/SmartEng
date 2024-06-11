@@ -75,9 +75,7 @@ function Stages() {
         Total:
           calcTotal(stage),
         TotalPerc:
-          (calcTotal(stage) /
-            totalCost) *
-          100,
+          (calcTotal(stage) / totalCost) * 100,
       };
 
       // Update column summaries
@@ -103,40 +101,36 @@ function Stages() {
       {
         header: "M.O.",
         accessorKey: "MO",
-        cell: ({ getValue }) => getValue().toFixed(2),
+        cell: ({ getValue }) => formatFloat(getValue()),
       },
       {
         header: "Material",
         accessorKey: "Material",
-        cell: ({ getValue }) => getValue().toFixed(2),
+        cell: ({ getValue }) => formatFloat(getValue()),
       },
       {
         header: "L.S.",
         accessorKey: "LS",
-        cell: ({ getValue }) => getValue().toFixed(2),
+        cell: ({ getValue }) => formatFloat(getValue()),
       },
       {
         header: "BDI",
         accessorKey: "BDI",
-        cell: ({ getValue }) => getValue().toFixed(2),
+        cell: ({ getValue }) => formatFloat(getValue()),
       },
       {
         header: "Total",
         accessorKey: "Total",
-        cell: ({ getValue }) => getValue().toFixed(2),
+        cell: ({ getValue }) => formatFloat(getValue()),
       },
       {
         header: "% do Total",
         accessorKey: "TotalPerc",
-        cell: ({ getValue }) => getValue().toFixed(2),
+        cell: ({ getValue }) => formatFloat(getValue()),
       },
     ],
     [],
   );
-
-  // console.log(
-  //   `totalCost: ${totalCost} totalFor Serviços Iniciais: ${calculateField("Total", "SERVIÇOS INICIAIS")}`,
-  // );
 
   const fieldClassName = "sm:text-md mt-0 min-h-1 gap-0 rounded-md bg-white dark:bg-indigo-500 p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
 
@@ -199,6 +193,7 @@ function Stages() {
 }
 
 export default Stages;
+
 export const calculateFieldSumByStages = (field, stage, data) => {
   if (data.length === 0) return 0;
 
