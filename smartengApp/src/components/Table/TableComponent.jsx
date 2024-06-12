@@ -116,7 +116,7 @@ const TableComponent = ({
             id="search-box"
             placeholder={`${hasAddButton === false ? "Pesquise..." : "Pesquise ou adicione linhas"}`}
             nolabel={true}
-            className="my-0 rounded-lg shadow-md shadow-indigo-700 text-indigo-950 focus:outline-indigo-300"
+            className="my-0 rounded-lg shadow-md bg-indigo-50 dark:bg-indigo-100 shadow-indigo-700 text-indigo-950 focus:outline-indigo-300"
             value={inputValue}
             onChange={(e) => {
               setInputValue(e.target.value);

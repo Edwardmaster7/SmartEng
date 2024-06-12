@@ -396,7 +396,7 @@ function Quote() {
       <Main
         className={`align-center flex flex-col gap-3 p-4 pb-16 ${isModalOpen === true ? "blur-sm" : ""} ${isModal2Open === true ? "blur-sm" : ""}`}
       >
-        <Container className="animate-fade-in mx-auto contain-content">
+        <Container className="mx-auto contain-content">
           <div className="flex justify-center bg-indigo-600 dark:bg-indigo-700 p-2">
             <span className="font-medium text-indigo-50 dark:text-violet-50">
               Orçamento da Obra - Analítico
@@ -455,7 +455,7 @@ function Quote() {
           />
           <div className="sm:px-6" />
 
-          <Container className="animate-fade-in flex contain-content md:w-10/12 xl:mr-4">
+          <Container className="flex contain-content md:w-10/12 xl:mr-4">
             <div className="flex-col bg-indigo-600 dark:bg-indigo-700 p-2">
               <span className="font-medium text-indigo-50">Total</span>
             </div>
@@ -511,7 +511,7 @@ function Quote() {
           />
           <InputField
             id="add-stage-input"
-            className="rounded-lg focus:outline-indigo-200 mb-4"
+            className="rounded-lg bg-violet-50 dark:bg-violet-100 focus:outline-indigo-200 mb-4"
             placeholder="Serviços iniciais"
             type="text"
             value={inputValue}
@@ -558,7 +558,7 @@ function Quote() {
             <div className="sticky">
               <InputField
                 id="add-item-input"
-                className="rounded-lg focus:outline-indigo-200 mb-2"
+                className="rounded-lg bg-violet-50 dark:bg-violet-100 focus:outline-indigo-200 mb-2"
                 placeholder="Insira o código do item"
                 type="text"
                 value={searchTerm}
@@ -578,7 +578,7 @@ function Quote() {
             <div className="flex gap-1">
               <InputField
                 id="select-stage"
-                className="rounded-lg focus:outline-indigo-200"
+                className="rounded-lg bg-violet-50 dark:bg-violet-100 focus:outline-indigo-200"
                 placeholder="Selecione a Etapa"
                 type="select"
                 value={selectedStage}
@@ -601,7 +601,7 @@ function Quote() {
 
             <InputField
               id="add-item-qty"
-              className="rounded-lg focus:outline-indigo-200 max-w-32"
+              className="rounded-lg bg-violet-50 dark:bg-violet-100 focus:outline-indigo-200 max-w-32"
               placeholder="Quantidade"
               type="number"
               value={itemQty}
