@@ -5,6 +5,7 @@ import InputField from "../components/InputField"
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { calculateFieldSumByStages } from "./Stages";
 import { formatFloat, calculateFieldSum } from "./Quote";
+import Header from "../components/Header";
 
 const BDI = () => {
 
@@ -156,6 +157,7 @@ const BDI = () => {
 
   return (
     <div className="w-full">
+      <Header />
       <Main className="pt-8 pb-16 h-auto text-indigo-950 dark:text-violet-50">
         <Container className="mx-auto py-8 px-24 bg-indigo-50">
           <div className="rounded-l-2xl contain-content">
@@ -165,7 +167,9 @@ const BDI = () => {
                   <td className="px-6 text-xs font-bold text-indigo-950 uppercase bg-white dark:bg-violet-200">
                     FATOR BDI
                   </td>
-                  <td className="border-t px-6 py-4">{formatFloat(BDIFactor)}%</td>
+                  <td className="border-t px-6 py-4">
+                    {formatFloat(BDIFactor)}%
+                  </td>
                 </tr>
                 <tr>
                   <td className="px-6 border-t text-xs font-bold text-indigo-950 uppercase bg-violet-100 dark:bg-violet-300">
@@ -323,7 +327,9 @@ const BDI = () => {
                     </td>
                   </tr>
                   <tr className="text-xs font-semibold text-indigo-950 uppercase bg-white dark:bg-violet-200">
-                    <td className="border-t px-6 py-4">Total (Imposto mais Lucro)</td>
+                    <td className="border-t px-6 py-4">
+                      Total (Imposto mais Lucro)
+                    </td>
                     <td className="border-t px-6 py-4">
                       {formatFloat(totalTaxes + profitPercent)}%
                     </td>

@@ -20,6 +20,7 @@ import {
   HiCheckCircle,
   HiPencilAlt,
 } from "react-icons/hi";
+import Header from "../components/Header";
 
 function Quote() {
   const [data, setData] = useState([]);
@@ -391,10 +392,11 @@ function Quote() {
 
   return (
     <div className="w-full">
+      <Header />
       <Main
         className={`align-center flex flex-col gap-3 p-4 pb-16 ${isModalOpen === true ? "blur-sm" : ""} ${isModal2Open === true ? "blur-sm" : ""}`}
       >
-        <Container className="mx-auto contain-content">
+        <Container className="animate-fade-in mx-auto contain-content">
           <div className="flex justify-center bg-indigo-600 dark:bg-indigo-700 p-2">
             <span className="font-medium text-indigo-50 dark:text-violet-50">
               Orçamento da Obra - Analítico
@@ -443,13 +445,17 @@ function Quote() {
           handleDeleteRow={handleDeleteRow}
           inputValue={searchTerm}
           setInputValue={setSearchTerm}
+          className="animate-fade-in"
         ></TableComponent>
 
         <div className="mx-auto sm:flex">
-          <div className="md:px-44 lg:px-52 xl:px-96" />
+          <div
+            className="
+          "
+          />
           <div className="sm:px-6" />
 
-          <Container className="flex contain-content md:w-10/12 xl:mr-4">
+          <Container className="animate-fade-in flex contain-content md:w-10/12 xl:mr-4">
             <div className="flex-col bg-indigo-600 dark:bg-indigo-700 p-2">
               <span className="font-medium text-indigo-50">Total</span>
             </div>
@@ -480,7 +486,7 @@ function Quote() {
       </Main>
       <Modal
         id="add-stage"
-        className="min-w-96"
+        className="min-w-96 rounded-xl animate-scale-up-center"
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       >
@@ -522,6 +528,7 @@ function Quote() {
           columns={stageColumns}
           handleAddRow={handleAddStage}
           handleDeleteRow={handleDeleteStage}
+          minRowsForPagination={8}
         ></TableComponent>
         <div className="flex">
           <ButtonComponent
@@ -541,7 +548,7 @@ function Quote() {
         id="select-stage-qty"
         isOpen={isModal2Open}
         onClose={handleCloseModal2}
-        className=""
+        className="rounded-xl animate-scale-up-center"
       >
         <h1 className="text-2xl font-bold pt-3 mb-4 text-violet-50">
           Adcione novos itens e sua etapa

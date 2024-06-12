@@ -4,6 +4,7 @@ import { useState } from "react";
 import Modal from "../components/Modal";
 import ButtonComponent from "../components/ButtonComponent";
 import InputField from "../components/InputField";
+import Header from "../components/Header";
 
 function Client() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -102,16 +103,19 @@ function Client() {
     });
   };
 
-  const classes = "mb-4 rounded-lg";
+  const classes =
+    "rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200 mb-4";
+
   return (
     <div className="w-full h-screen">
+      <Header />
       <Main
-        className={`grid pt-4 pb-16 grid-cols-3 sm:grid-cols-5 lg:grid-cols-4 align-center ${isModalOpen ? "blur-md" : ""}`}
+        className={`px-4 pt-4 pb-8 align-center ${isModalOpen ? "blur-md" : ""}`}
       >
         <div></div>
 
         <form
-          className="bg-indigo-100 dark:bg-indigo-900 px-4 md:px-8 pt-8 pb-8 mb-4 min-w-96 col-span-1 sm:col-span-3 lg:col-span-2  xl:col-span-2 rounded-xl shadow-xl"
+          className="animate-fade-in mx-auto bg-violet-50 dark:bg-indigo-900 px-3 md:px-8 pt-8 pb-8 mb-4 max-w-prose rounded-xl shadow-xl"
           onSubmit={handleSubmit}
         >
           <InputField
@@ -274,7 +278,7 @@ function Client() {
             <ButtonComponent
               id="submit"
               type="submit"
-              className="bg-indigo-500 px-4 py-2"
+              className="bg-violet-600 rounded-lg px-4 py-2"
               content="Enviar"
             />
           </div>
@@ -282,7 +286,7 @@ function Client() {
         <div></div>
       </Main>
       <Modal
-        className="flex-col"
+        className="flex-col rounded-xl"
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       >

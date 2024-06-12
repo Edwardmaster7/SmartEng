@@ -200,7 +200,7 @@ const TableComponent = ({
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className={`text-indigo-950 dark:text-indigo-50 font-sans text-center text-sm font-medium px-2`}
+                    className={`text-indigo-950 dark:text-indigo-50 font-sans text-center text-sm font-medium p-2`}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
@@ -211,11 +211,11 @@ const TableComponent = ({
         </table>
       </Container>
       <div
-        className={`bottom-0 left-0 right-0 inline-flex w-full justify-between rounded-b bg-indigo-600 dark:bg-indigo-700 ${hasPagination === false ? "hidden" : ""}`}
+        className={`bottom-0 left-0 right-0 inline-flex w-full justify-between rounded-b bg-indigo-600 dark:bg-indigo-800 ${hasPagination === false ? "hidden" : ""}`}
       >
         <ButtonComponent
           disabled={!table.getCanPreviousPage()}
-          className="text-sm bg-indigo-500 py-2 px-4 font-normal disabled:invisible"
+          className="text-sm bg-indigo-500 dark:bg-indigo-600 py-2 px-4 font-normal disabled:invisible"
           onClick={() => table.setPageIndex(0)}
         >
           First page
@@ -223,14 +223,14 @@ const TableComponent = ({
         <div className="flex gap-2">
           <ButtonComponent
             disabled={!table.getCanPreviousPage()}
-            className="bg-indigo-500 px-1.5 text-xl font-normal disabled:hidden"
+            className="bg-indigo-500 dark:bg-indigo-600 py-2 px-1.5 text-xl font-normal disabled:hidden"
             onClick={() => table.previousPage()}
           >
             <HiChevronLeft />
           </ButtonComponent>
           <ButtonComponent
             disabled={!table.getCanNextPage()}
-            className="bg-indigo-500 px-1.5 text-xl font-normal disabled:hidden"
+            className="bg-indigo-500 dark:bg-indigo-600 py-2 px-1.5 text-xl font-normal disabled:hidden"
             onClick={() => table.nextPage()}
           >
             <HiChevronRight />
@@ -239,7 +239,7 @@ const TableComponent = ({
 
         <ButtonComponent
           disabled={!table.getCanNextPage()}
-          className="text-sm bg-indigo-500 py-2 px-4 font-normal disabled:invisible"
+          className="text-sm bg-indigo-500 dark:bg-indigo-600 py-2 px-4 font-normal disabled:invisible"
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
         >
           Last Page

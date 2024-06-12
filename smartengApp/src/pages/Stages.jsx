@@ -4,6 +4,7 @@ import Main from "../components/Main";
 import Container from "../components/Container";
 import Field from "../components/Field";
 import { isNumeric, formatFloat, calculateFieldSum } from "./Quote";
+import Header from "../components/Header";
 
 function Stages() {
   const [data, setData] = useState([]);
@@ -136,6 +137,7 @@ function Stages() {
 
   return (
     <div className="w-full">
+      <Header />
       <Main className="pt-8 pb-16 h-auto ">
         <TableComponent
           data={processedData.stageData}
