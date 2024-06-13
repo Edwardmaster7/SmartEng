@@ -15,14 +15,14 @@ const NotFound = () => {
           encontrada
         </h2>
         <div className="flex items-center justify-center">
-          <a href="/">
-            <ButtonComponent
-              id="submit"
-              type="submit"
-              className="bg-violet-600 rounded-lg px-4 py-2"
-              content="Voltar para Home"
-            />
-          </a>
+         
+        <ButtonComponent
+          id="submit"
+          type="submit"
+          to="/"
+          className="bg-violet-600 rounded-lg px-4 py-2"
+          content="Voltar para Home"
+        />
         </div>
       </Container>
     </Main>
