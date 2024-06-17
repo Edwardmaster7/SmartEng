@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Amazonia@2008
+      MYSQL_DATABASE: smarteng
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Amazonia@2008
+    ports:
+      - "3306:3306"
+
+  web:
+    build: .
+    depends_on:
+      - db
+    # ... other configurations for your web application
+
+volumes:
+   - db_data:/var/lib/mysql

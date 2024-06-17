@@ -1,4 +1,4 @@
-const InputField = ({ className, label, id, type, placeholder, options, rows, maxLength, required, nolabel, value, onChange, onFocus, icon}) => {
+const InputField = ({ className, label, id, type, placeholder, pattern, min, max, options, rows, maxLength, required, nolabel, value, onChange, onFocus, icon}) => {
     const classNameI =`flex shadow appearance-none border rounded w-full py-2 ${icon ? "pl-10" : "pl-3"} pr-3 text-gray-700 leading-tight focus:outline-none focus:outline-2 focus:outline-offset-1 ${className}`
     return (
       <div>
@@ -46,6 +46,9 @@ const InputField = ({ className, label, id, type, placeholder, options, rows, ma
             type={type}
             placeholder={placeholder}
             maxLength={maxLength}
+            min={min}
+            max={max}
+            pattern={pattern}
             value={value}
             onChange={onChange}
             onFocus={onFocus}

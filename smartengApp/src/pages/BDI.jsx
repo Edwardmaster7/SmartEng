@@ -2,28 +2,27 @@ import Field from "../components/Field"
 import Main from "../components/Main"
 import Container from "../components/Container"
 import InputField from "../components/InputField"
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { calculateFieldSumByStages } from "./Stages";
-import { formatFloat, calculateFieldSum } from "./Quote";
-import Header from "../components/Header";
+import { useState, useEffect, useMemo, useCallback } from "react"
+import { calculateFieldSumByStages } from "./Stages"
+import { formatFloat, calculateFieldSum } from "./Quote"
+import Header from "../components/Header"
 
 const BDI = () => {
-
-  const [data, setData] = useState([]);
-  const [BDI, setBDI] = useState(0);
-  const [BDIFactor, setBDIFactor] = useState(0);
+  const [data, setData] = useState([])
+  const [BDI, setBDI] = useState(0)
+  const [BDIFactor, setBDIFactor] = useState(0)
   const [profitPercent, setprofitPercent] = useState(10)
-  const [profit, setProfit] = useState(10);
+  const [profit, setProfit] = useState(10)
   const [indirectExpenses, setIndirectExpenses] = useState({
     centralAdmin: 0,
     riskAndContigency: 0,
     loan: 0,
-  });
+  })
   const [indirectExpensesPerc, setIndirectExpensesPerc] = useState({
     centralAdminPerc: 4,
     riskAndContigencyPerc: 2,
     loanPerc: 2,
-  });
+  })
   const [taxes, setTaxes] = useState({
     COFINS: 3,
     PIS: 0.65,
@@ -42,55 +41,56 @@ const BDI = () => {
   const [totalTaxes, setTotalTaxes] = useState(0)
   const [totalTaxesValue, setTotalTaxesValue] = useState(0)
 
-  const socialCharges = 84;
+  const socialCharges = 84
   const totalMaterialCost = useMemo(
     () => calculateFieldSum("VU_Material", data),
     [data],
-  );
+  )
 
   const totalLaborCost = useMemo(
     () => calculateFieldSum("VU_MO", data),
     [data],
-  );
-  const totalItems = useMemo(() => calculateFieldSum("Item", data), [data]);
+  )
+  const totalItems = useMemo(() => calculateFieldSum("Item", data), [data])
   const totalBuildingCost = useMemo(
     () => calculateFieldSum("Total", data),
     [data],
-  );
-  const socialLaws = totalLaborCost * (socialCharges / 100);
+  )
+  const socialLaws = totalLaborCost * (socialCharges / 100)
 
-  const initialCost = totalBuildingCost + socialLaws;
+  const initialCost = totalBuildingCost + socialLaws
 
   const revenueValue =
     (totalIndirectExpenses + initialCost) /
-    (1 - (totalTaxes + profitPercent) / 100);
+    (1 - (totalTaxes + profitPercent) / 100)
 
   useEffect(() => {
     const fetchData = () => {
-      const storedData = localStorage.getItem("quote-table-data");
+      const storedData = localStorage.getItem("quote-table-data")
       if (storedData) {
-        const parsedData = JSON.parse(storedData);
-        setData(parsedData);
+        const parsedData = JSON.parse(storedData)
+        setData(parsedData)
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const calculateIndirectExpenses = useCallback(() => {
-    const { centralAdminPerc, riskAndContigencyPerc, loanPerc } = indirectExpensesPerc;
-    const centralAdmin = initialCost * (centralAdminPerc / 100);
-    const riskAndContigency = initialCost * (riskAndContigencyPerc / 100);
-    const loan = initialCost * (loanPerc / 100);
+    const { centralAdminPerc, riskAndContigencyPerc, loanPerc } =
+      indirectExpensesPerc
+    const centralAdmin = initialCost * (centralAdminPerc / 100)
+    const riskAndContigency = initialCost * (riskAndContigencyPerc / 100)
+    const loan = initialCost * (loanPerc / 100)
 
     const obj = {
       centralAdmin,
       riskAndContigency,
       loan,
-    };
+    }
 
-    setIndirectExpenses(obj);
-  }, [initialCost, indirectExpensesPerc]);
+    setIndirectExpenses(obj)
+  }, [initialCost, indirectExpensesPerc])
 
   const calculateTotalIndirectExpenses = useCallback(() => {
     const { centralAdmin, riskAndContigency, loan } = indirectExpenses
@@ -98,7 +98,7 @@ const BDI = () => {
     setTotalIndirectExpenses(total)
 
     return total
-  }, [indirectExpenses]);
+  }, [indirectExpenses])
 
   const calculateTaxes = useCallback(() => {
     const { COFINS, PIS, CSLL, IRPJ, ISS } = taxes
@@ -108,10 +108,11 @@ const BDI = () => {
     const valueIRPJ = initialCost * (IRPJ / 100)
     const valueISS = initialCost * (ISS / 100)
 
-    const totalTaxesValue = valueCOFINS + valuePIS + valueCSLL + valueIRPJ + valueISS
+    const totalTaxesValue =
+      valueCOFINS + valuePIS + valueCSLL + valueIRPJ + valueISS
     setTotalTaxesValue(totalTaxesValue)
     setTotalTaxes(COFINS + PIS + CSLL + IRPJ + ISS)
-    
+
     const obj = {
       COFINS: valueCOFINS,
       PIS: valuePIS,
@@ -121,45 +122,44 @@ const BDI = () => {
     }
 
     setTaxValue(obj)
-
-  }, [taxes, initialCost]);
+  }, [taxes, initialCost])
 
   const calculateProfit = useCallback(() => {
     const value = initialCost * (profitPercent / 100)
     setProfit(value)
-  }, [initialCost, profitPercent]);
+  }, [initialCost, profitPercent])
 
   const calculateBDI = useCallback(() => {
-    const value = (revenueValue / initialCost)
+    const value = revenueValue / initialCost
     setBDIFactor(value)
-    setBDI((value - 1)*100)
-  });
+    setBDI((value - 1) * 100)
+  })
 
   useEffect(() => {
-    calculateIndirectExpenses();
-  }, [calculateIndirectExpenses, initialCost, indirectExpensesPerc]);
+    calculateIndirectExpenses()
+  }, [calculateIndirectExpenses, initialCost, indirectExpensesPerc])
 
   useEffect(() => {
-    calculateTotalIndirectExpenses();
-  }, [calculateTotalIndirectExpenses, indirectExpenses]);
+    calculateTotalIndirectExpenses()
+  }, [calculateTotalIndirectExpenses, indirectExpenses])
 
   useEffect(() => {
-    calculateTaxes();
-  }, [calculateTaxes, taxes, initialCost]);
+    calculateTaxes()
+  }, [calculateTaxes, taxes, initialCost])
 
   useEffect(() => {
-    calculateProfit();
-  }, [calculateProfit, initialCost, profitPercent]);
+    calculateProfit()
+  }, [calculateProfit, initialCost, profitPercent])
 
   useEffect(() => {
-    calculateBDI();
-  }, [calculateBDI, revenueValue, initialCost]);
+    calculateBDI()
+  }, [calculateBDI, revenueValue, initialCost])
 
   return (
     <div className="w-full">
       <Header />
       <Main className="pt-8 pb-16 h-auto text-indigo-950 dark:text-violet-50">
-        <Container className="mx-auto py-8 px-24 bg-indigo-50">
+        <Container className="mx-auto py-8 px-24 bg-violet-50">
           <div className="rounded-l-2xl contain-content">
             <table className="w-full text-left text-sm text-violet-500 dark:text-violet-200">
               <tbody>
@@ -181,7 +181,7 @@ const BDI = () => {
             </table>
           </div>
         </Container>
-        <Container className="mx-auto py-8 px-20 bg-indigo-50 mt-4">
+        <Container className="mx-auto py-8 px-20 bg-violet-50 mt-4">
           <div className="">
             <div className="flex flex-row flex-wrap contain-content place-content-center gap-4 mb-4 text-xl">
               <label className="font-semibold text-inherit ">
@@ -364,6 +364,6 @@ const BDI = () => {
         </Container>
       </Main>
     </div>
-  );
+  )
 }
 export default BDI

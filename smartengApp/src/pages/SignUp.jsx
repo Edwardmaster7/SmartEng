@@ -9,7 +9,6 @@ const SignUp = () => {
     return (
       <div className="w-full h-screen">
         <Main className="px-6 py-20 gap-4 justify-center">
-          <div></div>
           <Container className="max-w-prose mx-auto flex flex-col justify-center bg-violet-50 px-6 py-20 sm:px-10">
             <h1 className="text-4xl sm:text-5xl font-sans font-semibold mx-auto mb-9 text-violet-950 dark:text-indigo-50">
               Crie{" "}
@@ -19,8 +18,8 @@ const SignUp = () => {
             <form action="" className="flex flex-col gap-4">
               <InputField
                 type="text"
-                name="text"
-                label="Username"
+                name="username"
+                label="Nome"
                 id="username"
                 className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
                 icon={<HiUser />}
@@ -29,7 +28,7 @@ const SignUp = () => {
                 type="text"
                 name="email"
                 label="Email"
-                id="username"
+                id="name"
                 className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
                 icon={<HiMail />}
               />
@@ -57,7 +56,6 @@ const SignUp = () => {
               />
             </form>
           </Container>
-          <div></div>
         </Main>
       </div>
     );

@@ -19,7 +19,7 @@ const ForgotPassword = () => {
               type="text"
               name="email"
               label="Email"
-              id="username"
+              id="email"
               className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
               icon={<HiMail />}
             />

@@ -49,8 +49,8 @@ const Profile = () => {
             <form action="" className="flex flex-col gap-4">
               <InputField
                 type="text"
-                name="text"
-                label="Username"
+                name="username"
+                label="Nome"
                 id="username"
                 className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
                 icon={<HiUser />}

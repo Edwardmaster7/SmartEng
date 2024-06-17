@@ -5,7 +5,7 @@ const ButtonComponent = ({className, content, imgSrc, children, onClick, type, d
       <Link to={to}>
         <button
           type={type}
-          className={`hover:bg-opacity-75 text-white font-bold rounded focus:outline-none focus:shadow-outline ${className}`}
+          className={`hover:bg-opacity-75 text-white font-bold rounded hover:cursor-pointer focus:outline-none focus:shadow-outline ${className}`}
           onClick={onClick}
           disabled={disabled}
         >

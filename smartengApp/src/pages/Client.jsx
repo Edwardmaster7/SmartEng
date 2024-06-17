@@ -133,7 +133,7 @@ function Client() {
             label="Nome"
             id="name"
             type="text"
-            placeholder="Seu nome"
+            placeholder="Nome do cliente"
             className={classes}
             required
             value={formData.name}
@@ -154,7 +154,8 @@ function Client() {
           <InputField
             label="Endereço do cliente"
             id="clientAddress"
-            type="text"
+            type="textarea"
+            maxLength={100}
             placeholder="Endereço do cliente"
             className={classes}
             required
@@ -165,7 +166,8 @@ function Client() {
           <InputField
             label="Endereço da obra"
             id="buildingAddress"
-            type="text"
+            type="textarea"
+            maxLength={100}
             placeholder="Endereço da obra"
             className={classes}
             required
@@ -200,7 +202,7 @@ function Client() {
             label="CEP"
             id="zipCode"
             type="text"
-            maxLength="11"
+            pattern="[0-9]{5}-[0-9]{3}"
             placeholder="CEP"
             className={classes}
             required

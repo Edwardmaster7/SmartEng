@@ -1,0 +1,19 @@
+{
+  "name": "smarteng-api",
+  "version": "1.0.0",
+  "description": "An server api to handle the backend of the SmarEng project",
+  "main": "./src/server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "author": "Eduardo Batista",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
