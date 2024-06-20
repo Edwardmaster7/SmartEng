@@ -4,12 +4,16 @@ const AppError = require("./utils/AppError")
 const express = require("express")
 
 const routes = require("./routes") // by default routes will load index.js
+const uploadConfig = require("./configs/upload")
 
 // migrationsRun();
 
 const app = express()
 
 app.use(express.json())
+
+app.use("/files", express.static(uploadConfig.UPLOADS_DIR))
+
 app.use(routes)
 
 

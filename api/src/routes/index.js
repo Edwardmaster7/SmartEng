@@ -1,11 +1,13 @@
 const { Router } = require('express')
 
-const usersRoutes = require('./users.routes')
-const clientsRoutes = require('./clients.routes')
+const usersRouter = require('./users.routes')
+const clientsRouter = require('./clients.routes')
+const sessionsRouter = require('./sessions.routes')
 
 const routes = Router()
 
-routes.use('/users', usersRoutes)
-routes.use("/clients", clientsRoutes)
+routes.use('/users', usersRouter)
+routes.use("/clients", clientsRouter)
+routes.use("/sessions", sessionsRouter)
 
 module.exports = routes

@@ -35,10 +35,10 @@ class UsersController {
   }
 
   async update(request, response) {
-    const { name, email, password, old_password } = request.body
-    const { id } = request.params
+    const { name, email, password, old_password, avatar } = request.body
+    const user_id = request.user.id
 
-    const userA = await knex("Users").where({ id });
+    const userA = await knex("Users").where({ id:user_id });
     
     const user = userA[0];
 
@@ -79,7 +79,7 @@ class UsersController {
     user.email = email ?? user.email
     // user.avatar = request.file.filename?? user.avatar
 
-    await knex("Users").where({ id }).update({ name:user.name, email:user.email, password:user.password, updated_at: knex.fn.now() });
+    await knex("Users").where({ id:user_id }).update({ name:user.name, email:user.email, password:user.password, updated_at: knex.fn.now() });
 
     return response.json()
   }
