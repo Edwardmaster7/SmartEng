@@ -7,7 +7,7 @@ export default function Routes() {
     return (
       <BrowserRouter>
         <AppRoutes />
-        <AuthRoutes />
+        {/* <AuthRoutes /> */}
       </BrowserRouter>
     )
 }
