@@ -9,10 +9,11 @@ const ForgotPassword = () => {
   return (
     <div className="w-full h-screen">
       <Main className="px-6 py-32 gap-4 justify-center">
-        <div></div>
         <Container className="max-w-prose mx-auto flex flex-col justify-center bg-violet-50 px-6 py-20 sm:px-10">
           <h1 className="text-4xl sm:text-5xl font-sans font-semibold mx-auto mb-9 text-violet-950 dark:text-indigo-50">
-            Informe <span className="text-indigo-600 dark:text-violet-500">seu</span> email
+            Informe{" "}
+            <span className="text-indigo-600 dark:text-violet-500">seu</span>{" "}
+            email
           </h1>
           <form action="" className="flex flex-col gap-4">
             <InputField
@@ -28,18 +29,17 @@ const ForgotPassword = () => {
                 Voltar para o login
               </Link>
             </div>
-
-            <ButtonComponent
-            type="submit"
-            to="#"
-            alt="Enviar email de redefinição de senha"
-            className="bg-violet-600 text-white px-4 py-2 mt-3 rounded-lg"
-            content="Enviar email de redefinição de senha"
-            />
-
+            <div>
+              <ButtonComponent
+                type="submit"
+                to="#"
+                alt="Enviar email de redefinição de senha"
+                className="bg-violet-600 text-white px-4 py-2 mt-3 rounded-lg"
+                content="Enviar email de redefinição de senha"
+              />
+            </div>
           </form>
         </Container>
-        <div></div>
       </Main>
     </div>
   );

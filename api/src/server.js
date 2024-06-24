@@ -3,12 +3,17 @@ require("express-async-errors")
 const AppError = require("./utils/AppError")
 const express = require("express")
 
+const cors = require("cors")
 const routes = require("./routes") // by default routes will load index.js
 const uploadConfig = require("./configs/upload")
 
 // migrationsRun();
 
 const app = express()
+
+const port = 3333;
+
+app.use(cors());
 
 app.use(express.json())
 
@@ -29,8 +34,6 @@ app.use((error, request, response, next) => {
 
   return response.status(500).json({ status: "error", message: "Internal server error" })
 })
-
-const port = 3333
 
 
 app.listen(port, () => {

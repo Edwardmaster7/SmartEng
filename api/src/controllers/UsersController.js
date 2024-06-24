@@ -51,7 +51,7 @@ class UsersController {
       const emailExists = await knex("Users")
         .where("email", email).first() === undefined ? false : true  
 
-      console.log(emailExists);
+      // console.log(emailExists);
 
       if (emailExists && emailExists !== user.id) {
         throw new AppError("Email already in use.")
@@ -81,7 +81,7 @@ class UsersController {
 
     await knex("Users").where({ id:user_id }).update({ name:user.name, email:user.email, password:user.password, updated_at: knex.fn.now() });
 
-    return response.json()
+    return response.json(user)
   }
 }
 

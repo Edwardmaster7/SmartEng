@@ -2,11 +2,20 @@ import profileImageSrc from "../assets/perfil.jpeg";0
 import Modal from "./Modal";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import avatarPlaceholder from "../assets/Mediamodifier-Design-Template-3.png";
 
+import { api } from "../services/api";
+import { useAuth } from "../hooks/auth";
 
 const Header = () => {
-  const aClassName = "cursor-pointer px-2 text-base text-indigo-50 hover:text-white";
+  const { user } = useAuth();
 
+  const aClassName = "cursor-pointer px-2 text-base text-indigo-50 hover:text-white";
+  const avatarURL = user.avatar
+    ? `${api.defaults.baseURL}/files/${user.avatar}`
+    : avatarPlaceholder;
+
+  const [avatar, setAvatar] = useState(avatarURL);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false)
 
   const handleToggleUserModal = () => {
@@ -17,6 +26,7 @@ const Header = () => {
     }
   }
 
+  const { signOut } = useAuth()
 
   return (
     <>
@@ -26,7 +36,7 @@ const Header = () => {
       >
         <img
           className={`size-10 rounded-2xl outline-offset-2 ${isUserModalOpen ? "outline outline-violet-300 delay-75" : ""}`}
-          src={profileImageSrc}
+          src={avatar}
           alt="Profile Image"
         />
       </button>
@@ -44,15 +54,15 @@ const Header = () => {
             Home
           </Link>
           <Link
-            id="client-tab"
-            to="/cliente"
+            id="clients-tab"
+            to="/clientes"
             className={`${aClassName} ${
-              location.pathname === "/cliente"
+              location.pathname === "/clientes"
                 ? "font-bold"
                 : "hover:font-medium"
             }`}
           >
-            Cliente
+            Clientes
           </Link>
           <Link
             id="quote-tab"
@@ -119,7 +129,7 @@ const Header = () => {
       >
         <ul className="text-violet-50 flex flex-col">
           <Link to="/profile" className="hover:underline">Perfil</Link>
-          <Link className="hover:underline">Logout</Link>
+          <Link to="/" onClick={signOut} className="hover:underline">Logout</Link>
         </ul>
       </Modal>
     </>

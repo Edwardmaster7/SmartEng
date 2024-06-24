@@ -20,7 +20,7 @@ import {
 import Container from "../Container";
 import InputField from "../InputField";
 import ButtonComponent from "../ButtonComponent";
-
+import { useNavigate } from "react-router-dom";
 
 /**
  * TableComponent component for displaying tables in the quote page.
@@ -51,6 +51,7 @@ const TableComponent = ({
   handleSaveTable,
   minRowsForPagination,
   className,
+  handleRowClick,
 }) => {
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -94,6 +95,8 @@ const TableComponent = ({
 
   const [containerHeight, setContainerHeight] = useState("auto");
   const containerRef = useRef(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (containerRef.current) {
@@ -195,7 +198,12 @@ const TableComponent = ({
                 key={row.id}
                 className={`border-none ${
                   row.index % 2 === 0 ? "bg-indigo-100 dark:bg-indigo-400" : "bg-indigo-200 dark:bg-indigo-500"
-                }`}
+                } ${handleRowClick? "hover:cursor-pointer hover:bg-violet-300 dark:hover:bg-violet-600" : ""}`}
+                onClick={() => {
+                  if (handleRowClick) {
+                    handleRowClick(row.original, row.index);
+                  }
+                }}
               >
                 {row.getVisibleCells().map((cell) => (
                   <td

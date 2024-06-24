@@ -5,45 +5,40 @@ import ButtonComponent from "../components/ButtonComponent";
 import { HiLockClosed, HiUser, HiMail } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import { api } from "../services/api"
 
 const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Get the form data
-    const formData = new FormData(event.target);
-    const username = formData.get("username");
-    const email = formData.get("email");
-    const password = formData.get("password");
-
-    // Perform the signUp logic here (e.g., send a request to the server to create a new user)
-    try {
-      // Example: Send a POST request to a server-side endpoint to create a new user
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
-
-      if (response.ok) {
-        // If the signUp was successful, navigate to the desired route
-        navigate("/");
-      } else {
-        // If the signUp failed, show an error message to the user
-        alert("Failed to create an account. Please try again.");
-      }
-    } catch (error) {
-      // If there was an error during the signUp process, show an error message to the user
-      alert(
-        "An error occurred while creating an account. Please try again later.",
-      );
-      console.error(error);
+  function handleSubmit() {
+    if (!name || !email || !password) {
+      return alert("Preencha todos os campos!");
     }
-  };
+
+    const data = { name, email, password };
+
+    console.log(data);
+
+    api.post("/users", data)
+      .then(() => {
+        alert("Cadastro realizado com sucesso!");
+        navigate("/");
+      })
+      .catch( error =>{
+        if (error.response) {
+          return alert(`Ocorreu um erro no cadastro:\n${error.response.data.message}`);
+        } else {
+          alert("Ocorreu um erro ao cadastrar o usuário...");
+        }
+        console.error(error);
+      });
+  }
 
   return (
     <div className="w-full h-screen">
@@ -54,20 +49,26 @@ const SignUp = () => {
             <span className="text-indigo-600 dark:text-violet-500">sua</span>{" "}
             conta
           </h1>
-          <form action="" onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form
+            action=""
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4"
+          >
             <InputField
               type="text"
               name="username"
               label="Nome"
               id="username"
+              onChange={(e) => setName(e.target.value)}
               className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
               icon={<HiUser />}
             />
             <InputField
-              type="text"
+              type="email"
               name="email"
               label="Email"
               id="name"
+              onChange={(e) => setEmail(e.target.value)}
               className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
               icon={<HiMail />}
             />
@@ -76,6 +77,7 @@ const SignUp = () => {
               name="password"
               label="Senha"
               id="password"
+              onChange={(e) => setPassword(e.target.value)}
               className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
               icon={<HiLockClosed />}
             />
@@ -85,14 +87,15 @@ const SignUp = () => {
                 Voltar para o login
               </Link>
             </div>
-
-            <ButtonComponent
-              to="/"
-              type="submit"
-              alt="Salvar"
-              className="bg-violet-600 text-white px-4 py-2 mt-3 rounded-lg"
-              content="Salvar"
-            />
+            <div>
+              <ButtonComponent
+                type="submit"
+                alt="Salvar"
+                onClick={handleSubmit}
+                className="bg-violet-600 text-white px-4 py-2 mt-3 rounded-lg"
+                content="Salvar"
+              />
+            </div>
           </form>
         </Container>
       </Main>
