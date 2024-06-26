@@ -1,16 +1,41 @@
-import "/src/index.css";
-import Main from "./Main";
-import { useState } from "react";
-import Modal from "./Modal";
-import ButtonComponent from "./ButtonComponent";
 import InputField from "./InputField";
-import Header from "./Header";
-import { api } from "../services/api";
+import ButtonComponent from "./ButtonComponent";
+import Modal from "./Modal";
+import { useState } from "react"
 
-function ClientForm() {
+function BuildingForm() {
+      const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   // form variables
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    buildingName: "",
+    name: "",
+    phone: "",
+    clientAddress: "",
+    buildingAddress: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    email: "",
+    buildingType: "",
+    startForecast: "",
+    projectedArea: "",
+    builtArea: "",
+    landArea: "",
+  });
+
+  const [submissions, setSubmissions] = useState(() => {
+    const savedSubmissions = localStorage.getItem("@submissions");
+    return savedSubmissions ? JSON.parse(savedSubmissions) : [];
+  });
 
   const brazilianStates = [
     { value: "AC", label: "Acre" },
@@ -42,7 +67,6 @@ function ClientForm() {
     { value: "TO", label: "Tocantins" },
   ];
 
-
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -51,127 +75,126 @@ function ClientForm() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await api.post('/clients/', formData)
-      // console.log("handleSubmit");
-      // console.log(formData);
-      setFormData({
-        name: "",
-        phone: "",
-        address: "",
-        city: "",
-        state: "",
-        zip_code: "",
-        email: "",
-      });
-      alert("Cliente cadastrado com sucesso!");
-    } catch (error) {
-      alert("Ocorreu um erro ao cadastrar o cliente...\n" + error.message);
-      console.log(error);
-      console.log(formData);
-    }
+    setIsModalOpen(true);
+    console.log("handleSubmit");
+    const newSubmissions = [...submissions, formData];
+    setSubmissions(newSubmissions);
+    localStorage.setItem("@submissions", JSON.stringify(newSubmissions));
+
+    setFormData({
+      buildingName: "",
+      name: "",
+      phone: "",
+      clientAddress: "",
+      buildingAddress: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      email: "",
+      buildingType: "",
+      startForecast: "",
+      projectedArea: "",
+      builtArea: "",
+      landArea: "",
+    });
   };
 
   const classes =
     "rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200 mb-4";
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full max-h-full">
       {/* <Header />
       <Main
         className={`px-4 pt-4 pb-8 align-center ${isModalOpen ? "blur-md" : ""}`}
       > */}
-      <div></div>
 
       <form
         className="animate-fade-in mx-auto bg-violet-50 dark:bg-indigo-900 px-3 md:px-8 lg:px-6 pt-6 pb-8 mb-4 max-w-prose rounded-xl shadow-xl"
         onSubmit={handleSubmit}
       >
         <h1 className="font-semibold text-3xl text-violet-950 dark:text-indigo-50 pb-4">
-          Novo Cliente
+          Nova Obra
         </h1>
 
         <InputField
-          label="Nome"
-          id="name"
+          label="Obra"
+          id="buildingName"
           type="text"
-          placeholder="Nome do cliente"
+          placeholder="Nome da obra"
           className={classes}
           required
-          value={formData.name}
+          value={formData.buildingName}
           onChange={handleChange}
         />
 
         <InputField
-          label="Telefone"
-          id="phone"
-          type="number"
-          placeholder="(00) 00000-0000"
+          label="Categoria"
+          id="buildingType"
+          type="text"
+          placeholder="Tipo de obra"
           className={classes}
           required
-          value={formData.phone}
-          onChange={handleChange}
-        />
-
-        <InputField
-          label="Email"
-          id="email"
-          type="email"
-          placeholder="email@exemplo.com"
-          className={classes}
-          required
-          value={formData.email}
+          value={formData.buildingType}
           onChange={handleChange}
         />
 
         <InputField
           label="Endereço"
-          id="address"
-          type="textarea"
-          maxLength={100}
-          placeholder="Endereço do cliente"
-          className={classes}
-          required
-          value={formData.address}
-          onChange={handleChange}
-        />
-
-        <InputField
-          label="Cidade"
-          id="city"
+          id="buildingAddress"
           type="text"
-          placeholder="Cidade"
+          maxLength={100}
+          placeholder="Endereço da obra"
           className={classes}
           required
-          value={formData.city}
+          value={formData.buildingAddress}
           onChange={handleChange}
         />
 
         <InputField
-          label="Estado"
-          id="state"
-          type="select"
-          options={brazilianStates}
-          placeholder="Selecione o estado"
+          label="Previsão para início"
+          id="startForecast"
+          type="date"
+          placeholder="DD/MM/YYYY"
           className={classes}
-          required
-          value={formData.state}
+          value={formData.startForecast}
           onChange={handleChange}
         />
 
         <InputField
-          label="CEP"
-          id="zip_code"
+          label="Área projetada (m²)"
+          id="projectedArea"
           type="number"
-          placeholder="CEP"
+          placeholder="1200"
           className={classes}
           required
-          value={formData.value}
+          value={formData.projectedArea}
           onChange={handleChange}
         />
 
+        <InputField
+          label="Área construída (m²)"
+          id="builtArea"
+          type="number"
+          placeholder="800"
+          className={classes}
+          required
+          value={formData.builtArea}
+          onChange={handleChange}
+        />
+
+        <InputField
+          label="Área do terreno (m²)"
+          id="landArea"
+          type="number"
+          placeholder="2000"
+          className={classes}
+          required
+          value={formData.landArea}
+          onChange={handleChange}
+        />
         <div className="flex items-center justify-between pt-2">
           <ButtonComponent
             id="submit"
@@ -182,10 +205,27 @@ function ClientForm() {
           />
         </div>
       </form>
-      <div></div>
       {/* </Main> */}
+      <Modal
+        className="flex-col rounded-xl"
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      >
+        <h1 className="text-2xl font-bold pt-3 text-violet-50">
+          Formulário enviado!
+        </h1>
+        <div className="flex justify-center">
+          <ButtonComponent
+            id="go-to-quote-button"
+            className="mt-4 mx-auto px-4 py-2 bg-violet-900 rounded-lg text-white"
+            onClick={() => (window.location.href = "/orcamento")}
+          >
+            Orçamento
+          </ButtonComponent>
+        </div>
+      </Modal>
     </div>
   );
 }
 
-export default ClientForm;
+export default BuildingForm;

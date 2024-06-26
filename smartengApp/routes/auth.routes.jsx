@@ -10,6 +10,7 @@ export function AuthRoutes() {
             <Route path="/" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />
             <Route path="/forgot" element={<ForgotPassword />} />
+            {/* <Route path="*" element={<SignIn />} /> */}
         </Routes>
     )
 }

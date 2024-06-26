@@ -7,20 +7,33 @@ const AuthContext = createContext({})
 
 function AuthProvider({ children }) {
     const [data, setData] = useState({});
+ 
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        // Check if token is expired
+        const expirationDate = new Date(localStorage.getItem("@smarteng:expirationDate"));
+        if (expirationDate <= new Date()) {
+          signOut();
+        }
+      }
+    }, []);
 
     async function signIn({ email, password }) {
         const data = { email, password }
         
         try {
-            const response = await api.post("/sessions", data)
-            const { user, token } = response.data
+          const response = await api.post("/sessions", data);
+          const { user, token } = response.data;
 
-            localStorage.setItem("@smarteng:user", JSON.stringify(user))
-            localStorage.setItem("@smarteng:token", token)
+          const expirationDate = new Date(Date.now() + 3600000); // 1 hour
 
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            setData({ user, token })
+          localStorage.setItem("@smarteng:user", JSON.stringify(user));
+          localStorage.setItem("@smarteng:token", token);
+          localStorage.setItem("@smarteng:expirationDate", expirationDate);
 
+          api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          setData({ user, token });
         } catch (error) {
             if(error.response){
                 return alert(`${error.response.data.message}`)
@@ -34,6 +47,7 @@ function AuthProvider({ children }) {
     function signOut() {
         localStorage.removeItem("@smarteng:user")
         localStorage.removeItem("@smarteng:token")
+        localStorage.removeItem("expirationDate");
 
         setData({})
     }

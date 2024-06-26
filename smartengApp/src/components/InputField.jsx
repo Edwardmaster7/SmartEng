@@ -26,19 +26,6 @@ const InputField = ({ className, label, id, type, placeholder, pattern, min, max
           </div>
         )}
 
-        {/* <div className="realtive">
-          {!showPassword && type === "password" && (
-            <div className=" mt-3 text-2xl text-indigo-300 absolute">
-              {<HiEye onClick={() => setShowPassword(!showPassword)} />}
-            </div>
-          )}
-          {showPassword && type === "password" && (
-            <div className=" mt-3 text-2xl text-indigo-300 absolute">
-              {<HiEyeOff onClick={() => setShowPassword(!showPassword)} />}
-            </div>
-          )}
-        </div> */}
-
         {type === "textarea" ? (
           <textarea
             className={classNameI}
@@ -46,6 +33,8 @@ const InputField = ({ className, label, id, type, placeholder, pattern, min, max
             rows={rows}
             maxLength={maxLength}
             placeholder={placeholder}
+            onChange={onChange}
+            onFocus={onFocus}
             required={required ? true : false}
           />
         ) : type === "select" ? (
