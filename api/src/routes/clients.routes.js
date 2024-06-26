@@ -6,11 +6,13 @@ const ensureAuthenticated = require("../middlewares/ensureAuthenticated")
 const clientsRoutes = Router()
 
 const clientsController = new ClientsController()
-clientsRoutes.use(ensureAuthenticated)
+// clientsRoutes.use(ensureAuthenticated)
 
-clientsRoutes.post("/", clientsController.create)
-// clientsRoutes.put("/:id", clientsController.update)
-clientsRoutes.get("/:note_id", clientsController.show)
-// clientsRoutes.delete("/:id", clientsController.delete)
+clientsRoutes.post("/", ensureAuthenticated, clientsController.create)
+clientsRoutes.put("/:client_id", ensureAuthenticated, clientsController.update)
+clientsRoutes.get("/:client_id", clientsController.show)
+clientsRoutes.get("/", clientsController.index);
+clientsRoutes.delete("/:client_id", ensureAuthenticated, clientsController.delete)
+
 
 module.exports = clientsRoutes

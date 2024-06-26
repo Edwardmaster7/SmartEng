@@ -4,99 +4,37 @@ import Container from "../components/Container";
 import TableComponent from "../components/Table/TableComponent";
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { HiPencilAlt } from "react-icons/hi";
+import { api } from "../services/api";
+
 
 import ClientForm from "../components/ClientForm";
 
 function Clients() {
-  const [data, setData] = useState({
-    client: "",
-    phone: "",
-    email: "",
-    revisionDate: "",
-    dueDate: "",
-    address: "",
-  });
+  const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   fetch("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-  //     .then((response) => response.json())
-  //     .then((data) => setData(data));
-  // }, []);
-
-  // COLUMNS
+  async function getData() {
+    const response = await api.get("/clients");
+    setData(response.data);
+    console.log(response.data)
+  }
+  
+  useEffect(() => {
+    getData();
+  }, []);
 
   const tableData = useMemo(
-    () => [
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-      {
-        Name: "Eduardo Batista",
-        Email: "eduardoobatista2002@hotmail.com",
-        Phone: "(11) 99999-9999",
-        CreatedAt: "2023-05-01",
-      },
-    ],
-    [],
+    () =>
+      data.map((client) => ({
+        Name: client.name,
+        Email: client.email,
+        Phone: client.phone,
+        CreatedAt: client.updated_at,
+      })),
+    [data],
   );
 
+  // COLUMNS
   const columns = useMemo(
     () => [
       {
@@ -104,7 +42,7 @@ function Clients() {
         accessorKey: "Name",
       },
       {
-        header: "Email",
+        header: "E-mail",
         accessorKey: "Email",
       },
       {
@@ -121,9 +59,14 @@ function Clients() {
 
   const navigate = useNavigate();
 
+  // this method should get the respective Id from data
   const handleRowClick = (rowData, rowIndex) => {
-    console.log(rowData, rowIndex);
-    navigate(`/clientes/details/${rowIndex}`);
+    // pegar o nome do cliente na linha e comparar com data
+    const client_id = data.find(
+      (client) => client.name === rowData.Name,
+    ).id;
+    navigate(`/clientes/details/${client_id}`);
+    console.log(rowData, rowIndex, client_id);
   };
 
   return (
@@ -144,8 +87,7 @@ function Clients() {
             handleRowClick={handleRowClick}
           />
         </Container>
-
-        <Container className="lg:row-span-3 col-span-3 lg:col-span-2 overflow-auto max-h-96 lg:max-h-none">
+        <Container className="lg:row-span-3 col-span-3 lg:col-span-2 overflow-auto max-h-96 lg:max-h-none bg-violet-50">
           <ClientForm></ClientForm>
         </Container>
       </Main>

@@ -171,7 +171,7 @@ const TableComponent = ({
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="p-1.5"
+                    className="p-1.5 hover:cursor-pointer"
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     {header.isPlaceholder ? null : (

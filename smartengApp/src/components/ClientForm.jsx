@@ -84,7 +84,7 @@ function ClientForm() {
     console.log("handleSubmit");
     const newSubmissions = [...submissions, formData];
     setSubmissions(newSubmissions);
-    localStorage.setItem("submissions", JSON.stringify(newSubmissions));
+    localStorage.setItem("@submissions", JSON.stringify(newSubmissions));
 
     setFormData({
       buildingName: "",

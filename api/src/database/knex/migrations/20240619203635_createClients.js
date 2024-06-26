@@ -9,6 +9,7 @@ exports.up = (knex) =>
     table.text("city");
     table.text("state");
     table.text("zip_code");
+    table.text("updated_by").references("id").inTable("Users");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   });
