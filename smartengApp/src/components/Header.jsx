@@ -14,7 +14,7 @@ const Header = () => {
   const aClassName =
     "cursor-pointer px-2 text-base text-indigo-50 hover:text-white";
   const menuButtonsClassname =
-    "p-2 text-base bg-violet-700 hover:bg-violet-500 rounded-xl drop-shadow-md text-violet-50";
+    "p-2 text-base bg-violet-600 hover:bg-violet-500 rounded-xl drop-shadow-md font-semibold text-violet-50";
 
   const path = {
     home: "/",
@@ -58,6 +58,7 @@ const Header = () => {
   const links = [
     { id: "home", path: "/", label: "Home" },
     { id: "clients", path: "/clientes", label: "Clientes" },
+    { id: "buildings", path: "/obras", label: "Obras" },
     { id: "quotes", path: "/orcamentos", label: "Orçamentos" },
     { id: "stages", path: "/etapas", label: "Etapas" },
     { id: "bdi", path: "/bdi", label: "BDI" },
@@ -106,14 +107,14 @@ const Header = () => {
 
         <ButtonComponent
           onClick={handleMenuButtonClick}
-          className={`rounded-2xl bg-indigo-500 p-2 dark:bg-violet-500 ${isMenuButtonClicked ? "outline outline-violet-300" : ""} ${!isMobile ? "hidden" : ""}`}
+          className={`rounded-2xl p-2 ${isMenuButtonClicked ? " outline outline-violet-300" : ""} ${!isMobile ? "hidden" : ""}`}
         >
           <HiDotsVertical className="size-6 text-violet-50" />
         </ButtonComponent>
 
         <div
           id="mobile-nav"
-          className={`absolute right-2 top-20 z-10 flex flex-col gap-3 border-transparent backdrop-blur-sm ${!isMenuButtonClicked ? "hidden" : ""}`}
+          className={`absolute right-2 top-20 z-10 flex flex-col gap-3 border-transparent backdrop-blur-sm animate-scale-up-tr min-w-28 ${!isMenuButtonClicked ? "hidden" : ""}`}
         >
           {links.map((link) => (
             <button
