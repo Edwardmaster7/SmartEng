@@ -59,13 +59,13 @@ const Header = () => {
     <>
       <button onClick={handleToggleUserModal} className="fixed top-3 ml-4 z-30">
         <img
-          className={`size-10 rounded-2xl outline-offset-2 ${isUserModalOpen ? "outline outline-violet-300 delay-75" : ""}`}
+          className={`size-10 rounded-2xl outline-offset-2 ${!isMobile ? "hover:outline hover:outline-violet-300" : ""} ${isUserModalOpen ? "outline outline-violet-300 delay-75" : ""}`}
           src={avatar}
           alt="Profile Image"
         />
       </button>
       <header className="bg-indigo-800 sticky top-0 z-10 p-4 flex items-center justify-between h-16 shadow-md">
-        <div id="" className="size-10 rounded-2xl"></div>
+        <div id="" className={`size-10 rounded-2xl`} />
 
         <nav className="items-center gap-3">
           <Link
@@ -190,12 +190,13 @@ const Header = () => {
       </header>
       <Modal
         id="user-modal"
-        className={`top-1 left-2 pr-4 pl-20 rounded-3xl animate-scale-up-tl`}
+        className={`top-1 left-2 pr-4 pl-8 flex rounded-3xl animate-scale-up-tl`}
         z="z-20"
         isOpen={isUserModalOpen}
         onClose={handleToggleUserModal}
         hasCloseButton={false}
       >
+        <div id="" className={`size-10 rounded-2xl`} />
         <ul className="text-violet-50 flex flex-col">
           <Link to="/profile" className="hover:underline">
             Perfil
