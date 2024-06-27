@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { View, Image, Button } from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
+import React, { useState } from "react";
+import { View, Image, Button } from "react-native";
+import ImagePicker from "react-native-image-crop-picker";
 
 const ProfilePicture = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -20,7 +20,10 @@ const ProfilePicture = () => {
   return (
     <View>
       {profilePic ? (
-        <Image source={{ uri: profilePic }} style={{ width: 200, height: 200 }} />
+        <Image
+          source={{ uri: profilePic }}
+          style={{ width: 200, height: 200 }}
+        />
       ) : (
         <Button title="Select Profile Picture" onPress={handleProfilePicture} />
       )}

@@ -1,10 +1,10 @@
 import InputField from "./InputField";
 import ButtonComponent from "./ButtonComponent";
 import Modal from "./Modal";
-import { useState } from "react"
+import { useState } from "react";
 
 function BuildingForm() {
-      const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -105,17 +105,17 @@ function BuildingForm() {
     "rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200 mb-4";
 
   return (
-    <div className="w-full max-h-full">
+    <div className="max-h-full w-full">
       {/* <Header />
       <Main
         className={`px-4 pt-4 pb-8 align-center ${isModalOpen ? "blur-md" : ""}`}
       > */}
 
       <form
-        className="animate-fade-in mx-auto bg-violet-50 dark:bg-indigo-900 px-3 md:px-8 lg:px-6 pt-6 pb-8 mb-4 max-w-prose rounded-xl shadow-xl"
+        className="mx-auto mb-4 max-w-prose animate-fade-in rounded-xl bg-violet-50 px-3 pb-8 pt-6 shadow-xl md:px-8 lg:px-6 dark:bg-indigo-900"
         onSubmit={handleSubmit}
       >
-        <h1 className="font-semibold text-3xl text-violet-950 dark:text-indigo-50 pb-4">
+        <h1 className="pb-4 text-3xl font-semibold text-violet-950 dark:text-indigo-50">
           Nova Obra
         </h1>
 
@@ -200,7 +200,7 @@ function BuildingForm() {
             id="submit"
             type="submit"
             onClick={handleSubmit}
-            className="bg-violet-600 rounded-lg px-4 py-2"
+            className="rounded-lg bg-violet-600 px-4 py-2"
             content="Enviar"
           />
         </div>
@@ -211,13 +211,13 @@ function BuildingForm() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       >
-        <h1 className="text-2xl font-bold pt-3 text-violet-50">
+        <h1 className="pt-3 text-2xl font-bold text-violet-50">
           Formulário enviado!
         </h1>
         <div className="flex justify-center">
           <ButtonComponent
             id="go-to-quote-button"
-            className="mt-4 mx-auto px-4 py-2 bg-violet-900 rounded-lg text-white"
+            className="mx-auto mt-4 rounded-lg bg-violet-900 px-4 py-2 text-white"
             onClick={() => (window.location.href = "/orcamento")}
           >
             Orçamento

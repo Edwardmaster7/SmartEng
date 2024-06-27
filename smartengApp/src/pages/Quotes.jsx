@@ -56,7 +56,7 @@ function Quote() {
     BDI: 0,
     building: "",
     socialCharges: 0,
-  })
+  });
 
   /**@type {import("@tanstack/react-table").ColumnDef<any>} */
   const columns = [
@@ -186,7 +186,10 @@ function Quote() {
 
         if (baseRow) {
           const newRow = {
-            Item: data.length > 0 ? (modalData.length + data.length + 1) : modalData.length + 1,
+            Item:
+              data.length > 0
+                ? modalData.length + data.length + 1
+                : modalData.length + 1,
             Base: "Sinapi",
             Code: baseRow.COMPOSITION_CODE,
             Description: baseRow.COMPOSITION_DESCRIPTION,
@@ -336,7 +339,8 @@ function Quote() {
     if (submissions) {
       const parsedSubmissions = JSON.parse(submissions);
       if (parsedSubmissions.length > 0) {
-        const latestSubmission = parsedSubmissions[parsedSubmissions.length - 1];
+        const latestSubmission =
+          parsedSubmissions[parsedSubmissions.length - 1];
         // setClient(latestSubmission.name || "");
         // setPhone(latestSubmission.phone || "");
         // setEmail(latestSubmission.email || "");
@@ -358,7 +362,7 @@ function Quote() {
           BDI: latestSubmission.BDI || 0,
           building: latestSubmission.buildingType || "",
           // socialCharges: latestSubmission.socialCharges || 0,
-        }
+        };
         setClientData(obj);
       }
     }
@@ -379,16 +383,22 @@ function Quote() {
     [data],
   );
 
-  const totalLaborCost = useMemo(() => calculateFieldSum("VU_MO", data), [data]);
+  const totalLaborCost = useMemo(
+    () => calculateFieldSum("VU_MO", data),
+    [data],
+  );
   const totalItems = useMemo(() => calculateFieldSum("Item", data), [data]);
-  const totalBuildingCost = useMemo(() => calculateFieldSum("Total", data), [data]);
+  const totalBuildingCost = useMemo(
+    () => calculateFieldSum("Total", data),
+    [data],
+  );
   const socialLaws = totalLaborCost * (socialCharges / 100);
   const calcBDI = (totalBuildingCost + socialLaws) * (BDI / 100);
   const totalCost = totalBuildingCost + socialLaws + calcBDI;
 
-
   //styles
-  const fieldClassName = "sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white dark:bg-indigo-500 p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit";
+  const fieldClassName =
+    "sm:text-md mt-0 min-h-1 min-w-min gap-0 rounded-md bg-white dark:bg-indigo-500 p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit";
 
   return (
     <div className="w-full">
@@ -397,13 +407,13 @@ function Quote() {
         className={`align-center flex flex-col gap-3 p-4 pb-16 ${isModalOpen === true ? "blur-sm" : ""} ${isModal2Open === true ? "blur-sm" : ""}`}
       >
         <Container className="mx-auto contain-content">
-          <div className="flex justify-center bg-indigo-600 dark:bg-indigo-700 p-2">
+          <div className="flex justify-center bg-indigo-600 p-2 dark:bg-indigo-700">
             <span className="font-medium text-indigo-50 dark:text-violet-50">
               Orçamento da Obra - Analítico
             </span>
           </div>
-          <Container className="mx-auto overflow-auto max-h-28 md:max-h-40 rounded-t-none pb-2 pt-2 contain-content text-indigo-950 dark:text-violet-50">
-            <div className="max-auto grid grid-cols-2 place-content-evenly gap-1 px-2 sm:grid-cols-4 text-inherit">
+          <Container className="mx-auto max-h-28 overflow-auto rounded-t-none pb-2 pt-2 text-indigo-950 contain-content md:max-h-40 dark:text-violet-50">
+            <div className="max-auto grid grid-cols-2 place-content-evenly gap-1 px-2 text-inherit sm:grid-cols-4">
               <Field fieldName="Cliente:" className={fieldClassName}>
                 {clientData.client}
               </Field>
@@ -456,11 +466,11 @@ function Quote() {
           <div className="sm:px-6" />
 
           <Container className="flex contain-content md:w-10/12 xl:mr-4">
-            <div className="flex-col bg-indigo-600 dark:bg-indigo-700 p-2">
+            <div className="flex-col bg-indigo-600 p-2 dark:bg-indigo-700">
               <span className="font-medium text-indigo-50">Total</span>
             </div>
-            <Container className="mx-auto sm:overflow-auto md:max-h-52 rounded-t-none pb-2 pt-2 max-h-dvh text-indigo-950 dark:text-violet-50">
-              <div className="max-auto grid grid-cols-3 place-content-evenly gap-1 px-2 sm:grid-cols-3 text-inherit">
+            <Container className="mx-auto max-h-dvh rounded-t-none pb-2 pt-2 text-indigo-950 sm:overflow-auto md:max-h-52 dark:text-violet-50">
+              <div className="max-auto grid grid-cols-3 place-content-evenly gap-1 px-2 text-inherit sm:grid-cols-3">
                 <Field fieldName="Mão de Obra:" className={fieldClassName}>
                   {`R$ ${formatFloat(totalLaborCost)}`}
                 </Field>
@@ -486,24 +496,24 @@ function Quote() {
       </Main>
       <Modal
         id="add-stage"
-        className="min-w-96 rounded-xl animate-scale-up-center mx-8"
+        className="mx-8 min-w-96 animate-scale-up-center rounded-xl"
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       >
         <h1
-          className={`text-2xl font-bold pt-3 mb-4 text-violet-50 ${editingStage === true ? "hidden" : ""}`}
+          className={`mb-4 pt-3 text-2xl font-bold text-violet-50 ${editingStage === true ? "hidden" : ""}`}
         >
           Para começar, adicione uma nova etapa...
         </h1>
         <h1
-          className={`text-2xl font-bold pt-3 mb-4 text-violet-50 ${editingStage === false ? "hidden" : ""}`}
+          className={`mb-4 pt-3 text-2xl font-bold text-violet-50 ${editingStage === false ? "hidden" : ""}`}
         >
           Editar etapas
         </h1>
         <div className="sticky flex-col gap-2">
           <HiPlusCircle
             id="add-stage-button"
-            className="text-2xl text-violet-900 hover:text-green-600 absolute top-2 right-2"
+            className="absolute right-2 top-2 text-2xl text-violet-900 hover:text-green-600"
             onClick={(e) => {
               e.stopPropagation();
               handleAddStage();
@@ -511,7 +521,7 @@ function Quote() {
           />
           <InputField
             id="add-stage-input"
-            className="rounded-lg bg-violet-50 dark:bg-violet-100 focus:outline-indigo-200 mb-4"
+            className="mb-4 rounded-lg bg-violet-50 focus:outline-indigo-200 dark:bg-violet-100"
             placeholder="Serviços iniciais"
             type="text"
             value={inputValue}
@@ -533,7 +543,7 @@ function Quote() {
         <div className="flex">
           <ButtonComponent
             id="save-add-stages-modal-button"
-            className={`mt-4 ml-auto px-4 py-2 bg-violet-900 rounded-lg text-white ${stage.length > 0 ? "" : "hidden"}`}
+            className={`ml-auto mt-4 rounded-lg bg-violet-900 px-4 py-2 text-white ${stage.length > 0 ? "" : "hidden"}`}
             onClick={(e) => {
               e.preventDefault();
               handleSaveStages();
@@ -548,17 +558,17 @@ function Quote() {
         id="select-stage-qty"
         isOpen={isModal2Open}
         onClose={handleCloseModal2}
-        className="rounded-xl animate-scale-up-center mx-8"
+        className="mx-8 animate-scale-up-center rounded-xl"
       >
-        <h1 className="text-2xl font-bold pt-3 mb-4 text-violet-50">
+        <h1 className="mb-4 pt-3 text-2xl font-bold text-violet-50">
           Adcione novos itens e sua etapa
         </h1>
         <div className="sticky flex-col gap-2">
-          <div className="flex gap-4 justify-normal mb-4">
+          <div className="mb-4 flex justify-normal gap-4">
             <div className="sticky">
               <InputField
                 id="add-item-input"
-                className="rounded-lg bg-violet-50 dark:bg-violet-100 focus:outline-indigo-200 mb-2"
+                className="mb-2 rounded-lg bg-violet-50 focus:outline-indigo-200 dark:bg-violet-100"
                 placeholder="Insira o código do item"
                 type="text"
                 value={searchTerm}
@@ -568,7 +578,7 @@ function Quote() {
               />
               <HiPlusCircle
                 id="add-item-button"
-                className="text-2xl text-violet-900 hover:text-green-600 absolute top-3.5 right-2"
+                className="absolute right-2 top-3.5 text-2xl text-violet-900 hover:text-green-600"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleAddRow();
@@ -578,7 +588,7 @@ function Quote() {
             <div className="flex gap-1">
               <InputField
                 id="select-stage"
-                className="rounded-lg bg-violet-50 dark:bg-violet-100 focus:outline-indigo-200"
+                className="rounded-lg bg-violet-50 focus:outline-indigo-200 dark:bg-violet-100"
                 placeholder="Selecione a Etapa"
                 type="select"
                 value={selectedStage}
@@ -591,7 +601,7 @@ function Quote() {
                 }}
               />
               <HiPencilAlt
-                className="text-violet-50 text-lg hover:text-violet-300"
+                className="text-lg text-violet-50 hover:text-violet-300"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleEditStage();
@@ -601,7 +611,7 @@ function Quote() {
 
             <InputField
               id="add-item-qty"
-              className="rounded-lg bg-violet-50 dark:bg-violet-100 focus:outline-indigo-200 max-w-32"
+              className="max-w-32 rounded-lg bg-violet-50 focus:outline-indigo-200 dark:bg-violet-100"
               placeholder="Quantidade"
               type="number"
               value={itemQty}
@@ -631,7 +641,7 @@ function Quote() {
         <div className="flex">
           <ButtonComponent
             id="save-add-group-modal-button"
-            className={`mt-4 ml-auto px-4 py-2 bg-violet-900 rounded-lg text-white ${modalData.length > 0 ? "" : "hidden"}`}
+            className={`ml-auto mt-4 rounded-lg bg-violet-900 px-4 py-2 text-white ${modalData.length > 0 ? "" : "hidden"}`}
             onClick={(e) => {
               e.preventDefault();
               saveTable();
@@ -660,7 +670,6 @@ export const formatFloat = (value) => {
 
   return formattedValue;
 };
-
 
 // Utility function to check if a value is numeric
 export const isNumeric = (value) => {

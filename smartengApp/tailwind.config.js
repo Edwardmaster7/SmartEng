@@ -13,8 +13,10 @@ export default {
       },
       animation: {
         "scale-up-tl": "scale-up-tl .3s cubic-bezier(.39,.575,.565,1.000) both",
-        "scale-up-center": "scale-up-center .3s cubic-bezier(.39,.575,.565,1.000) both",
-        "scale-down-tl": "scale-down-tl .3s cubic-bezier(.39,.575,.565,1.000) both",
+        "scale-up-center":
+          "scale-up-center .3s cubic-bezier(.39,.575,.565,1.000) both",
+        "scale-down-tl":
+          "scale-down-tl .3s cubic-bezier(.39,.575,.565,1.000) both",
         "fade-in": "fade-in .6s cubic-bezier(.39,.575,.565,1.000) .1s both",
       },
       keyframes: {

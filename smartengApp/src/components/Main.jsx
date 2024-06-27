@@ -1,7 +1,7 @@
 const Main = ({ className, children }) => {
   return (
     <main
-      className={`bg-gradient-to-br from-15% from-indigo-100 dark:from-indigo-600 via-50% via-purple-300 dark:via-purple-700 to-indigo-400 dark:to-indigo-900 bg-blend-saturation min-h-screen ${className}`}
+      className={`min-h-screen bg-gradient-to-br from-indigo-100 from-15% via-purple-300 via-50% to-indigo-400 bg-blend-saturation dark:from-indigo-600 dark:via-purple-700 dark:to-indigo-900 ${className}`}
     >
       {children}
     </main>

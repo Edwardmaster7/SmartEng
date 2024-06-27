@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import { api } from "../services/api"
+import { api } from "../services/api";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -25,14 +25,17 @@ const SignUp = () => {
 
     console.log(data);
 
-    api.post("/users", data)
+    api
+      .post("/users", data)
       .then(() => {
         alert("Cadastro realizado com sucesso!");
         navigate("/");
       })
-      .catch( error =>{
+      .catch((error) => {
         if (error.response) {
-          return alert(`Ocorreu um erro no cadastro:\n${error.response.data.message}`);
+          return alert(
+            `Ocorreu um erro no cadastro:\n${error.response.data.message}`,
+          );
         } else {
           alert("Ocorreu um erro ao cadastrar o usuário...");
         }
@@ -41,10 +44,10 @@ const SignUp = () => {
   }
 
   return (
-    <div className="w-full h-screen">
-      <Main className="px-6 py-20 gap-4 justify-center">
-        <Container className="max-w-prose mx-auto flex flex-col justify-center bg-violet-50 px-6 py-20 sm:px-10">
-          <h1 className="text-4xl sm:text-5xl font-sans font-semibold mx-auto mb-9 text-violet-950 dark:text-indigo-50">
+    <div className="h-screen w-full">
+      <Main className="justify-center gap-4 px-6 py-20">
+        <Container className="mx-auto flex max-w-prose flex-col justify-center bg-violet-50 px-6 py-20 sm:px-10">
+          <h1 className="mx-auto mb-9 font-sans text-4xl font-semibold text-violet-950 sm:text-5xl dark:text-indigo-50">
             Crie{" "}
             <span className="text-indigo-600 dark:text-violet-500">sua</span>{" "}
             conta
@@ -60,7 +63,7 @@ const SignUp = () => {
               label="Nome"
               id="username"
               onChange={(e) => setName(e.target.value)}
-              className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
+              className="rounded-xl py-3 text-lg focus:outline-2 focus:outline-offset-2 focus:outline-violet-300 dark:bg-indigo-100 dark:focus:outline-indigo-200"
               icon={<HiUser />}
             />
             <InputField
@@ -69,7 +72,7 @@ const SignUp = () => {
               label="Email"
               id="name"
               onChange={(e) => setEmail(e.target.value)}
-              className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
+              className="rounded-xl py-3 text-lg focus:outline-2 focus:outline-offset-2 focus:outline-violet-300 dark:bg-indigo-100 dark:focus:outline-indigo-200"
               icon={<HiMail />}
             />
             <InputField
@@ -78,11 +81,11 @@ const SignUp = () => {
               label="Senha"
               id="password"
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200"
+              className="rounded-xl py-3 text-lg focus:outline-2 focus:outline-offset-2 focus:outline-violet-300 dark:bg-indigo-100 dark:focus:outline-indigo-200"
               icon={<HiLockClosed />}
             />
 
-            <div className="w-full flex justify-center">
+            <div className="flex w-full justify-center">
               <Link to="/" className="text-violet-500 dark:text-violet-300">
                 Voltar para o login
               </Link>
@@ -92,7 +95,7 @@ const SignUp = () => {
                 type="submit"
                 alt="Salvar"
                 onClick={handleSubmit}
-                className="bg-violet-600 text-white px-4 py-2 mt-3 rounded-lg"
+                className="mt-3 rounded-lg bg-violet-600 px-4 py-2 text-white"
                 content="Salvar"
               />
             </div>
@@ -101,6 +104,6 @@ const SignUp = () => {
       </Main>
     </div>
   );
-}
+};
 
 export default SignUp;

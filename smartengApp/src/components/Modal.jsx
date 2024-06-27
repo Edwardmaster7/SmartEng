@@ -5,13 +5,13 @@ const Modal = ({ children, isOpen, onClose, className, hasCloseButton, z }) => {
 
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center min-w-80 ${z ? z : "z-50"}`}
+      className={`fixed inset-0 flex min-w-80 items-center justify-center ${z ? z : "z-50"}`}
     >
       <div
-        className={`absolute bg-violet-600 p-4 md:p-6 rounded shadow-2xl ${className}`}
+        className={`absolute rounded bg-violet-600 p-4 shadow-2xl md:p-6 ${className}`}
       >
         <HiXCircle
-          className={`text-2xl text-violet-100 absolute right-2 top-2 hover:text-red-500 hover:animate-pulse ${hasCloseButton === false ? "hidden" : ""}`}
+          className={`absolute right-2 top-2 text-2xl text-violet-100 hover:animate-pulse hover:text-red-500 ${hasCloseButton === false ? "hidden" : ""}`}
           onClick={onClose}
         />
         {children}

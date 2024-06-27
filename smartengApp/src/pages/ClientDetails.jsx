@@ -1,12 +1,12 @@
-import Main from "../components/Main"
-import Container from "../components/Container"
-import Header from "../components/Header"
+import Main from "../components/Main";
+import Container from "../components/Container";
+import Header from "../components/Header";
 import { HiArrowLeft, HiPencilAlt } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import Field from "../components/Field";
 import InputField from "../components/InputField";
 import { useState, useEffect } from "react";
-import { api } from "../services/api"
+import { api } from "../services/api";
 import ButtonComponent from "../components/ButtonComponent";
 import { useAuth } from "../hooks/auth";
 
@@ -15,7 +15,7 @@ function ClientDetails() {
   //   const savedSubmissions = localStorage.getItem("@submissions");
   //   return savedSubmissions ? JSON.parse(savedSubmissions) : [];
   // });
-  
+
   const { user } = useAuth();
 
   const [client, setClient] = useState([]);
@@ -26,20 +26,21 @@ function ClientDetails() {
   async function getData() {
     const urlParts = window.location.pathname.split("/");
     const id = urlParts[urlParts.length - 1];
-    try {   
+    try {
       const response = await api.get("/clients/" + id);
 
       setClient(response.data);
-
     } catch (error) {
-      alert("Ocorreu um erro ao carregar os dados do cliente...\n" + error.message);
+      alert(
+        "Ocorreu um erro ao carregar os dados do cliente...\n" + error.message,
+      );
       console.log(error);
     }
   }
 
   async function handleUpdate(updatedData) {
     try {
-      console.log(client.id)
+      console.log(client.id);
       const updatedValues = {
         name: updatedData[0].value,
         phone: updatedData[1].value,
@@ -48,8 +49,8 @@ function ClientDetails() {
         state: updatedData[4].value,
         address: updatedData[5].value,
       };
-      console.log(updatedValues)
-      
+      console.log(updatedValues);
+
       await api.put("/clients/" + client.id, updatedValues);
       // alert("Cliente atualizado com sucesso!");
     } catch (error) {
@@ -62,7 +63,6 @@ function ClientDetails() {
     getData();
 
     if (client) {
-
       setInitialState([
         { fieldName: "Nome", value: client.name },
         { fieldName: "Phone", value: client.phone },
@@ -78,11 +78,9 @@ function ClientDetails() {
         },
         { fieldName: "Atualizado em", value: client.updated_at },
       ]);
-
-      
     }
     setValues(initialState);
-   }, [client]);
+  }, [client]);
 
   const handleChange = (index, newValue) => {
     setValues((prevValues) => {
@@ -104,20 +102,20 @@ function ClientDetails() {
         console.log(error);
       }
     }
-  }
+  };
 
   return (
-    <div className="w-full h-screen">
-      <Main className={`px-20 py-20 gap-4 justify-center`}>
-        <Container className="mx-auto flex flex-col relative bg-violet-50 px-6 py-20 sm:px-10">
-          <Link to="/clientes" className="absolute z-10 left-9 top-9">
-            <HiArrowLeft className="text-3xl text-violet-800 dark:text-violet-200 dark:hover:text-violet-50 hover:text-violet-400 hover:cursor-pointer" />
+    <div className="h-screen w-full">
+      <Main className={`gap-4 md:px-20 py-20`}>
+        <Container className="relative mx-auto flex flex-col bg-violet-50 px-6 py-20 sm:px-10">
+          <Link to="/clientes" className="absolute left-9 top-9 z-10">
+            <HiArrowLeft className="text-3xl text-violet-800 hover:cursor-pointer hover:text-violet-400 dark:text-violet-200 dark:hover:text-violet-50" />
           </Link>
 
-          <h1 className="font-semibold text-4xl text-violet-950 dark:text-indigo-50 mx-auto">
+          <h1 className="mx-auto text-4xl font-semibold text-violet-950 dark:text-indigo-50">
             Detalhes do Cliente
           </h1>
-          <div className="grid grid-cols-4 gap-2 pt-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 pt-10">
             {values.map((field, index) => (
               <div
                 key={index}
@@ -148,7 +146,7 @@ function ClientDetails() {
               id="delete"
               type="delete"
               onClick={handleDelete}
-              className="bg-violet-600 rounded-lg px-4 py-2"
+              className="rounded-lg bg-violet-600 px-4 py-2"
               content="Deletar cliente"
             />
           </div>
@@ -158,4 +156,4 @@ function ClientDetails() {
   );
 }
 
-export default ClientDetails
+export default ClientDetails;

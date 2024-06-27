@@ -53,7 +53,7 @@ function Stages() {
     };
 
     const calcMO = (stage) => calculateFieldSumByStages("VU_MO", stage, data);
-    
+
     const calcMaterial = (stage) =>
       calculateFieldSumByStages("VU_Material", stage, data);
 
@@ -61,10 +61,15 @@ function Stages() {
       calculateFieldSumByStages("VU_MO", stage, data) * (socialCharges / 100);
 
     const calcBDI = (stage) =>
-      (calculateFieldSumByStages("Total", stage, data) + calcSocialLaws(stage)) *
+      (calculateFieldSumByStages("Total", stage, data) +
+        calcSocialLaws(stage)) *
       (BDI / 100);
 
-    const calcTotal = (stage) => calcBDI(stage) + calcMO(stage) + calcMaterial(stage) + calcSocialLaws(stage);
+    const calcTotal = (stage) =>
+      calcBDI(stage) +
+      calcMO(stage) +
+      calcMaterial(stage) +
+      calcSocialLaws(stage);
 
     const stageData = stages.map((stage) => {
       const stageObj = {
@@ -73,10 +78,8 @@ function Stages() {
         Material: calcMaterial(stage),
         LS: calcSocialLaws(stage),
         BDI: calcBDI(stage),
-        Total:
-          calcTotal(stage),
-        TotalPerc:
-          (calcTotal(stage) / totalCost) * 100,
+        Total: calcTotal(stage),
+        TotalPerc: (calcTotal(stage) / totalCost) * 100,
       };
 
       // Update column summaries
@@ -133,12 +136,13 @@ function Stages() {
     [],
   );
 
-  const fieldClassName = "sm:text-md mt-0 min-h-1 gap-0 rounded-md bg-white dark:bg-indigo-500 p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit"
+  const fieldClassName =
+    "sm:text-md mt-0 min-h-1 gap-0 rounded-md bg-white dark:bg-indigo-500 p-1 text-sm shadow-md sm:gap-1 lg:flex-row lg:gap-1 text-inherit";
 
   return (
     <div className="w-full">
       <Header />
-      <Main className="pt-8 pb-16 h-auto ">
+      <Main className="h-auto pb-16 pt-8 ">
         <TableComponent
           data={processedData.stageData}
           columns={columns}
@@ -147,12 +151,12 @@ function Stages() {
           hasPagination={false}
           hasRemoveRowButton={false}
         />
-        <Container className="flex mt-4 contain-content mx-auto">
-          <div className="flex-col bg-indigo-600 dark:bg-indigo-700 p-2">
+        <Container className="mx-auto mt-4 flex contain-content">
+          <div className="flex-col bg-indigo-600 p-2 dark:bg-indigo-700">
             <span className="font-medium text-indigo-50">Total</span>
           </div>
-          <Container className="mx-auto sm:overflow-auto md:max-h-52 rounded-t-none pb-2 pt-2 max-h-dvh text-indigo-950 dark:text-violet-50">
-            <div className="max-auto grid grid-cols-3 place-content-evenly gap-1 px-2 sm:grid-cols-6 text-inherit">
+          <Container className="mx-auto max-h-dvh rounded-t-none pb-2 pt-2 text-indigo-950 sm:overflow-auto md:max-h-52 dark:text-violet-50">
+            <div className="max-auto grid grid-cols-3 place-content-evenly gap-1 px-2 text-inherit sm:grid-cols-6">
               <Field fieldName="M.O.:" className={fieldClassName}>
                 {`R$ ${formatFloat(processedData.columnSummaries.MO)}`}
               </Field>
@@ -174,11 +178,11 @@ function Stages() {
             </div>
           </Container>
         </Container>
-        <Container className="flex mt-4 contain-content mx-auto w-6/12">
-          <div className="flex-col bg-indigo-600 dark:bg-indigo-700 p-2">
+        <Container className="mx-auto mt-4 flex w-6/12 contain-content">
+          <div className="flex-col bg-indigo-600 p-2 dark:bg-indigo-700">
             <span className="font-medium text-indigo-50">Insights</span>
           </div>
-          <Container className="mx-auto sm:overflow-auto md:max-h-52 rounded-t-none pb-2 pt-2 max-h-dvh text-indigo-950 dark:text-violet-50">
+          <Container className="mx-auto max-h-dvh rounded-t-none pb-2 pt-2 text-indigo-950 sm:overflow-auto md:max-h-52 dark:text-violet-50">
             <div className="max-auto grid grid-cols-2 place-content-evenly gap-1 px-2 text-inherit">
               <Field fieldName="Mão de Obra:" className={fieldClassName}>
                 {`${formatFloat(((processedData.columnSummaries.MO + processedData.columnSummaries.LS + processedData.columnSummaries.BDI) / processedData.columnSummaries.Total) * 100)}%`}

@@ -8,7 +8,6 @@ import Header from "./Header";
 import { api } from "../services/api";
 
 function ClientForm() {
-
   // form variables
   const [formData, setFormData] = useState({});
 
@@ -42,7 +41,6 @@ function ClientForm() {
     { value: "TO", label: "Tocantins" },
   ];
 
-
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -54,7 +52,7 @@ function ClientForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/clients/', formData)
+      await api.post("/clients/", formData);
       // console.log("handleSubmit");
       // console.log(formData);
       setFormData({
@@ -78,7 +76,7 @@ function ClientForm() {
     "rounded-xl py-3 text-lg dark:bg-indigo-100 focus:outline-violet-300 focus:outline-2 focus:outline-offset-2 dark:focus:outline-indigo-200 mb-4";
 
   return (
-    <div className="w-full h-screen">
+    <div className="h-screen w-full">
       {/* <Header />
       <Main
         className={`px-4 pt-4 pb-8 align-center ${isModalOpen ? "blur-md" : ""}`}
@@ -86,10 +84,10 @@ function ClientForm() {
       <div></div>
 
       <form
-        className="animate-fade-in mx-auto bg-violet-50 dark:bg-indigo-900 px-3 md:px-8 lg:px-6 pt-6 pb-8 mb-4 max-w-prose rounded-xl shadow-xl"
+        className="mx-auto mb-4 max-w-prose animate-fade-in rounded-xl bg-violet-50 px-3 pb-8 pt-6 shadow-xl md:px-8 lg:px-6 dark:bg-indigo-900"
         onSubmit={handleSubmit}
       >
-        <h1 className="font-semibold text-3xl text-violet-950 dark:text-indigo-50 pb-4">
+        <h1 className="pb-4 text-3xl font-semibold text-violet-950 dark:text-indigo-50">
           Novo Cliente
         </h1>
 
@@ -177,7 +175,7 @@ function ClientForm() {
             id="submit"
             type="submit"
             onClick={handleSubmit}
-            className="bg-violet-600 rounded-lg px-4 py-2"
+            className="rounded-lg bg-violet-600 px-4 py-2"
             content="Enviar"
           />
         </div>

@@ -13,7 +13,7 @@ import ClientForm from "../components/ClientForm";
 import Modal from "../components/Modal";
 import ButtonComponent from "../components/ButtonComponent";
 
-function Clients() {
+function Buildings() {
   const [data, setData] = useState([]);
 
   async function getData() {
@@ -33,7 +33,7 @@ function Clients() {
         Email: client.email,
         Phone: client.phone,
         CreatedAt: client.updated_at,
-        CreatedBy: client.owner
+        CreatedBy: client.owner,
       })),
     [data],
   );
@@ -79,7 +79,7 @@ function Clients() {
     <div className="h-screen w-full">
       <Header />
       <Main className="flex flex-col gap-4 px-2 py-8 md:grid md:grid-flow-col-dense md:p-8">
-        <div className="col-span-2 sm:mx-auto mx-4 md:mx-0 md:grid grid-flow-col gap-4 md:grid-rows-2 2xl:grid-rows-3">
+        <div className="col-span-2 mx-4 grid-flow-col gap-4 sm:mx-auto md:mx-0 md:grid md:grid-rows-2 2xl:grid-rows-3">
           <Container className="bg-violet-50 p-2 pt-4 contain-content md:row-start-1 md:p-6">
             <h1 className="px-2 pb-2 text-3xl font-semibold text-violet-950 dark:text-indigo-50">
               Clientes
@@ -99,15 +99,11 @@ function Clients() {
           </Container>
         </div>
         <div className="m-4 overflow-auto rounded-xl bg-transparent shadow-none contain-content md:m-0">
-          <ClientForm />
+          <BuildingForm />
         </div>
-
-        {/* <Container className="col-span-3 lg:col-span-2 overflow-auto max-h-96 bg-violet-50">
-          <BuildingForm></BuildingForm>
-        </Container> */}
       </Main>
     </div>
   );
 }
 
-export default Clients;
+export default Buildings;

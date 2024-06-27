@@ -1,113 +1,114 @@
-import { createContext, useContext, useEffect } from "react"
-import { useState } from 'react'
+import { createContext, useContext, useEffect } from "react";
+import { useState } from "react";
 
-import { api } from '../services/api'
+import { api } from "../services/api";
 
-const AuthContext = createContext({})
+const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
-    const [data, setData] = useState({});
- 
-    useEffect(() => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        // Check if token is expired
-        const expirationDate = new Date(localStorage.getItem("@smarteng:expirationDate"));
-        if (expirationDate <= new Date()) {
-          signOut();
-        }
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Check if token is expired
+      const expirationDate = new Date(
+        localStorage.getItem("@smarteng:expirationDate"),
+      );
+      if (expirationDate <= new Date()) {
+        signOut();
       }
-    }, []);
-
-    async function signIn({ email, password }) {
-        const data = { email, password }
-        
-        try {
-          const response = await api.post("/sessions", data);
-          const { user, token } = response.data;
-
-          const expirationDate = new Date(Date.now() + 3600000); // 1 hour
-
-          localStorage.setItem("@smarteng:user", JSON.stringify(user));
-          localStorage.setItem("@smarteng:token", token);
-          localStorage.setItem("@smarteng:expirationDate", expirationDate);
-
-          api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          setData({ user, token });
-        } catch (error) {
-            if(error.response){
-                return alert(`${error.response.data.message}`)
-            }else{
-                alert("Ocorreu um erro no login...")
-            }
-        }
-
     }
+  }, []);
 
-    function signOut() {
-        localStorage.removeItem("@smarteng:user")
-        localStorage.removeItem("@smarteng:token")
-        localStorage.removeItem("expirationDate");
+  async function signIn({ email, password }) {
+    const data = { email, password };
 
-        setData({})
+    try {
+      const response = await api.post("/sessions", data);
+      const { user, token } = response.data;
+
+      const expirationDate = new Date(Date.now() + 3600000); // 1 hour
+
+      localStorage.setItem("@smarteng:user", JSON.stringify(user));
+      localStorage.setItem("@smarteng:token", token);
+      localStorage.setItem("@smarteng:expirationDate", expirationDate);
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      setData({ user, token });
+    } catch (error) {
+      if (error.response) {
+        return alert(`${error.response.data.message}`);
+      } else {
+        alert("Ocorreu um erro no login...");
+      }
     }
+  }
 
-    async function updateProfile({ user, avatarFile }) {
+  function signOut() {
+    localStorage.removeItem("@smarteng:user");
+    localStorage.removeItem("@smarteng:token");
+    localStorage.removeItem("expirationDate");
 
-        try {
-            if(avatarFile) {
-                // console.log(`Avatar file: ${avatarFile}`)
+    setData({});
+  }
 
-                const fileUploadForm = new FormData();
-                fileUploadForm.append("avatar", avatarFile);
+  async function updateProfile({ user, avatarFile }) {
+    try {
+      if (avatarFile) {
+        // console.log(`Avatar file: ${avatarFile}`)
 
-                const response = await api.patch("/users/avatar", fileUploadForm);
-                user.avatar = response.data.avatar;
-            }
+        const fileUploadForm = new FormData();
+        fileUploadForm.append("avatar", avatarFile);
 
-            const userUp = await api.put("/users/", user);
-            // console.log(user.data)
+        const response = await api.patch("/users/avatar", fileUploadForm);
+        user.avatar = response.data.avatar;
+      }
 
-            localStorage.setItem("@smarteng:user", JSON.stringify(userUp.data));
-            setData({ user:userUp.data, token: data.token });
-            alert("Perfil atualizado com sucesso!");
+      const userUp = await api.put("/users/", user);
+      // console.log(user.data)
 
-        } catch (error) {
-            if(error.response.data.message) {
-                alert(
-                  `Erro ao atualizar o perfil. Tente novamente.\n${error.response.data.message}`,
-                );
-            } else {
-                alert("Ocorreu um erro ao atualizar o perfil...");
-            }
-        }
+      localStorage.setItem("@smarteng:user", JSON.stringify(userUp.data));
+      setData({ user: userUp.data, token: data.token });
+      alert("Perfil atualizado com sucesso!");
+    } catch (error) {
+      if (error.response.data.message) {
+        alert(
+          `Erro ao atualizar o perfil. Tente novamente.\n${error.response.data.message}`,
+        );
+      } else {
+        alert("Ocorreu um erro ao atualizar o perfil...");
+      }
     }
+  }
 
-    useEffect(() => {
-        const user = localStorage.getItem("@smarteng:user")
-        const token = localStorage.getItem("@smarteng:token")
+  useEffect(() => {
+    const user = localStorage.getItem("@smarteng:user");
+    const token = localStorage.getItem("@smarteng:token");
 
-        if (token && user) {
-            api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-            setData({ user: JSON.parse(user), token })
-        }
-    }, [])
+    if (token && user) {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      setData({ user: JSON.parse(user), token });
+    }
+  }, []);
 
-    return (
-        <AuthContext.Provider value={{ signIn, signOut, updateProfile, user: data.user }}>
-            {children}
-        </AuthContext.Provider>
-    )
+  return (
+    <AuthContext.Provider
+      value={{ signIn, signOut, updateProfile, user: data.user }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 function useAuth() {
-    const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
 
-    if (!context) {
-        throw new Error("useAuth must be used within an AuthProvider")
-    }
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
 
-    return context
+  return context;
 }
 
-export { AuthProvider, useAuth }; 
+export { AuthProvider, useAuth };

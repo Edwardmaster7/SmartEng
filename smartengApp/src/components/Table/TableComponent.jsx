@@ -64,7 +64,7 @@ const TableComponent = ({
         header: "",
         cell: ({ row }) => (
           <HiXCircle
-            className={`text-red-500 dark:text-red-700 rounded-full p-0 dark:bg-red-200 dark:hover:bg-red-400 cursor-pointer text-xl mx-2 hover:animate-pulse ${hasRemoveRowButton === false ? "hidden" : ""}`}
+            className={`mx-2 cursor-pointer rounded-full p-0 text-xl text-red-500 hover:animate-pulse dark:bg-red-200 dark:text-red-700 dark:hover:bg-red-400 ${hasRemoveRowButton === false ? "hidden" : ""}`}
             onClick={() => handleDeleteRow(row.index)}
           />
         ),
@@ -82,8 +82,8 @@ const TableComponent = ({
     getFilteredRowModel: getFilteredRowModel(),
     initialState: {
       pagination: {
-        pageSize: (minRowsForPagination ? minRowsForPagination : 10), //custom default page size
-      }
+        pageSize: minRowsForPagination ? minRowsForPagination : 10, //custom default page size
+      },
     },
     state: {
       sorting: sorting,
@@ -106,20 +106,20 @@ const TableComponent = ({
   }, [data]);
 
   return (
-    <Container className={`mx-auto contain-content bg-indigo-700 ${className}`}>
+    <Container className={`mx-auto bg-indigo-700 contain-content ${className}`}>
       <Container
         ref={containerRef}
-        className="p-0 rounded-b-none shadow-none overflow-auto"
+        className="overflow-auto rounded-b-none p-0 shadow-none"
         style={{ height: containerHeight }}
       >
         <div
-          className={`top-0 z-10 p-2 flex align-middle gap-2 bg-indigo-700 dark:bg-indigo-800 w-full ${hasUtilityBar === false ? "hidden" : ""}`}
+          className={`top-0 z-10 flex w-full gap-2 bg-indigo-700 p-2 align-middle dark:bg-indigo-800 ${hasUtilityBar === false ? "hidden" : ""}`}
         >
           <InputField
             id="search-box"
             placeholder={`${hasAddButton === false ? "Pesquise..." : "Pesquise ou adicione linhas"}`}
             nolabel={true}
-            className="my-0 rounded-lg shadow-md bg-indigo-50 dark:bg-indigo-100 shadow-indigo-700 text-indigo-950 focus:outline-indigo-300"
+            className="my-0 rounded-lg bg-indigo-50 text-indigo-950 shadow-md shadow-indigo-700 focus:outline-indigo-300 dark:bg-indigo-100"
             value={inputValue}
             onChange={(e) => {
               setInputValue(e.target.value);
@@ -133,7 +133,7 @@ const TableComponent = ({
           <div className="flex gap-2">
             <ButtonComponent
               id="search-button"
-              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700 dark:shadow-none"
+              className="m-0 flex size-auto justify-center rounded-lg bg-indigo-500 p-1 align-middle shadow-md shadow-indigo-700 dark:shadow-none"
               onClick={(e) => {
                 e.preventDefault();
                 setGlobalFilter(inputValue);
@@ -143,14 +143,14 @@ const TableComponent = ({
             </ButtonComponent>
             <ButtonComponent
               id="add-button"
-              className={`bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700 dark:shadow-none ${hasAddButton === false ? "hidden" : ""}`}
+              className={`m-0 flex size-auto justify-center rounded-lg bg-indigo-500 p-1 align-middle shadow-md shadow-indigo-700 dark:shadow-none ${hasAddButton === false ? "hidden" : ""}`}
               onClick={handleAddRow}
             >
               <HiPlusCircle className="text-3xl" />
             </ButtonComponent>
             <ButtonComponent
               id="save-button"
-              className="bg-indigo-500 m-0 p-1 size-auto flex justify-center align-middle rounded-lg shadow-md shadow-indigo-700 dark:shadow-none"
+              className="m-0 flex size-auto justify-center rounded-lg bg-indigo-500 p-1 align-middle shadow-md shadow-indigo-700 dark:shadow-none"
               onClick={handleSaveTable}
             >
               <HiSave className="text-3xl" />
@@ -161,7 +161,7 @@ const TableComponent = ({
           className={`w-full ${data.length > 0 ? "min-h-20 xl:min-h-56" : ""}`}
         >
           <thead
-            className={`mx-auto justify-center rounded-t-lg text-white dark:text-violet-50 text-sm shadow-indigo-700 dark:shadow-none ${hasHeader === false ? "hidden" : ""}`}
+            className={`mx-auto justify-center rounded-t-lg text-sm text-white shadow-indigo-700 dark:text-violet-50 dark:shadow-none ${hasHeader === false ? "hidden" : ""}`}
           >
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
@@ -197,8 +197,10 @@ const TableComponent = ({
               <tr
                 key={row.id}
                 className={`border-none ${
-                  row.index % 2 === 0 ? "bg-indigo-100 dark:bg-indigo-400" : "bg-indigo-200 dark:bg-indigo-500"
-                } ${handleRowClick? "hover:cursor-pointer hover:bg-violet-300 dark:hover:bg-violet-600" : ""}`}
+                  row.index % 2 === 0
+                    ? "bg-indigo-100 dark:bg-indigo-400"
+                    : "bg-indigo-200 dark:bg-indigo-500"
+                } ${handleRowClick ? "hover:cursor-pointer hover:bg-violet-300 dark:hover:bg-violet-600" : ""}`}
                 onClick={() => {
                   if (handleRowClick) {
                     handleRowClick(row.original, row.index);
@@ -208,7 +210,7 @@ const TableComponent = ({
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
-                    className={`text-indigo-950 dark:text-indigo-50 font-sans text-center text-sm font-medium p-2`}
+                    className={`p-2 text-center font-sans text-sm font-medium text-indigo-950 dark:text-indigo-50`}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
@@ -223,7 +225,7 @@ const TableComponent = ({
       >
         <ButtonComponent
           disabled={!table.getCanPreviousPage()}
-          className="text-sm bg-indigo-500 dark:bg-indigo-600 py-2 px-4 font-normal disabled:invisible"
+          className="bg-indigo-500 px-4 py-2 text-sm font-normal disabled:invisible dark:bg-indigo-600"
           onClick={() => table.setPageIndex(0)}
         >
           First page
@@ -231,14 +233,14 @@ const TableComponent = ({
         <div className="flex gap-2">
           <ButtonComponent
             disabled={!table.getCanPreviousPage()}
-            className="bg-indigo-500 dark:bg-indigo-600 py-2 px-1.5 text-xl font-normal disabled:hidden"
+            className="bg-indigo-500 px-1.5 py-2 text-xl font-normal disabled:hidden dark:bg-indigo-600"
             onClick={() => table.previousPage()}
           >
             <HiChevronLeft />
           </ButtonComponent>
           <ButtonComponent
             disabled={!table.getCanNextPage()}
-            className="bg-indigo-500 dark:bg-indigo-600 py-2 px-1.5 text-xl font-normal disabled:hidden"
+            className="bg-indigo-500 px-1.5 py-2 text-xl font-normal disabled:hidden dark:bg-indigo-600"
             onClick={() => table.nextPage()}
           >
             <HiChevronRight />
@@ -247,7 +249,7 @@ const TableComponent = ({
 
         <ButtonComponent
           disabled={!table.getCanNextPage()}
-          className="text-sm bg-indigo-500 dark:bg-indigo-600 py-2 px-4 font-normal disabled:invisible"
+          className="bg-indigo-500 px-4 py-2 text-sm font-normal disabled:invisible dark:bg-indigo-600"
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
         >
           Last Page

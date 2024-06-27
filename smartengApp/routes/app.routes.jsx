@@ -11,7 +11,6 @@ import NotFound from "../src/pages/404";
 import ClientForm from "../src/components/ClientForm";
 import ClientDetails from "../src/pages/ClientDetails";
 
-
 export function AppRoutes() {
   return (
     <Routes>
