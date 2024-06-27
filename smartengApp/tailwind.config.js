@@ -13,6 +13,8 @@ export default {
       },
       animation: {
         "scale-up-tl": "scale-up-tl .3s cubic-bezier(.39,.575,.565,1.000) both",
+        "scale-up-tr":
+          "scale-up-tr .3s cubic-bezier(.39,.575,.565,1.000) both",
         "scale-up-center":
           "scale-up-center .3s cubic-bezier(.39,.575,.565,1.000) both",
         "scale-down-tl":
@@ -36,6 +38,16 @@ export default {
             transform: "scale(1)",
             "transform-origin": 0,
           },
+        },
+        "scale-up-tr": {
+        "0%": {
+          transform: "scale(0.5)",
+          "transform-origin": 0,
+        },
+        "100%": {
+          transform: "scale(1)",
+          "transform-origin": 0,
+        },
         },
         "scale-up-center": {
           "0%": {

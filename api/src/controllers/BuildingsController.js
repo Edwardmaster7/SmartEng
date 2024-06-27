@@ -74,12 +74,16 @@ class BuildingsController {
     const { building_id } = request.params;
     const user_id = request.user.id;
 
-    const checkBuildingExists = await knex("Buildings")
-      .where({ id: building_id })
-      .where({ owner_id: user_id })
+    const building = await knex("Buildings")
+      .select("Buildings.*", "owner.name as owner", "updater.name as updater", "client.name as client")
+      .join("Users as owner", "Buildings.owner_id", "owner.id")
+      .join("Clients as client", "Buildings.client_id", "client.id")
+      .leftJoin("Users as updater", "Buildings.updated_by", "updater.id")
+      .where({ "Buildings.id": building_id })
+      .where({ "Buildings.owner_id": user_id })
       .first();
 
-    if (!checkBuildingExists) {
+    if (!building) {
       throw new AppError("Building not found.", 404);
     }
 
@@ -154,7 +158,16 @@ class BuildingsController {
   }
 
   async index(request, response) {
-    const buildings = await knex("Buildings");
+    const buildings = await knex("Buildings")
+      .select(
+        "Buildings.*",
+        "owner.name as owner",
+        "updater.name as updater",
+        "client.name as client"
+      )
+      .join("Users as owner", "Buildings.owner_id", "owner.id")
+      .join("Clients as client", "Buildings.client_id", "client.id")
+      .leftJoin("Users as updater", "Buildings.updated_by", "updater.id");
 
     return response.json(buildings);
   }

@@ -17,7 +17,7 @@ function Buildings() {
   const [data, setData] = useState([]);
 
   async function getData() {
-    const response = await api.get("/clients");
+    const response = await api.get("/buildings");
     setData(response.data);
     console.log(response.data);
   }
@@ -28,12 +28,15 @@ function Buildings() {
 
   const tableData = useMemo(
     () =>
-      data.map((client) => ({
-        Name: client.name,
-        Email: client.email,
-        Phone: client.phone,
-        CreatedAt: client.updated_at,
-        CreatedBy: client.owner,
+      data.map((building) => ({
+        name: building.name,
+        category: building.category,
+        client: building.client,
+        where: `${building.city + "-" + building.state}`,
+        startForecast: building.start_forecast,
+        projectedArea: `${building.projected_area + " m²"}`,
+        builtArea: `${building.built_area + " m²"}`,
+        landArea: `${building.land_area + " m²"}`,
       })),
     [data],
   );
@@ -43,24 +46,36 @@ function Buildings() {
     () => [
       {
         header: "Nome",
-        accessorKey: "Name",
+        accessorKey: "name",
       },
       {
-        header: "E-mail",
-        accessorKey: "Email",
+        header: "Categoria",
+        accessorKey: "category",
       },
       {
-        header: "Telefone",
-        accessorKey: "Phone",
+        header: "Cliente",
+        accessorKey: "client",
       },
       {
-        header: "Criado em",
-        accessorKey: "CreatedAt",
+        header: "Onde",
+        accessorKey: "where",
       },
       {
-        header: "Criado por",
-        accessorKey: "CreatedBy",
+        header: "Previsão de início",
+        accessorKey: "startForecast",
       },
+      {
+        header: "Projetado",
+        accessorKey: "projectedArea",
+      },
+      {
+        header: "Área construída",
+        accessorKey: "builtArea",
+      },
+      {
+        header: "Terreno",
+        accessorKey: "landArea",
+      }
     ],
     [],
   );
@@ -70,9 +85,9 @@ function Buildings() {
   // this method should get the respective Id from data
   const handleRowClick = (rowData, rowIndex) => {
     // pegar o nome do cliente na linha e comparar com data
-    const client_id = data.find((client) => client.name === rowData.Name).id;
-    navigate(`/clientes/details/${client_id}`);
-    console.log(rowData, rowIndex, client_id);
+    const building_id = data.find((building) => building.name === rowData.name).id;
+    navigate(`/obras/details/${building_id}`);
+    console.log(rowData, rowIndex, building_id);
   };
 
   return (
@@ -82,7 +97,7 @@ function Buildings() {
         <div className="col-span-2 mx-4 grid-flow-col gap-4 sm:mx-auto md:mx-0 md:grid md:grid-rows-2 2xl:grid-rows-3">
           <Container className="bg-violet-50 p-2 pt-4 contain-content md:row-start-1 md:p-6">
             <h1 className="px-2 pb-2 text-3xl font-semibold text-violet-950 dark:text-indigo-50">
-              Clientes
+              Obras
             </h1>
             <p className="px-2 pb-2 text-violet-700 dark:text-indigo-200">
               Clique em um registro para visualizá-lo em detalhes...

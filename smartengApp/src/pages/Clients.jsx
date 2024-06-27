@@ -32,7 +32,7 @@ function Clients() {
         Name: client.name,
         Email: client.email,
         Phone: client.phone,
-        CreatedAt: client.updated_at,
+        CreatedAt: client.created_at,
         CreatedBy: client.owner
       })),
     [data],
