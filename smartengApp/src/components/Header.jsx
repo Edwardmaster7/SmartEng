@@ -45,6 +45,8 @@ const Header = () => {
     return mediaQuery.matches;
   }
 
+  const isMobile = isMobileScreen()
+
   const [isMenuButtonClicked, setIsMenuButtonClicked] = useState(false)
 
   const handleMenuButtonClick = () => {
@@ -73,7 +75,7 @@ const Header = () => {
               location.pathname === path.home
                 ? "font-bold"
                 : "hover:font-medium"
-            } ${isMobileScreen && location.pathname !== path.home ? "hidden" : ""}`}
+            } ${isMobile && location.pathname !== path.home ? "hidden" : ""}`}
           >
             Home
           </Link>
@@ -84,7 +86,7 @@ const Header = () => {
               location.pathname === path.clients
                 ? "font-bold"
                 : "hover:font-medium"
-            } ${isMobileScreen && location.pathname !== path.clients ? "hidden" : ""}`}
+            } ${isMobile && location.pathname !== path.clients ? "hidden" : ""}`}
           >
             Clientes
           </Link>
@@ -95,7 +97,7 @@ const Header = () => {
               location.pathname === path.quotes
                 ? "font-bold"
                 : "hover:font-medium"
-            } ${isMobileScreen && location.pathname !== path.quotes ? "hidden" : ""}`}
+            } ${isMobile && location.pathname !== path.quotes ? "hidden" : ""}`}
           >
             Orçamentos
           </Link>
@@ -106,7 +108,7 @@ const Header = () => {
               location.pathname === path.stages
                 ? "font-bold"
                 : "hover:font-medium"
-            } ${isMobileScreen && location.pathname !== path.stages ? "hidden" : ""}`}
+            } ${isMobile && location.pathname !== path.stages ? "hidden" : ""}`}
           >
             Etapas
           </Link>
@@ -115,7 +117,7 @@ const Header = () => {
             to={path.bdi}
             className={`${aClassName} ${
               location.pathname === path.bdi ? "font-bold" : "hover:font-medium"
-            } ${isMobileScreen && location.pathname !== path.bdi ? "hidden" : ""}`}
+            } ${isMobile && location.pathname !== path.bdi ? "hidden" : ""}`}
           >
             BDI
           </Link>
@@ -126,20 +128,20 @@ const Header = () => {
               location.pathname === path.bases
                 ? "font-bold"
                 : "hover:font-medium"
-            } ${isMobileScreen && location.pathname !== path.bases ? "hidden" : ""}`}
+            } ${isMobile && location.pathname !== path.bases ? "hidden" : ""}`}
           >
             Bases
           </Link>
         </nav>
 
-        <div
+        {/* <div
           id=""
-          className={`size-10 rounded-2xl ${isMobileScreen ? "hidden" : ""}`}
-        ></div>
+          className={`size-10 rounded-2xl hidden`}
+        ></div> */}
 
         <ButtonComponent
           onClick={handleMenuButtonClick}
-          className={`rounded-2xl p-2 bg-indigo-500 dark:bg-violet-500 ${isMenuButtonClicked ? "outline outline-violet-300" : ""}`}
+          className={`rounded-2xl p-2 bg-indigo-500 dark:bg-violet-500 ${isMenuButtonClicked ? "outline outline-violet-300" : ""} ${!isMobile ? "hidden" : ""}`}
         >
           <HiDotsVertical className="size-6 text-violet-50" />
         </ButtonComponent>
