@@ -1,11 +1,13 @@
-import profileImageSrc from "../assets/perfil.jpeg";0
+import profileImageSrc from "../assets/perfil.jpeg";
 import Modal from "./Modal";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import avatarPlaceholder from "../assets/Mediamodifier-Design-Template-3.png";
-
+import ButtonComponent from "./ButtonComponent";
 import { api } from "../services/api";
 import { useAuth } from "../hooks/auth";
+import { HiDotsVertical } from "react-icons/hi";
+
 
 const Header = () => {
   const { user } = useAuth();
@@ -26,14 +28,22 @@ const Header = () => {
     }
   }
 
+  function isMobileScreen() {
+    const mediaQuery = window.matchMedia("(max-width: 767px)")
+    return mediaQuery.matches;
+  }
+
+  const [isMenuButtonClicked, setIsMenuButtonClicked] = useState(false)
+
+  const handleMenuButtonClick = () => {
+    setIsMenuButtonClicked(!isMenuButtonClicked)
+  }
+
   const { signOut } = useAuth()
 
   return (
     <>
-      <button
-        onClick={handleToggleUserModal}
-        className="fixed top-3 ml-4 z-30"
-      >
+      <button onClick={handleToggleUserModal} className="fixed top-3 ml-4 z-30">
         <img
           className={`size-10 rounded-2xl outline-offset-2 ${isUserModalOpen ? "outline outline-violet-300 delay-75" : ""}`}
           src={avatar}
@@ -49,7 +59,7 @@ const Header = () => {
             to="/"
             className={`${aClassName} ${
               location.pathname === "/" ? "font-bold" : "hover:font-medium"
-            }`}
+            } ${isMobileScreen ? "hidden" : ""}`}
           >
             Home
           </Link>
@@ -60,20 +70,20 @@ const Header = () => {
               location.pathname === "/clientes"
                 ? "font-bold"
                 : "hover:font-medium"
-            }`}
+            } ${isMobileScreen ? "hidden" : ""}`}
           >
             Clientes
           </Link>
           <Link
-            id="quote-tab"
-            to="/orcamento"
+            id="quotes-tab"
+            to="/orcamentos"
             className={`${aClassName} ${
-              location.pathname === "/orcamento"
+              location.pathname === "/orcamentos"
                 ? "font-bold"
                 : "hover:font-medium"
-            }`}
+            } ${isMobileScreen ? "hidden" : ""}`}
           >
-            Orçamento
+            Orçamentos
           </Link>
           <Link
             id="stages-tab"
@@ -82,7 +92,7 @@ const Header = () => {
               location.pathname === "/etapas"
                 ? "font-bold"
                 : "hover:font-medium"
-            }`}
+            } ${isMobileScreen ? "hidden" : ""}`}
           >
             Etapas
           </Link>
@@ -91,7 +101,7 @@ const Header = () => {
             to="/bdi"
             className={`${aClassName} ${
               location.pathname === "/bdi" ? "font-bold" : "hover:font-medium"
-            }`}
+            } ${isMobileScreen ? "hidden" : ""}`}
           >
             BDI
           </Link>
@@ -100,7 +110,7 @@ const Header = () => {
             to="/bases"
             className={`${aClassName} ${
               location.pathname === "/bases" ? "font-bold" : "hover:font-medium"
-            }`}
+            } ${isMobileScreen ? "hidden" : ""}`}
           >
             Bases
           </Link>
@@ -108,16 +118,54 @@ const Header = () => {
 
         <div id="" className="size-10 rounded-2xl"></div>
 
-        {/* <Button content="" imgSrc={menuImage}></Button> */}
+        <ButtonComponent
+          onClick={handleMenuButtonClick}
+          className={`rounded-2xl p-2 bg-indigo-500 dark:bg-violet-500 ${isMenuButtonClicked? "outline outline-violet-300": ""}`}
+        >
+          <HiDotsVertical className="size-6 text-violet-50" />
+        </ButtonComponent>
 
-        {/* <div id="mobile-nav" className="absolute flex flex-col gap-3 right-2 top-24 z-10">
-              <button id="home-button" onClick={route} className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"><Link to="/">Home</Link></button>
-              <button id="client-button" onClick={route} className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"><Link to="/cliente">Cliente</Link></button>
-              <button id="budget-button" onClick={route} className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"><Link to="/orcamento">Orçamento</Link></button>
-              <button id="stages-button" onClick={route} className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"><Link to="/etapas">Etapas</Link></button>
-              <button id="bdi-button" onClick={route} className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"><Link to="/bdi">BDI</Link></button>
-              <button id="bases-button" onClick={route} className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"><Link to="/bases">Bases</Link></button>
-              </div> */}
+        <div
+          id="mobile-nav"
+          className={`absolute flex flex-col backdrop-blur-sm border-transparent gap-3 right-2 top-20 z-10 ${!isMenuButtonClicked ? "hidden" : ""}`}
+        >
+          <button
+            id="home-button"
+            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+          >
+            <Link to="/">Home</Link>
+          </button>
+          <button
+            id="client-button"
+            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+          >
+            <Link to="/clientes">Cliente</Link>
+          </button>
+          <button
+            id="budget-button"
+            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+          >
+            <Link to="/orcamentos">Orçamento</Link>
+          </button>
+          <button
+            id="stages-button"
+            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+          >
+            <Link to="/etapas">Etapas</Link>
+          </button>
+          <button
+            id="bdi-button"
+            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+          >
+            <Link to="/bdi">BDI</Link>
+          </button>
+          <button
+            id="bases-button"
+            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+          >
+            <Link to="/bases">Bases</Link>
+          </button>
+        </div>
       </header>
       <Modal
         id="user-modal"
@@ -128,8 +176,12 @@ const Header = () => {
         hasCloseButton={false}
       >
         <ul className="text-violet-50 flex flex-col">
-          <Link to="/profile" className="hover:underline">Perfil</Link>
-          <Link to="/" onClick={signOut} className="hover:underline">Logout</Link>
+          <Link to="/profile" className="hover:underline">
+            Perfil
+          </Link>
+          <Link to="/" onClick={signOut} className="hover:underline">
+            Logout
+          </Link>
         </ul>
       </Modal>
     </>
