@@ -3,7 +3,7 @@ import TableComponent from "../components/Table/TableComponent"; // Adjust the i
 import Main from "../components/Main";
 import Container from "../components/Container";
 import Field from "../components/Field";
-import { isNumeric, formatFloat, calculateFieldSum } from "./Quote";
+import { isNumeric, formatFloat, calculateFieldSum } from "./Quotes";
 import Header from "../components/Header";
 
 function Stages() {

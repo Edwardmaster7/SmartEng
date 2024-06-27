@@ -13,6 +13,18 @@ const Header = () => {
   const { user } = useAuth();
 
   const aClassName = "cursor-pointer px-2 text-base text-indigo-50 hover:text-white";
+  const menuButtonsClassname =
+    "px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150";
+
+  const path  ={
+    home: "/",
+    clients: "/clientes",
+    quotes: "/orcamentos",
+    stages: "/etapas",
+    bdi: "/bdi",
+    bases: "/bases"
+  }
+
   const avatarURL = user.avatar
     ? `${api.defaults.baseURL}/files/${user.avatar}`
     : avatarPlaceholder;
@@ -56,71 +68,78 @@ const Header = () => {
         <nav className="items-center gap-3">
           <Link
             id="home-tab"
-            to="/"
+            to={path.home}
             className={`${aClassName} ${
-              location.pathname === "/" ? "font-bold" : "hover:font-medium"
-            } ${isMobileScreen ? "hidden" : ""}`}
+              location.pathname === path.home
+                ? "font-bold"
+                : "hover:font-medium"
+            } ${isMobileScreen && location.pathname !== path.home ? "hidden" : ""}`}
           >
             Home
           </Link>
           <Link
             id="clients-tab"
-            to="/clientes"
+            to={path.clients}
             className={`${aClassName} ${
-              location.pathname === "/clientes"
+              location.pathname === path.clients
                 ? "font-bold"
                 : "hover:font-medium"
-            } ${isMobileScreen ? "hidden" : ""}`}
+            } ${isMobileScreen && location.pathname !== path.clients ? "hidden" : ""}`}
           >
             Clientes
           </Link>
           <Link
             id="quotes-tab"
-            to="/orcamentos"
+            to={path.quotes}
             className={`${aClassName} ${
-              location.pathname === "/orcamentos"
+              location.pathname === path.quotes
                 ? "font-bold"
                 : "hover:font-medium"
-            } ${isMobileScreen ? "hidden" : ""}`}
+            } ${isMobileScreen && location.pathname !== path.quotes ? "hidden" : ""}`}
           >
             Orçamentos
           </Link>
           <Link
             id="stages-tab"
-            to="/etapas"
+            to={path.stages}
             className={`${aClassName} ${
-              location.pathname === "/etapas"
+              location.pathname === path.stages
                 ? "font-bold"
                 : "hover:font-medium"
-            } ${isMobileScreen ? "hidden" : ""}`}
+            } ${isMobileScreen && location.pathname !== path.stages ? "hidden" : ""}`}
           >
             Etapas
           </Link>
           <Link
             id="bdi-tab"
-            to="/bdi"
+            to={path.bdi}
             className={`${aClassName} ${
-              location.pathname === "/bdi" ? "font-bold" : "hover:font-medium"
-            } ${isMobileScreen ? "hidden" : ""}`}
+              location.pathname === path.bdi ? "font-bold" : "hover:font-medium"
+            } ${isMobileScreen && location.pathname !== path.bdi ? "hidden" : ""}`}
           >
             BDI
           </Link>
           <Link
             id="bases-tab"
-            to="/bases"
+            to={path.bases}
             className={`${aClassName} ${
-              location.pathname === "/bases" ? "font-bold" : "hover:font-medium"
-            } ${isMobileScreen ? "hidden" : ""}`}
+              location.pathname === path.bases
+                ? "font-bold"
+                : "hover:font-medium"
+            } ${isMobileScreen && location.pathname !== path.bases ? "hidden" : ""}`}
           >
             Bases
           </Link>
         </nav>
 
-        <div id="" className="size-10 rounded-2xl"></div>
+        <div
+          id=""
+          className={`size-10 rounded-2xl ${isMobileScreen ? "hidden" : ""}`}
+        ></div>
 
         <ButtonComponent
           onClick={handleMenuButtonClick}
-          className={`rounded-2xl p-2 bg-indigo-500 dark:bg-violet-500 ${isMenuButtonClicked? "outline outline-violet-300": ""}`}
+          className={`rounded-2xl p-2 bg-indigo-500 dark:bg-violet-500 ${isMenuButtonClicked ? "outline outline-violet-300" : ""}`}
         >
           <HiDotsVertical className="size-6 text-violet-50" />
         </ButtonComponent>
@@ -131,39 +150,39 @@ const Header = () => {
         >
           <button
             id="home-button"
-            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+            className={`${menuButtonsClassname} ${location.pathname === path.home ? "hidden" : ""}`}
           >
-            <Link to="/">Home</Link>
+            <Link to={path.home}>Home</Link>
           </button>
           <button
             id="client-button"
-            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+            className={`${menuButtonsClassname} ${location.pathname === path.clients ? "hidden" : ""}`}
           >
-            <Link to="/clientes">Cliente</Link>
+            <Link to={path.clients}>Cliente</Link>
           </button>
           <button
             id="budget-button"
-            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+            className={`${menuButtonsClassname} ${location.pathname === path.quotes ? "hidden" : ""}`}
           >
-            <Link to="/orcamentos">Orçamento</Link>
+            <Link to={path.quotes}>Orçamento</Link>
           </button>
           <button
             id="stages-button"
-            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+            className={`${menuButtonsClassname} ${location.pathname === path.stages ? "hidden" : ""}`}
           >
-            <Link to="/etapas">Etapas</Link>
+            <Link to={path.stages}>Etapas</Link>
           </button>
           <button
             id="bdi-button"
-            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+            className={`${menuButtonsClassname} ${location.pathname === path.bdi ? "hidden" : ""}`}
           >
-            <Link to="/bdi">BDI</Link>
+            <Link to={path.bdi}>BDI</Link>
           </button>
           <button
             id="bases-button"
-            className="px-2 text-base bg-indigo-400 hover:bg-indigo-500 rounded-xl drop-shadow-md text-indigo-50 hover:saturate-150"
+            className={`${menuButtonsClassname} ${location.pathname === path.bases ? "hidden" : ""}`}
           >
-            <Link to="/bases">Bases</Link>
+            <Link to={path.bases}>Bases</Link>
           </button>
         </div>
       </header>
@@ -179,7 +198,7 @@ const Header = () => {
           <Link to="/profile" className="hover:underline">
             Perfil
           </Link>
-          <Link to="/" onClick={signOut} className="hover:underline">
+          <Link to={path.home} onClick={signOut} className="hover:underline">
             Logout
           </Link>
         </ul>

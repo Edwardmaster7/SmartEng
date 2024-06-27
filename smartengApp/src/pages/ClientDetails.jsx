@@ -7,6 +7,8 @@ import Field from "../components/Field";
 import InputField from "../components/InputField";
 import { useState, useEffect } from "react";
 import { api } from "../services/api"
+import ButtonComponent from "../components/ButtonComponent";
+import { useAuth } from "../hooks/auth";
 
 function ClientDetails() {
   // const [submissions, setSubmissions] = useState(() => {
@@ -14,6 +16,8 @@ function ClientDetails() {
   //   return savedSubmissions ? JSON.parse(savedSubmissions) : [];
   // });
   
+  const { user } = useAuth();
+
   const [client, setClient] = useState([]);
   const [initialState, setInitialState] = useState([]);
   const [values, setValues] = useState([]);
@@ -89,11 +93,22 @@ function ClientDetails() {
     });
   };
 
+  const handleDelete = () => {
+    if (user.id === client.owner_id) {
+      try {
+        api.delete("/clients/" + client.id);
+        alert("Cliente deletado com sucesso!");
+        window.location.href = "/clientes";
+      } catch (error) {
+        alert("Ocorreu um erro ao deletar o cliente...\n" + error.message);
+        console.log(error);
+      }
+    }
+  }
+
   return (
     <div className="w-full h-screen">
-      <Main
-        className={`px-20 py-20 gap-4 justify-center`}
-      >
+      <Main className={`px-20 py-20 gap-4 justify-center`}>
         <Container className="mx-auto flex flex-col relative bg-violet-50 px-6 py-20 sm:px-10">
           <Link to="/clientes" className="absolute z-10 left-9 top-9">
             <HiArrowLeft className="text-3xl text-violet-800 dark:text-violet-200 dark:hover:text-violet-50 hover:text-violet-400 hover:cursor-pointer" />
@@ -125,6 +140,17 @@ function ClientDetails() {
                 />
               </div>
             ))}
+          </div>
+          <div
+            className={`flex items-center justify-between pt-16 ${user.id !== client.owner_id ? "hidden" : ""}`}
+          >
+            <ButtonComponent
+              id="delete"
+              type="delete"
+              onClick={handleDelete}
+              className="bg-violet-600 rounded-lg px-4 py-2"
+              content="Deletar cliente"
+            />
           </div>
         </Container>
       </Main>

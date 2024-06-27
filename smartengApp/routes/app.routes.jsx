@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Home from "../src/pages/Home";
-import Quote from "../src/pages/Quote";
+import Quotes from "../src/pages/Quotes";
 import Clients from "../src/pages/Clients";
 import Stages from "../src/pages/Stages";
 import BDI from "../src/pages/BDI";
@@ -16,7 +16,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/orcamento" element={<Quote />} />
+      <Route path="/orcamentos" element={<Quotes />} />
       <Route path="/clientes" element={<Clients />} />
       <Route path="/clientes/details/:id" element={<ClientDetails />} />
       <Route path="/etapas" element={<Stages />} />

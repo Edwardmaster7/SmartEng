@@ -15,7 +15,6 @@ import ButtonComponent from "../components/ButtonComponent";
 
 function Clients() {
   const [data, setData] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   async function getData() {
     const response = await api.get("/clients");
@@ -73,24 +72,15 @@ function Clients() {
     console.log(rowData, rowIndex, client_id);
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <div className="w-full h-screen">
       <Header />
-      <Main
-        className={`flex-col md:grid md:grid-cols-4 lg:grid-cols-6 lg:grid-rows-none p-4 md:p-8 gap-4 ${isModalOpen ? "backdrop-blur-md blur-sm" : ""}`}
-      >
-        <Container className="bg-violet-50 lg:row-span-2 col-span-5 lg:col-span-4 p-6">
-          <h1 className="font-semibold text-3xl text-violet-950 dark:text-indigo-50 pb-2">
+      <Main className="flex flex-col py-8 px-2 md:p-8 gap-4">
+        <Container className="contain-content bg-violet-50 p-2 pt-4 md:p-6">
+          <h1 className="font-semibold text-3xl text-violet-950 dark:text-indigo-50 pb-2 px-2">
             Clientes
           </h1>
-          <p className="pb-2 text-violet-700 dark:text-indigo-200">
+          <p className="pb-2 text-violet-700 dark:text-indigo-200 px-2">
             Clique em um registro para visualizá-lo em detalhes...
           </p>
           <TableComponent
@@ -103,14 +93,14 @@ function Clients() {
             handleRowClick={handleRowClick}
           />
         </Container>
-        <Container className="lg:row-span-3 col-span-3 lg:col-span-2 overflow-auto max-h-96 lg:max-h-none bg-violet-50">
+        <div className="contain-content rounded-xl overflow-auto bg-transparent shadow-none m-4">
           <ClientForm />
-        </Container>
+        </div>
+
         {/* <Container className="col-span-3 lg:col-span-2 overflow-auto max-h-96 bg-violet-50">
           <BuildingForm></BuildingForm>
         </Container> */}
       </Main>
-
     </div>
   );
 }

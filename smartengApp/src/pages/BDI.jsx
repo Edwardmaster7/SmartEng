@@ -4,7 +4,7 @@ import Container from "../components/Container"
 import InputField from "../components/InputField"
 import { useState, useEffect, useMemo, useCallback } from "react"
 import { calculateFieldSumByStages } from "./Stages"
-import { formatFloat, calculateFieldSum } from "./Quote"
+import { formatFloat, calculateFieldSum } from "./Quotes"
 import Header from "../components/Header"
 
 const BDI = () => {

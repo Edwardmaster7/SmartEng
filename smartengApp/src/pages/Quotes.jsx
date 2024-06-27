@@ -548,8 +548,8 @@ function Quote() {
         id="select-stage-qty"
         isOpen={isModal2Open}
         onClose={handleCloseModal2}
-        className="rounded-xl animate-scale-up-center"
-      > 
+        className="rounded-xl animate-scale-up-center mx-8"
+      >
         <h1 className="text-2xl font-bold pt-3 mb-4 text-violet-50">
           Adcione novos itens e sua etapa
         </h1>
