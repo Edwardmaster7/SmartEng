@@ -70,7 +70,10 @@ class ClientsController {
     }
 
     async index(request, response) {
-        const clients = await knex('Clients')
+        const clients = await knex("Clients")
+          .select("Clients.*", "owner.name as owner", "updater.name as updater")
+          .join("Users as owner", "Clients.owner_id", "owner.id")
+          .leftJoin("Users as updater", "Clients.updated_by", "updater.id");
 
         return response.json(clients)
     }
