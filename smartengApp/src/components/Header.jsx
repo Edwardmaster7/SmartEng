@@ -155,16 +155,16 @@ const Header = () => {
             <Link to={path.home}>Home</Link>
           </button>
           <button
-            id="client-button"
+            id="clients-button"
             className={`${menuButtonsClassname} ${location.pathname === path.clients ? "hidden" : ""}`}
           >
-            <Link to={path.clients}>Cliente</Link>
+            <Link to={path.clients}>Clientes</Link>
           </button>
           <button
-            id="budget-button"
+            id="quotes-button"
             className={`${menuButtonsClassname} ${location.pathname === path.quotes ? "hidden" : ""}`}
           >
-            <Link to={path.quotes}>Orçamento</Link>
+            <Link to={path.quotes}>Orçamentos</Link>
           </button>
           <button
             id="stages-button"
